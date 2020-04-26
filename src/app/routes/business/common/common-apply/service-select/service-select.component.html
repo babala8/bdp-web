@@ -1,0 +1,30 @@
+<ng-template #pageTpl>
+    <nz-pagination [(nzPageIndex)]="page.curPage" (nzPageIndexChange)="qryServiceList(false)" [nzTotal]="page.totalRow" [nzPageSize]="page.pageSize" [nzShowTotal]="totalTemplate"></nz-pagination>
+    <ng-template #totalTemplate let-total> 共{{total}}条 </ng-template>
+</ng-template>
+
+
+<nz-list
+  [nzLoading]="loading"
+  [nzDataSource]="serviceList"
+  [nzRenderItem]="item"
+  [nzGrid]="{ gutter: 24, lg: 8, md: 12, sm: 24, xs: 24 }"
+  [nzPagination]="pageTpl"
+>
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-card nzHoverable *ngIf="item !== null" (click)="selectService(item)">
+        <nz-card-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" class="serviceCard">
+          <ng-template #nzAvatar>
+            <nz-avatar nzSize="large" [nzSrc]="'assets/images/pages/product/product_green.png'"></nz-avatar>
+          </ng-template>
+          <ng-template #nzTitle>
+            <a>产品编号：{{ item.serviceNo }}<br/>
+              产品名称：{{item.serviceName}}<br/>
+            </a>
+          </ng-template>
+        </nz-card-meta>
+      </nz-card>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

@@ -1,0 +1,93 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label  nz-col [nzSpan]="8">
+          锁具序列号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['lockCode']" [nzSize]="'default'" id="lockCode" name="lockCode">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" >
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          更新时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['updateTime']" [nzPlaceHolder]="'请选择更新时间'"
+                          [nzSize]="'default'"
+                          name="updateTime" style="width: 100%" [nzFormat]="'yyyy-MM-dd'"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+  </div>
+    <div nz-col [nzSm]="8" [nzXs]="12" style="text-align: center">
+      <nz-form-item nz-row>
+        <div nz-col>
+          <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+            <i class="anticon anticon-search"></i><span>查询</span>
+          </button>
+          <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+        </div>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">锁具状态管理</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>锁具序列号</th>
+      <th>监控状态</th>
+      <th>更新时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.lockCode}}
+      </td>
+      <td>
+        <div [ngSwitch]="data.status">
+            <span *ngSwitchCase="0" >
+              未启用
+            </span>
+            <span *ngSwitchCase="1" >
+              正常
+            </span>
+        </div>
+      </td>
+      <td>
+        {{data.updateTime}}
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+

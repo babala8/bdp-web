@@ -1,0 +1,52 @@
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [(nzSelectedIndex)]="selectedIndex">
+  <nz-tab [nzTitle]="'基础信息'">
+    <div nz-row class="detail-table" style="margin: 10px 0">
+      <div nz-col nzSpan="4">所属金库</div>
+      <div nz-col nzSpan="4">{{data?.clrCenterNo}}</div>
+      <div nz-col nzSpan="4">申请网点</div>
+      <div nz-col nzSpan="4">{{data?.customerName}}</div>
+      <div nz-col nzSpan="4">调出日期</div>
+      <div nz-col nzSpan="4">{{data?.planFinishDate}}</div>
+      <div nz-col nzSpan="4">申请人</div>
+      <div nz-col nzSpan="4">{{data?.createOpName}}</div>
+      <div nz-col nzSpan="4">申请日期</div>
+      <div nz-col nzSpan="4">{{data?.createTime}}</div>
+      <div nz-col nzSpan="4">现金箱数量</div>
+      <div nz-col nzSpan="4">{{containerList?.length}}</div>
+      <div nz-col nzSpan="4">备注</div>
+      <div nz-col nzSpan="20">{{taskDetail?.note}}</div>
+    </div>
+    <div nz-row style="margin: 10px 0">
+      <div nz-col [nzSpan]="12">
+        <span style="font-size: 20px;">具体信息</span>
+      </div>
+    </div>
+    <nz-table #currencyTable nzBordered [nzSize]="'middle'" [nzData]="containerDetailList"
+              [nzShowPagination]="false">
+      <thead>
+      <tr>
+        <th>币种</th>
+        <th>类别</th>
+        <th>券别</th>
+        <th nzAlign="right">金额</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="containerDetailList">
+        <tr>
+          <td>
+            {{data.currencyCode}}
+          </td>
+          <td>
+            {{data.currencyType}}
+          </td>
+          <td>
+            {{data.denomination}}
+          </td>
+          <td nzAlign="right">{{ data.amount | currency:'CNY':'symbol-narrow' }}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>

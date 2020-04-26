@@ -1,0 +1,50 @@
+<nz-table #nzTable [nzData]="lineRunMapDetailInfoList" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'"
+    [nzLoading]="loading">
+    <thead nz-thead>
+        <tr>
+            <th nz-th rowspan="2" width="6%">
+                <div align="center">
+                    <span>日期</span>
+                </div>
+            </th>
+            <th nz-th rowspan="2" width="8%">
+                <div align="center">
+                    <span>网点数</span>
+                </div>
+            </th>
+            <th nz-th rowspan="2" width="13%">
+                <div align="center">
+                    <span>网点</span>
+                </div>
+            </th>
+            <th nz-th rowspan="2" width="8%">
+                <div align="center">
+                    <span>操作</span>
+                </div>
+            </th>
+    </thead>
+    <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+            <td nz-td>
+                <div align="center">
+                    <span>{{data.theDay}}</span>
+                </div>
+            </td>
+            <td nz-td>
+                <div align="center">
+                    <span>{{data.networkCount}}</span>
+                </div>
+            </td>
+            <td nz-td>
+                <div align="center">
+                    <single-line [content]="data.orgList" [tooltip]="data.orgListMultiLine"></single-line>
+                </div>
+            </td>
+            <td nz-td>
+                <div align="center">
+                    <a (click)="openRunMapOrgMod(data)">修改</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

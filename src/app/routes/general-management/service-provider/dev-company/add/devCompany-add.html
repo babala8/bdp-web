@@ -1,0 +1,111 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          服务商名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+            <input nz-input nzSize="'middle'" formControlName="name" id="'name'">
+            <nz-form-explain *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">
+              <ng-container *ngIf="getFormControl('name').hasError('required')">
+                <span style="color: red;">请填写服务商名称</span>
+              </ng-container>
+              <ng-container *ngIf="validateForm.controls['name'].hasError('maxlength')">
+                <span style="color: red">服务商名称长度不得超过50位</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            联系人
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('linkman')" nzHasFeedback>
+            <input nz-input nzSize="'middle'" formControlName="linkman" id="'linkman'">
+            <nz-form-explain *ngIf="getFormControl('linkman').dirty&&validateForm.controls['linkman'].errors">
+              <ng-container *ngIf="validateForm.controls['linkman'].hasError('required')">
+                <span style="color: red;">请填写联系人</span>
+              </ng-container>
+              <ng-container *ngIf="validateForm.controls['linkman'].hasError('maxlength')">
+                <span style="color: red">联系人长度不得超过30位</span>
+              </ng-container>
+            </nz-form-explain >
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            地址
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('address')" nzHasFeedback>
+            <input nz-input nzSize="'middle'" formControlName="address" id="'address'">
+            <nz-form-explain  *ngIf="getFormControl('address').dirty&&validateForm.controls['address'].errors">
+              <ng-container *ngIf="validateForm.controls['address'].hasError('required')">
+                <span style="color: red;">请填写地址</span>
+              </ng-container>
+              <ng-container *ngIf="validateForm.controls['address'].hasError('maxlength')">
+                <span style="color: red;">地址长度不得超过80位</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24">
+            固定电话
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('phone')">
+            <input nz-input nzSize="'middle'" formControlName="phone" id="'phone'">
+            <nz-form-explain  *ngIf="getFormControl('phone').dirty&&validateForm.controls['phone'].errors">
+              <ng-container *ngIf="validateForm.controls['phone'].hasError('pattern')">
+                <span style="color: red">固定电话格式不正确</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24">
+            手机
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('mobile')">
+            <input nz-input nzSize="'large'" formControlName="mobile" id="'mobile'">
+            <nz-form-explain *ngIf="getFormControl('mobile').dirty&&validateForm.controls['mobile'].errors">
+              <ng-container *ngIf="validateForm.controls['mobile'].hasError('pattern')">
+                <span style="color: red">手机号码格式不正确</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24">
+           传真
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('fax')">
+            <input nz-input nzSize="'middle'" formControlName="fax" id="'fax'">
+            <nz-form-explain  *ngIf="getFormControl('fax').dirty&&validateForm.controls['fax'].errors">
+              <ng-container *ngIf="validateForm.controls['fax'].hasError('maxlength')">
+                <span style="color: red">传真长度不得超过30位</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24">
+            电子邮件
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('email')">
+            <input nz-input nzSize="'middle'" formControlName="email" id="'email'">
+            <nz-form-explain  *ngIf="getFormControl('email').dirty&&validateForm.controls['email'].errors">
+              <ng-container *ngIf="validateForm.controls['email'].hasError('email')">
+                <span style="color: red">邮箱格式不正确</span>
+              </ng-container>
+              <ng-container *ngIf="validateForm.controls['email'].hasError('maxlength')">
+                <span style="color: red">邮箱长度不得超过40位</span>
+              </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item  nz-row style="margin-bottom:8px;">
+        <nz-form-control  nz-col style="text-align: center">
+            <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 50%;">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

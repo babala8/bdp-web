@@ -1,0 +1,162 @@
+<div style=" width: 95%; height:auto; min-height:15px; left: 50%; ">
+<div style=" width: 100%; height:auto; min-height:15px; left: 50%; margin-left:30px;">
+    <span style="font-size: 13px; color: #1d1d1d">
+       组别信息
+   </span>
+</div>
+<div style=" width: 100%;height:100px; left: 50%; margin-left:30px; " align="center">
+    <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="dataSet">
+        <tbody nz-tbody>
+        <tr>
+            <td style=" height: 35px">
+                <div align="center">
+                    计划批次：
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    {{addnotesPlanNo}}
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    分组编号：
+                </div>
+            </td>
+            <td style=" height: 35px">
+                <div align="center">
+                    {{groupNo}}
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    计划加钞网点(个)：
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    {{data['planNetPntCnt']}}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style=" height: 35px">
+                <div align="center">
+                    计划加钞设备(台)：
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    {{data['planDevCnt']}}
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    预计全程总路程(千米)：
+                </div>
+            </td>
+            <td style=" height: 35px">
+                <div align="center">
+                    {{data['planDistance']}}
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    预计全程总耗时(分)：
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    {{data['planTimeCost']}}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>
+<div style=" width: 100%; height:20px; left: 50%; margin-left:30px;">
+   <span style="font-size: 13px; color: #1d1d1d">
+     现有网点
+   </span>
+</div>
+<div style=" width: 100%; height:auto !important;height:140px;min-height:140px; left: 50%; margin-left:30px;"
+     align="center">
+    <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="groupList">
+        <thead nz-thead>
+        <tr>
+            <th nz-th width="10%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">选择</span></div>
+            </th>
+            <th nz-th width="20%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">网点</span></div>
+            </th>
+            <th nz-th width="20%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">网点地址</span></div>
+            </th>
+            <th nz-th width="10%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">设备数</span></div>
+            </th>
+            <th nz-th width="40%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">设备</span></div>
+            </th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr align="center" *ngFor="let data of groupList;">
+                <td nz-th nzCheckbox>
+                    <label nz-checkbox [(ngModel)]="data.checked" [nzIndeterminate]="_indeterminate">
+                    </label>
+                </td>
+                <td>[{{data.orgNo}}]{{data.orgName}}</td>
+                <td>{{data.address}}</td>
+                <td>{{data.devCnt}}</td>
+                <td>{{data.allKeyEventDetail}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+<div style=" width: 100%; height:20px; left: 50%; margin-left:30px; margin-top: 2%">
+   <span style="font-size: 13px; color: #1d1d1d">
+     可添加网点
+   </span>
+</div>
+<div style=" width: 100%; height:auto !important;height:140px;min-height:140px; left: 50%; margin-left:30px;"
+     align="center">
+    <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="netPointsNotGroup">
+        <thead nz-thead>
+        <tr>
+            <th nz-th width="10%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">选择</span></div>
+            </th>
+            <th nz-th width="20%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">网点</span></div>
+            </th>
+            <th nz-th width="20%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">网点地址</span></div>
+            </th>
+            <th nz-th width="10%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">设备数</span></div>
+            </th>
+            <th nz-th width="40%">
+                <div align="center"><span style="font-size: 12px; color: #1d1d1d">设备</span></div>
+            </th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr align="center" *ngFor="let data of netPointsNotGroup;">
+            <td nz-th nzCheckbox>
+                <label nz-checkbox [(ngModel)]="data.checked" [nzIndeterminate]="_indeterminate">
+                </label>
+            </td>
+            <td>[{{data.orgNo}}]{{data.orgName}}</td>
+            <td>{{data.address}}</td>
+            <td>{{data.devCnt}}</td>
+            <td>{{data.allKeyEventDetail}}</td>
+        </tr>
+        </tbody>
+    </nz-table>
+    <div style=" width: 100%;  height: 60px; " align="center">
+        <button style="margin-top: 20px" nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="modify()">修改</button>
+    </div>
+</div>
+</div>

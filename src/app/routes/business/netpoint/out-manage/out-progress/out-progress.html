@@ -1,0 +1,25 @@
+<div style="padding: 20px;">
+  <detail-table [data]="detailList" [itemWidth]="6"></detail-table>
+  <nz-divider class="mb-lg"></nz-divider>
+  <div style="overflow-x: auto; padding: 40px 20px;">
+    <div style="width: 1000px">
+      <nz-steps [nzCurrent]="currentProgress" nzStatus="finish" [nzLabelPlacement]="'vertical'">
+        <nz-step [nzTitle]="'提交申请'" [nzDescription]="createDesc">
+          <ng-template #createDesc>
+            <div class="desc">
+              <div class="my-sm">
+                {{data.createOpName}}
+                <i nz-icon nzType="dingding" class="ml-sm"></i>
+              </div>
+              <div>{{data.createTime}}</div>
+            </div>
+          </ng-template>
+        </nz-step>
+        <nz-step [nzTitle]="'款箱出库'"></nz-step>
+        <nz-step [nzTitle]="'出库交接'"></nz-step>
+        <nz-step [nzTitle]="'网点接库'"></nz-step>
+      </nz-steps>
+    </div>
+  </div>
+
+</div>

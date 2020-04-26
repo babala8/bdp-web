@@ -1,0 +1,118 @@
+<div class="modal-body">
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'clrCenterNo'">所属金库</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <select-clr-center name="clrCenterNo" [ngModel]="detail?.clrCenterNo" disabled>
+            </select-clr-center>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'customer'">申请网点</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail?.customer.name" name="customer" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'planFinishDate'">寄库日期</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail?.planFinishDate" name="planFinishDate" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="3" nzFor="note">备注</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="21">
+            <input nz-input [ngModel]="detail?.note" name="note" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="原任务单款箱信息" nzActive="true" [nzExtra]="extraTem0">
+      <ng-template #extraTem0>
+        <button nz-button (click)="addSplitGroup($event)" nzType="link" [disabled]="editList.length===0"><i nz-icon nzType="apartment" nzTheme="outline"></i>拆分至新分组</button>
+      </ng-template>
+      <nz-table #cashBoxTable [nzData]="editList" nzSize="small" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th></th>
+          <th nzWidth="30%">款箱编号</th>
+          <th>款箱类型</th>
+          <th>出库日期</th>
+          <th>寄库类型</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template ngFor let-data [ngForOf]="editList">
+          <tr>
+            <td>
+              <label nz-checkbox [(ngModel)]="data.checked"></label>
+            </td>
+            <td>{{ data.containerNo }}</td>
+            <td>
+              <app-enum-info type="GOODS_TYPE" [value]="data.containerType"></app-enum-info>
+            </td>
+            <td>{{ data.note }}</td>
+            <td>
+              <app-enum-info type="DEPOSITE_TYPE" [value]="data.depositType"></app-enum-info>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="拆分分组信息" nzActive="true" [nzExtra]="extraTem1">
+      <ng-template #extraTem1>
+        <button nz-button (click)="resetAllSplitGroup($event)" nzType="link" [disabled]="splitList.length===0"><i nz-icon nzTheme="outline" nzType="undo"></i>还原所有分组</button>
+      </ng-template>
+      <ng-container *ngFor="let splitGroup of splitList; let i = index;">
+        <div nz-row style="margin-top: 10px;">
+          <div nz-col nzSpan="12">
+            <h4>第{{i + 1}}组</h4>
+          </div>
+          <div nz-col nzSpan="12" style="text-align: right">
+            <button nz-button nzType="default" (click)="resetSplitGroup(i)" [nzSize]="'small'">
+              <i nz-icon nzType="undo" nzTheme="outline"></i>撤销当前分组
+            </button>
+          </div>
+        </div>
+        <nz-table nzSize="small" [nzData]="splitGroup" [nzShowPagination]="false">
+          <thead>
+          <tr>
+            <th nzWidth="30%">款箱编号</th>
+            <th>款箱类型</th>
+            <th>出库日期</th>
+            <th>寄库类型</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of splitGroup">
+            <td>{{ data.containerNo }}</td>
+            <td>
+              <app-enum-info type="GOODS_TYPE" [value]="data.containerType"></app-enum-info>
+            </td>
+            <td>{{ data.note }}</td>
+            <td>
+              <app-enum-info type="DEPOSITE_TYPE" [value]="data.depositType"></app-enum-info>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<div nz-row>
+  <div nz-col style="margin-bottom: 16px; text-align: center">
+    <button nz-button nzType="primary" (click)="confirmSplit()" [nzLoading]="loading" [disabled]="editList.length!==0"><i nz-icon nzType="apartment" nzTheme="outline"></i>确认拆分</button>
+  </div>
+</div>

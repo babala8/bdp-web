@@ -1,0 +1,12 @@
+<div style="width: 100%; height: 100%; padding: 0; line-height: 60px; vertical-align: middle; text-align: center">
+  <ng-template #suffixIcon>
+    <i nz-icon nzType="search" nzTheme="outline"></i>
+  </ng-template>
+  <nz-select [nzSuffixIcon]="suffixIcon" style="line-height: 60px; width: 220px;" [nzShowSearch]="true" nzSize="middle"
+             [ngModel]="selectedMenu" (ngModelChange)="menuChange($event)">
+    <nz-option *ngFor="let menu of menuList" [nzLabel]="menu.text" [nzValue]="menu.url">
+    </nz-option>
+  </nz-select>
+</div>
+
+

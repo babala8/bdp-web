@@ -1,0 +1,196 @@
+<nz-card *ngIf="!loading" [nzHoverable]="true" [nzBordered]="false" >
+    <detail-table [data]="detailList" [itemWidth]="4">
+        <div *ngIf="!!detail.lineName" nz-col [nzSpan]="4">
+            <span>加钞线路：</span>
+        </div>
+        <div *ngIf="!!detail.lineName" nz-col [nzSpan]="20">
+            <ellipsis title="{{detail.lineNameTitle}}" lines="1" style="text-align: left; max-width: 100%; white-space:nowrap; display: block; text-overflow: ellipsis;">{{detail.lineName}}</ellipsis>
+        </div>
+    </detail-table>
+    <nz-divider style="margin-bottom: 2px; margin-top: 16px;"></nz-divider>
+    <div class="detail-panel">
+        <div style="display: flex; flex-direction: column; width: 100%;" align="center">
+            <div style="height:530px; display: flex; flex-grow: 1;">
+                <div style="flex-grow:1; width: 100px; height:auto; min-height:500px;">
+                    <div nz-row>
+                        <div nz-col [nzSpan]="24" style="text-align: left; color: red; font-size: 1.5em;">
+                            <i class="anticon anticon-info-circle-o"></i>
+                            <span>本次不加钞</span>
+                        </div>
+                    </div>
+                    <div nz-row>
+                        <div nz-col [nzSpan]="12" style="text-align: left;">
+                            <nz-radio-group [(ngModel)]="page">
+                                <label nz-radio-button [nzValue]="1">
+                                    <span>预测型</span>
+                                </label>
+                                <label nz-radio-button [nzValue]="2">
+                                    <span>必选型</span>
+                                </label>
+                                <label nz-radio-button [nzValue]="3">
+                                    <span>维护型</span>
+                                </label>
+                                <label nz-radio-button [nzValue]="4">
+                                    <span>计划型</span>
+                                </label>
+                            </nz-radio-group>
+                        </div>
+                        <div nz-col [nzSpan]="12" style="text-align: right;">
+                            可选设备：{{totalNums}}台
+                        </div>
+                    </div>
+
+                    <nz-table #nzTable [nzData]="list()" [nzSize]="'middle'" [nzNoResult]="'没有数据'" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false" [nzScroll]="{ y: '450px' }">
+                        <thead nz-thead>
+                            <tr>
+                                <th nz-th nzCheckbox nzWidth="50px">
+                                    <label nz-checkbox [(ngModel)]="model.allChecked" [nzIndeterminate]="model.indeterminate"></label>
+                                </th>
+                                <th nz-th nzWidth="90px">
+                                    <span>设备号</span>
+                                </th>
+                                <th nz-th nzWidth="140px">
+                                    <span>所属网点</span>
+                                </th>
+                                <th nz-th nzWidth="140px">
+                                    <span>所属线路</span>
+                                </th>
+                                <th nz-th nzWidth="140px">
+                                    <span>事件描述</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <tr id="left" (dblclick)="moveDataInit(data, 'left')" *ngFor="let data of nzTable.data" [style.background]="data.background">
+                                <td nz-td>
+                                    <label nz-checkbox [(ngModel)]="data.checked"></label>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.devNo"></single-line>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.orgName"></single-line>
+                                </td>
+                                <td nz-td align="center">
+                                    <single-line [content]="data.lineName" width="160px"></single-line>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.keyEventDetail" width="140px"></single-line>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+                <div style=" width: 60px; padding: 100px 0;">
+                    <div nz-row>
+                        <button nz-button [nzType]="'primary'" (click)="moveRight()">
+                            <span style="font-size: 15px;">
+                                <i class="anticon anticon-right"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <br>
+                    <div nz-row>
+                        <button nz-button [nzType]="'default'" (click)="moveLeft()">
+                            <span style="font-size: 15px;">
+                                <i class="anticon anticon-left"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div style="flex-grow:1; width: 100px; height:auto; min-height:500px;">
+                    <div nz-row>
+                        <div nz-col [nzSpan]="24" style="text-align: left; color: red; font-size: 1.5em;">
+                            <i class="anticon anticon-info-circle-o"></i>
+                            本次加钞
+                        </div>
+                    </div>
+                    <div nz-row>
+                        <div nz-col [nzSpan]="12" style="text-align: left;">
+                            <button nz-button [nzType]="'default'" (click)="toggleRowAdd()">
+                                <span style="font-size: 15px;">
+                                    <i class="anticon anticon-plus"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div nz-col [nzSpan]="12" style="text-align: right;">
+                            已选设备：{{preliminaryModel.length}}台
+                        </div>
+                    </div>
+                    <nz-table #nzTable1 [nzData]="preliminaryModel.list" [nzSize]="'middle'" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false"
+                        [nzScroll]="{ y: '450px' }" [nzNoResult]="'没有数据'">
+                        <thead nz-thead>
+                            <tr>
+                                <th nz-th nzCheckbox nzWidth="60px">
+                                    <label nz-checkbox [(ngModel)]="preliminaryModel.allChecked" [nzIndeterminate]="preliminaryModel.indeterminate" [nzDisabled]="!modifying"></label>
+                                </th>
+                                <th nz-th nzWidth="120px">
+                                    <span>设备号</span>
+                                </th>
+                                <th nz-th nzWidth="140px">
+                                    <span>所属网点</span>
+                                </th>
+                                <th nz-th nzWidth="100px">
+                                    <span>所属线路</span>
+                                </th>
+                                <th nz-th nzWidth="140px">
+                                    <span>事件描述</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <tr *ngIf="rowAdding">
+                                <td>
+                                    <button nz-button [nzSize]="'small'" (click)="confirm()" [disabled]="!rowSelected">添加</button>
+                                </td>
+                                <td>
+                                    <nz-select nzSize="small" style="width: 100%" [(ngModel)]="addDevNo" (ngModelChange)="finDev(addDevNo)" [nzPlaceHolder]="'选择设备号'"
+                                        nzMode="multiple">
+                                        <nz-option *ngFor="let option of allDevList" [nzLabel]="option.no" [nzValue]="option.no">
+                                        </nz-option>
+                                    </nz-select>
+                                </td>
+                                <td align="center">
+                                    <single-line [content]="addData.orgName"></single-line>
+                                </td>
+                                <td>
+                                    <single-line [content]="addData.lineName" width="140px"></single-line>
+                                </td>
+                                <td>
+                                    ——
+                                </td>
+                            </tr>
+                            <tr id="right" (dblclick)="moveDataInit(data, 'right')" *ngFor="let data of nzTable1.data" [style.background]="data.background">
+                                <td *ngIf="!data.newData" nz-td>
+                                    <label nz-checkbox [(ngModel)]="data.checked" [nzDisabled]="!modifying"></label>
+                                </td>
+                                <td *ngIf="data.newData" nz-td>
+                                    <button nz-button [nzSize]="'small'" (click)="deleteNewData(data.devNo)" [disabled]="!modifying">删除
+                                    </button>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.devNo"></single-line>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.orgName"></single-line>
+                                </td>
+                                <td nz-td align="center">
+                                    <single-line [content]="data.lineName" width="160px"></single-line>
+                                </td>
+                                <td nz-td>
+                                    <single-line [content]="data.keyEventDetail" width="140px"></single-line>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+            <div style="margin-top:42px;">
+                <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="submit()" [nzLoading]="loading_submit" [disabled]="preliminaryModel.list.length===0">
+                    <span>下一步,预测金额</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</nz-card>
+<nz-spin hAlign="center" *ngIf="loading" nzTip='正在预测加钞设备...' [nzSize]="'default'"></nz-spin>

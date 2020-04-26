@@ -1,0 +1,152 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+
+    <div nz-col [nzSpan]="6">
+        <div nz-row>
+            <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+                所属机构
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <org-tree [(ngModel)]="formModel['org']" (ngModelChange)="getMouldInfo()" [id]="'org'" name="org"></org-tree>
+            </nz-form-control>
+        </div>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+              <label [attr.for]="'postInfo'">
+                所属岗位
+              </label>
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+              <nz-select [(ngModel)]="formModel['postInfo']" (ngModelChange)="getMouldInfo()"  [nzPlaceHolder]="'请选择'" name="postInfo" nzAllowClear [nzSize]="'default'">
+                  <nz-option *ngFor="let option of postInfos" [nzLabel]="option.postName" [nzValue]="option.postNo">
+                  </nz-option>
+              </nz-select>
+          </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+              <label [attr.for]="'scheduleMould'">
+                使用模板
+              </label>
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+              <nz-select [(ngModel)]="formModel['scheduleMould']" [nzPlaceHolder]="'请选择'" name="scheduleMould" nzAllowClear [nzSize]="'default'">
+                  <nz-option *ngFor="let option of scheduleMoulds" [nzLabel]="option.mouldName" [nzValue]="option.mouldNo">
+                  </nz-option>
+              </nz-select>
+          </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+            <label [attr.for]="'scheduleMonth'">
+              排班月份
+            </label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-month-picker style="width: 100%" [nzSize]="'default'" [nzPlaceHolder]="'--请选择--'" [nzFormat]="'yyyy-MM'" [(ngModel)]="formModel['scheduleMonth']"
+              name="scheduleMonth" nzPlaceHolder="排班月份" [nzAllowClear]='false'>
+          </nz-month-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="24" [nzXs]="12" style="text-align: center">
+      <nz-form-item nz-row>
+        <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+          <i class="anticon anticon-search"></i><span>查询</span>
+        </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i><span>重置</span>
+        </button>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">排班计划管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'" *authId="'C170204'">
+          <i class="anticon anticon-plus"></i><span>增加</span>
+      </button>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>计划编号</th>
+      <th>所属机构</th>
+      <th>所属岗位</th>
+      <th>使用模板</th>
+      <th>月份</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.planNo}}
+      </td>
+      <td>
+        {{data.orgName}}
+      </td>
+      <td>
+        {{data.postName}}
+      </td>
+      <td>
+        {{data.mouldName}}
+      </td>
+      <td>
+        {{data.scheduleMonth}}
+      </td>
+      <td>
+        {{data.createTime}}
+      </td>
+      <td>
+        <a (click)="openMod(data)" *authId="'C170203'">修改</a>
+
+        <nz-popconfirm [nzTitle]="'确定要删除该计划吗？'" (nzOnConfirm)="confirmDel(data.planNo)" (nzOnCancel)="cancel()">
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C170202'">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+

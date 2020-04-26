@@ -1,0 +1,104 @@
+<form nz-form class="search-form">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'customerNo'">
+          所属机构
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <org-tree [(ngModel)]="formModel['customerNo']" [zjId]="'customerNo'" [size]="'middle'" name="customerNo">
+          </org-tree>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'entityNo'">
+          款箱编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['entityNo']" [nzSize]="'default'" name="entityNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'entityNo'">
+          状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['status']" name="status" nzAllowClear>
+            <nz-option *ngFor="let status of statusList" nzLabel="{{status.name}}" [nzValue]="status.value"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row align="center">
+    <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()">
+      <i class="anticon anticon-search"></i>
+      <span>查询</span>
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()">
+      <i class="anticon anticon-sync"></i>
+      <span>重置</span>
+    </button>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">款箱基础信息管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'C020502'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem"
+    [nzLoading]="loading" [nzData]="dataSet" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+    [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+    <thead>
+      <tr>
+        <th>款箱编号</th>
+        <th>所属机构</th>
+        <th *ngFor="let attr of attrList">{{attr.propertyName}}</th>
+        <th>状态</th>
+        <th style="text-align: center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;">
+        <td>
+          {{data?.containerNo}}
+        </td>
+        <td>
+          {{data.customerName}}
+        </td>
+        <td *ngFor="let attr of attrList">
+          {{getPropertyValue(data, attr.propertyNo)}}
+        </td>
+        <td>
+          <app-enum-info type="CONTAINER_STATUS" [value]="data.status"></app-enum-info>
+        </td>
+        <td style="text-align: center">
+          <ng-container>
+            <a (click)="openMod(data)" *authId="'C020503'">修改</a>
+          </ng-container>
+          <ng-container>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定删除该项吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"
+              (nzOnConfirm)="del(data.containerNo)">
+              <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C020504'">删除</a>
+            </nz-popconfirm>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

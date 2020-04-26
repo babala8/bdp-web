@@ -1,0 +1,57 @@
+<form nz-form #form="ngForm">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色级别
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select [(ngModel)]="formModel['orgGradeNo']" nzSize="middle" name="orgGradeNo" [nzDisabled]="true">
+        <nz-option *ngFor="let o of grades" [nzLabel]="o.name" [nzValue]="o.grade"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" [(ngModel)]="formModel['name']" name="name" [id]="'name'" disabled>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      角色备注
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" [(ngModel)]="formModel['note']" name="note" [id]="'note'" disabled>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色权限
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24"
+                     style="border:1px solid #d9d9d9;padding-left: 40px;padding-bottom: 10px;padding-top: 10px;">
+      <nz-spin [nzTip]="tip" [nzSpinning]="_isSpinning">
+        <nz-tree
+          #nzTreeComponent
+          [nzData]="options"
+          nzCheckable
+          nzMultiple>
+        </nz-tree>
+
+        <!--&lt;!&ndash; <a (click)="expandTree()">-->
+        <!--<span style="cursor: pointer;color: #23527c;">展开</span>-->
+        <!--</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--<a (click)="collapseTree()">-->
+        <!--<span style="cursor: pointer;color: #23527c;">收起</span>-->
+        <!--</a> &ndash;&gt;-->
+        <!--&lt;!&ndash;<tree-root [options]="options" [state]="treeState" [nodes]="nodes"></tree-root>&ndash;&gt;-->
+        <!--<nz-tree [nzNodes]="nodes" [nzOptions]="options" [nzCheckable]="true">-->
+        <!--<ng-template #nzTitle let-node>-->
+        <!--{{node.displayField}}-->
+        <!--</ng-template>-->
+        <!--</nz-tree>-->
+      </nz-spin>
+    </nz-form-control>
+  </nz-form-item>
+</form>

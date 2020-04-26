@@ -1,0 +1,29 @@
+<div class="modal-body">
+  <form nz-form se-container="1" labelWidth="100" style="max-width: 500px; margin-bottom: 40px;">
+    <se label="领现箱编号" error="请输入箱包编号" required>
+      <div nz-row>
+        <div nz-col nzSpan="19">
+          <input nz-input [(ngModel)]="cashbox.entityNo" name="cashbox" />
+        </div>
+        <div nz-col nzSpan="4" nzOffset="1">
+          <a (click)="scan()"><i nz-icon nzType="scan" nzTheme="outline"></i>扫描</a>
+        </div>
+      </div>
+    </se>
+  </form>
+  <div nz-row>
+    <ng-container *ngFor="let item of cashClass">
+      <div nz-col nzSpan="24">{{item.name}}</div>
+      <div nz-col nzSpan="3" *ngFor="let denomination of item.denomination" style="border: 3px solid #ddd;">
+        <input nz-input [ngModel]="denomination.name" name="name" readonly>
+        <nz-input-number style="width: 100%;" [(ngModel)]="denomination.amount" name="amount" [nzMin]="1" [nzStep]="1"
+          nzPlaceHolder="金额">
+        </nz-input-number>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="ant-modal-footer">
+  <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+  <button nz-button nzType="primary" (click)="handleOk()">添加</button>
+</div>

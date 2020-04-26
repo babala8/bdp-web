@@ -1,0 +1,80 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          推送目标用户
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['name']" name="username" [id]="'username'">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'requestStartDate'">
+          推送日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['time']" [nzPlaceHolder]="'请选择时间'" [nzSize]="'default'" name="startTime"
+                          style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <div nz-row>
+        <div nz-col style="text-align: center">
+          <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="refreshData(true)" [nzSize]="'default'">
+            <i class="anticon anticon-search"></i>
+            <span>查询</span>
+          </button>
+          <button nz-button (click)="reset()" [nzSize]="'default'" [nzLoading]="loading">
+            <i class="anticon anticon-sync"></i>
+            <span>重置</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">线路推送信息查询</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th nzWidth="100px">推送目标用户</th>
+      <th nzWidth="200px">推送时间</th>
+      <th>推送内容</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;let i = index;">
+      <td>
+        <span *ngIf="data.name == 'ALL'">所有人</span>
+        <span *ngIf="data.name != 'ALL'">{{data.name}}</span>
+      </td>
+      <td>{{data.time}}</td>
+      <td style="word-wrap: break-word; word-break: break-all; padding: 10px 60px;">{{data.message}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

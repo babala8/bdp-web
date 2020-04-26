@@ -1,0 +1,183 @@
+<form nz-form #form="ngForm" class="search-form">
+
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'clrCenterNo'">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" defaultSelectId="028001"
+                             allowClear="true">
+          </select-clr-center>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="10" nzFor="'shelfNo'">
+          笼车/托盘编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['shelfNo']" [nzSize]="'default'" name="shelfNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'type'">
+          类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select name="type" [(ngModel)]="formModel['type']" [nzPlaceHolder]="'请选择类型'" allowClear="true">
+            <nz-option *ngFor="let option of allType" [nzLabel]="option.nzLabel" [nzValue]="option.nzValue">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'status'">
+          状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select name="status" [(ngModel)]="formModel['status']" [nzPlaceHolder]="'请选择状态'" allowClear="true">
+            <nz-option *ngFor="let option of allStatus" [nzLabel]="option.nzLabel" [nzValue]="option.nzValue">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row align="center">
+    <div nz-col [nzSpan]="14" class="text-right">
+      <button nz-button [nzType]="'primary'" (click)="refreshData(true)" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="reset()" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">笼车/托盘列表</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button
+      nz-button
+      [disabled]="numberOfChecked === 0"
+      [nzType]="'primary'"
+      [nzLoading]="isOperating"
+      (click)="batchStartShelf()">
+      启用 {{numberOfChecked}}
+    </button>
+    <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'">
+      <i class="anticon anticon-plus"></i>
+      <span>添加</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable [nzLoading]="loading" [nzFrontPagination]="false" [nzShowSizeChanger]="true"
+            [nzShowTotal]="pageSizeTem" [nzData]="dataSet" [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize" [nzTotal]="page.totalRow" nzShowTotal (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()">
+    <thead nz-thead>
+    <tr>
+      <th
+        nzShowCheckbox
+        [nzDisabled]="numberOfEnableChecked===0"
+        [(nzChecked)]="isAllDisplayDataChecked"
+        (nzCheckedChange)="checkAll($event)">
+      </th>
+      <th nz-th width="15%">
+        <div>
+          <span>编号</span>
+        </div>
+      </th>
+      <th nz-th width="15%">
+        <div>
+          <span>所属金库</span>
+        </div>
+      </th>
+      <th nz-th width="15%">
+        <div>
+          <span>类型</span>
+        </div>
+      </th>
+      <th nz-th width="15%">
+        <div>
+          <span>状态</span>
+        </div>
+      </th>
+      <th nz-th width="15%">
+        <div>
+          <span>容量</span>
+        </div>
+      </th>
+      <th nz-th width="30%">
+        <div>
+          <span>操作</span>
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+    <tr *ngFor="let data of dataSet; let i=index">
+      <td
+        nz-td
+        nzShowCheckbox
+        [(nzChecked)]="mapOfCheckedId[data.shelfNo]"
+        [nzDisabled]="data.checkDisabled"
+        (nzCheckedChange)="refreshStatus()"
+      >
+
+      </td>
+      <td nz-td>
+        {{data.shelfNo}}
+      </td>
+      <td nz-td>
+        {{data.centerName}}
+      </td>
+      <td nz-td>
+        {{data.type}}
+      </td>
+      <td nz-td>
+        {{data.status}}
+      </td>
+      <td nz-td>
+        {{data.volume}}
+      </td>
+
+      <td nz-td>
+        <nz-popconfirm [nzTitle]="'确定要'+data.changeStatusBtnText+'吗？'" (nzOnConfirm)="stopShelf(i)">
+          <a nz-popconfirm>{{data.changeStatusBtnText}}</a>
+        </nz-popconfirm>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="showDetail(i)">详情</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="openModify(i)">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'确定要删除吗？'" (nzOnConfirm)="delete(data.shelfNo)">
+          <a nz-popconfirm [ngStyle]="{'color':'red'}">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,66 @@
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [(nzSelectedIndex)]="selectedIndex">
+  <nz-tab [nzTitle]="'基础信息'">
+    <nz-collapse>
+      <nz-collapse-panel [nzHeader]="'基本信息'" [nzActive]="true">
+        <nz-table #detailTable nzSize="middle"
+                  [nzData]="serviceInfoDetail"
+                  [nzShowPagination]="false"
+                  nzFrontPagination="false"
+                  nzBordered>
+          <thead>
+          <tr>
+            <th>服务编号</th>
+            <th>服务名称</th>
+            <th>服务对象</th>
+            <th>是否可合并</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let detail of detailTable.data">
+            <td>{{ detail.serviceNo }}</td>
+            <td>{{ detail.serviceName }}</td>
+            <td>{{ detail.customerName }}</td>
+            <td>
+              <span *ngIf="detail?.mergeFlag == 1">可合并</span>
+              <span *ngIf="detail?.mergeFlag == 2">不可合并</span>
+            </td>
+            <td><a (click)="baseInfoMod(detail)">修改</a></td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </nz-collapse-panel>
+      <nz-collapse-panel [nzHeader]="'状态表'" [nzActive]="true">
+        <nz-table #nzTable
+                  nzSize="middle"
+                  [nzData]="statusList"
+                  [nzShowPagination]="false"
+                  nzFrontPagination="false"
+                  nzBordered>
+          <thead>
+          <tr>
+            <th>状态码</th>
+            <th>状态名称</th>
+            <th>是否可合并</th>
+            <th>备注</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let status of nzTable.data">
+            <td>{{status?.status}}</td>
+            <td>{{status?.name}}</td>
+            <td>
+              <ng-container *ngFor="let mergeFlag of MERGE_FLAG">
+                <span *ngIf="mergeFlag.no == status?.mergeFlag">{{mergeFlag.name}}</span>
+              </ng-container>
+            </td>
+            <td>{{status?.note ? status.note : '***'}}</td>
+            <td><a (click)="statusMod(status)">修改</a></td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+</nz-tabset>

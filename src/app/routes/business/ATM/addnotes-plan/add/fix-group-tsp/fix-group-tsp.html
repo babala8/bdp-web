@@ -1,0 +1,150 @@
+<nz-spin align="center" hAlign="center" *ngIf="loading" nzTip='加载中...' [nzSize]="'large'">
+</nz-spin>
+<nz-card *ngIf="!loading" [nzHoverable]="false" [nzBordered]="false">
+    <div align="center">
+        <div nz-row class="detail-table">
+            <div nz-col [nzSpan]="3">
+                <span>计划批次：</span>
+            </div>
+            <div nz-col [nzSpan]="3">
+                {{addnotesPlanNo}}
+            </div>
+            <div nz-col [nzSpan]="3">
+                <span>计划加钞日期：</span>
+            </div>
+            <div nz-col [nzSpan]="3">
+                {{data['planAddnotesDate']}}
+            </div>
+            <div nz-col [nzSpan]="3">
+                <span>计划加钞设备(台)：</span>
+            </div>
+            <div nz-col [nzSpan]="3">
+                {{data['planDevCount']}}
+            </div>
+            <div nz-col [nzSpan]="3">
+                <span>线路外分组数：</span>
+            </div>
+            <div nz-col [nzSpan]="3">
+                <nz-input-number style="width: 100%;" [(ngModel)]="groupNum" [nzMin]="0" [nzMax]="maxOutLineGroupNum" [nzStep]="1"></nz-input-number>
+            </div>
+
+        </div>
+
+        <div style="padding: 20px 0">
+            <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="group(true)" [nzLoading]="loading_operating">
+                <span>分组</span>
+            </button>
+            &nbsp;
+            <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="submitAudit()" [disabled]="!canAudit" [nzLoading]="loading_operating">
+                <span>提交审核</span>
+            </button>
+        </div>
+
+    </div>
+    <div>
+        组别
+        <span style="font-size: 15px">
+            <i class="anticon anticon-environment" (click)="openGroupRouter()"></i>
+        </span>
+    </div>
+    <div align="center">
+        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'" [nzData]="groupList">
+            <thead nz-thead>
+                <tr style="font-size: 12px;">
+                    <th nz-th nzWidth="80px">操作</th>
+                    <th nz-th>线路名称</th>
+                    <th nz-th>网点数</th>
+                    <th nz-th>设备数</th>
+                    <th nz-th>预计总路程(千米)</th>
+                    <th nz-th>预计总耗时(分)</th>
+                    <th nz-th>预计最早返回时间</th>
+                    <th nz-th>调整</th>
+                </tr>
+            </thead>
+            <tbody nz-tbody *ngFor="let data of nzTable.data;">
+                <tr align="center">
+                    <td style="font-size: 15px">
+                        <span>
+                            <i class="anticon anticon-environment" (click)="openGroupMap(data.groupNo)"></i>
+                        </span>
+                        <span *ngIf="!data['flag']">
+                            <i class="anticon anticon-plus" (click)="showTanle(data)"></i>
+                        </span>
+                        <span *ngIf="data['flag']">
+                            <i class="anticon anticon-minus" (click)="showTanle(data)"></i>
+                        </span>
+                    </td>
+                    <td>{{data.lineName}}</td>
+                    <td>{{data.planNetPntCnt}}</td>
+                    <td>{{data.planDevCnt}}</td>
+                    <td>{{data.planDistance}}</td>
+                    <td>{{data.planTimeCost}}</td>
+                    <td>{{data.predictArrivalTime}}</td>
+                    <td>
+                        <div align="center">
+                            <a (click)="openAdjustGroup(data.groupNo)">调整分组</a>&nbsp;
+                            <a (click)="openAdjustRouter(data.groupNo)">调整线路</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td *ngIf="data['flag']">
+                    </td>
+                    <td colspan="7" *ngIf="data['flag']">
+                        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'" [nzData]="dataSet">
+                            <thead nz-thead>
+                                <tr style="font-size: 12px;">
+                                    <th nz-th style="width: 200px">加钞顺序号</th>
+                                    <th nz-th style="width: 200px">设备号</th>
+                                    <th nz-th style="width: 300px">设备地址</th>
+                                    <th nz-th style="width: 200px">加钞金额（万元）</th>
+                                    <th nz-th style="width: 200px">事件描述</th>
+                                </tr>
+                            </thead>
+                            <tbody nz-tbody *ngFor="let d of data.retList; let i = index">
+                                <tr align="center">
+                                    <td>{{d.sortNo}}</td>
+                                    <td>{{d.devNo}}</td>
+                                    <td>
+                                        <single-line [content]="d.address" width="300px"></single-line>
+                                    </td>
+                                    <td>{{(d.planAddnotesAmt/10000.0)}}</td>
+                                    <td>
+                                        <single-line [content]="d.keyEventDetail"></single-line>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <div style="margin-top: 20px;">
+        未分组设备
+    </div>
+    <div align="center">
+        <nz-table #nzTable1 [nzShowPagination]="false" [nzFrontPagination]="false" [nzSize]="'middle'" [nzData]="devsNotGroup" [nzBordered]="true">
+            <thead nz-thead>
+                <tr style="font-size: 12px;">
+                    <th nz-th>设备号</th>
+                    <th nz-th>设备地址</th>
+                    <th nz-th>加钞金额（万元）</th>
+                    <th nz-th>事件描述</th>
+                </tr>
+            </thead>
+            <tbody nz-tbody *ngFor="let data of nzTable1.data">
+                <tr align="center">
+                    <td>{{data.devNo}}</td>
+                    <td>
+                        <single-line [content]="data.address"></single-line>
+                    </td>
+                    <td>{{(data.planAddnotesAmt/10000.0)}}</td>
+                    <td>
+                        <single-line [content]="data.keyEventDetail"></single-line>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>

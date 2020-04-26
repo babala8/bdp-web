@@ -1,0 +1,76 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
+    <div nz-row>
+        <div nz-col nzSm="12" nzXs="24">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="9">
+                    <label [attr.for]="'clrCenterName'">金库名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input formControlName="clrCenterName" name="clrCenterName" readonly="true" [disabled]="true"
+                              style="width: 100%">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzSm="12" nzXs="24">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="9">
+                    <label [attr.for]="'planFinishDate'">加钞日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input formControlName="planFinishDate" [nzSize]="'default'" name="planFinishDate" [disabled]="true"
+                              style="width: 100%">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+    </div>
+    <div nz-row>
+        <div nz-col nzSm="12" nzXs="24">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="9">
+                    <label [attr.for]="'opNo1'">加钞人员</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select formControlName="opNo1" nzPlaceHolder="请选择"
+                               name="opNo1" style="width: 100%" nzShowSearch>
+                        <nz-option
+                            *ngFor="let option of qryUsersInAddNotesGroup"
+                            [nzLabel]="option.name"
+                            [nzValue]="option.username">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain
+                         *ngIf="validateForm.controls['opNo1'].dirty && validateForm.controls['opNo1'].errors">
+                        <span style="color: red">请选择!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzSm="12" nzXs="24">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="9">
+                    <label [attr.for]="'opNo2'">加钞人员</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select formControlName="opNo2" nzPlaceHolder="请选择"
+                               name="opNo2" style="width: 100%" nzShowSearch>
+                        <nz-option
+                            *ngFor="let option of qryUsersInAddNotesGroup"
+                            [nzLabel]="option.name"
+                            [nzValue]="option.username">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain
+                         *ngIf="validateForm.controls['opNo2'].dirty && validateForm.controls['opNo2'].errors">
+                        <span style="color: red">请选择!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row align="center" style="margin-top: 10px">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="loading">
+            <span>分配人员</span>
+        </button>
+    </div>
+</form>

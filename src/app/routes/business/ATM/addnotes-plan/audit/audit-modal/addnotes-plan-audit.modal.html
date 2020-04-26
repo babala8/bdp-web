@@ -1,0 +1,97 @@
+<nz-spin align="center" hAlign="center" *ngIf="loading" nzTip='加载中...' [nzSize]="'large'"></nz-spin>
+<nz-card *ngIf="!loading" [nzHoverable]="false" [nzBordered]="false">
+    <div>基本信息</div>
+    <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+   
+    <div style="margin-top: 48px;">分组信息</div>
+    <nz-table #nzTable [nzData]="groups" [nzSize]="'middle'" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false">
+        <thead nz-thead>
+            <tr>
+                <th nz-th>操作</th>
+                <th nz-th>加钞线路</th>
+                <th nz-th>设备台数</th>
+                <th nz-th>加钞金额（万元）</th>
+            </tr>
+        </thead>
+        <tbody nz-tbody *ngFor="let data of nzTable.data;">
+            <tr nz-tbody-tr>
+                <td nz-td>
+                    <span *ngIf="!data['flag']">
+                        <i class="anticon anticon-plus" (click)="showPanel(data)"></i>
+                    </span>
+                    <span *ngIf="data['flag']">
+                        <i class="anticon anticon-minus" (click)="showPanel(data)"></i>
+                    </span>
+                </td>
+                <td nz-td>
+                    {{data.lineName || data.lineNo}}
+                </td>
+                <td nz-td>
+                    {{data.devCount}}
+                </td>
+                <td nz-td>
+                    {{data.cashReqAmt}}
+                </td>
+            </tr>
+            <tr *ngIf="data['flag']">
+                <td></td>
+                <td colspan="3">
+                    <nz-table #nzTable1 [nzData]="data.devList" [nzSize]="'middle'" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false">
+                        <thead nz-thead>
+                            <tr>
+                                <th nz-th>设备号</th>
+                                <th nz-th>设备类型</th>
+                                <th nz-th>设备地址</th>
+                                <th nz-th>事件类型</th>
+                                <th nz-th>加钞顺序</th>
+                                <th nz-th>计划加钞金额(万元)</th>
+                            </tr>
+                        </thead>
+                        <tbody nz-tbody>
+                            <tr nz-tbody-tr *ngFor="let data of nzTable1.data;">
+                                <td nz-td>
+                                    {{data.devNo}}
+                                </td>
+                                <td nz-td>
+                                    {{data.devCatalogName}}
+                                </td>
+                                <td nz-td>
+                                    <ellipsis lines="1" title="{{data.address}}">{{data.address}}</ellipsis>
+                                </td>
+                                <td nz-td>
+                                    <ellipsis lines="1" title="{{data.keyEventDetail}}">{{data.keyEventDetail}}</ellipsis>
+                                </td>
+                                <td nz-td>
+                                    {{data.sortNo}}
+                                </td>
+                                <td nz-td>
+                                    {{data.planAddnotesAmt/10000}}
+                                </td>
+                            </tr>
+                    </nz-table>
+                </td>
+            </tr>
+    </nz-table>
+
+    <div style="margin-top: 48px;">审批意见</div>
+    <form nz-form [formGroup]="validateForm" autocomplete="off">
+        <div nz-form-item nz-row>
+            <div nz-col [nzSpan]="24" nz-form-control nzHasFeedback>
+                <textarea nz-input formControlName="opinion" name="opinion"></textarea>
+                <div nz-form-explain *ngIf="validateForm.controls['opinion'].dirty && validateForm.controls['opinion'].errors">
+                    {{ validateForm.controls['opinion'].errors['explain'] }}
+                </div>
+            </div>
+        </div>
+    </form>
+    <div align="center" style="margin-top: 15px;">
+        <button nz-button [nzLoading]="loading_operating" [nzType]="'danger'" nzType="danger" (click)="refuse()">
+            <i class="anticon anticon-rollback"></i>
+            <span>退&nbsp;&nbsp;&nbsp;&nbsp;回</span>
+        </button>
+        <button nz-button [nzLoading]="loading_operating" style="margin-left: 50px;" nzType="primary" (click)="audit()">
+            <i class="anticon anticon-check"></i>
+            <span>审批通过</span>
+        </button>
+    </div>
+</nz-card>

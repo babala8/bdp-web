@@ -1,0 +1,135 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="name">
+          人员姓名
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['name']" name="name"
+                 id="name">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="no">
+          人员编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['no']" name="no"
+                 id="no">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="post">
+          人员岗位
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['post']" name="post" id="post" nzAllowClear>
+            <nz-option *ngFor="let post of postList" [nzValue]="post.value" [nzLabel]="post.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+  </div>
+  <div nz-row style="padding-top: 16px; text-align: center;">
+    <div nz-col>
+      <button nz-button nzType="primary" (click)="search()" [nzSize]="'middle'" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="form.reset();refreshData()" style="margin-left: 10px;" [nzSize]="'middle'"
+              [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">外包人员信息</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button [nzType]="'primary'" (click)="openAddMutiple()" [nzSize]="'middle'" *authId="'C120305'">
+      <i class="anticon anticon-plus"></i>
+      <span>批量添加</span>
+    </button>
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'C120302'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+
+    <thead>
+    <tr>
+      <th>
+        <span>人员编号</span>
+      </th>
+      <th>
+        <span>人员名称</span>
+      </th>
+      <th>
+        <span>年龄</span>
+      </th>
+      <th>
+        <span>岗位</span>
+      </th>
+      <th>
+        <span>联系电话</span>
+      </th>
+      <th>
+        <span>操作</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of nzTable.data;let i = index;">
+      <td>
+        {{item?.no}}
+      </td>
+      <td>
+        {{item?.name}}
+      </td>
+      <td>
+        {{item?.age}}
+      </td>
+      <td>
+        <span *ngIf="item.post==0">外包人员</span>
+        <span *ngIf="item.post==1">安保人员</span>
+        <span *ngIf="item.post==2">车辆驾驶员</span>
+      </td>
+      <td>
+        {{item?.mobile}}
+      </td>
+      <td>
+        <a (click)="openMod(item)" *authId="'C120303'">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'确定要删除该人员吗？'" (nzOnConfirm)="delOutPeople(item)">
+          <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C120304'">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,33 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired  nzFor="no">
+            品牌编号
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+            <input nz-input [nzSize]="'middle'" formControlName="no" id="'no'" disabled >
+            <nz-form-explain *ngIf="getFormControl('no').dirty&&validateForm.controls['no'].errors">
+                {{ validateForm.controls['no'].errors['explain'] }}
+            </nz-form-explain>
+
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">
+            品牌名称
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+            <input nz-input [nzSize]="'middle'" formControlName="name" id="'name'">
+            <nz-form-explain  *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">
+                {{ validateForm.controls['name'].errors['explain'] }}
+                <span style="color: red;">请输入</span>
+            </nz-form-explain>
+
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item  nz-row style="margin-bottom:8px;">
+        <nz-form-control  nz-col style="text-align: center">
+            <button nz-button [nzSize]="'middle'" [nzType]="'primary'" style="width: 30%;">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

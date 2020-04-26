@@ -1,0 +1,128 @@
+<form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+        <div nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+                    所属金库
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" (ngModelChange)="getClrCenterNo($event)" [defaultSelect]="true"></select-clr-center>
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+                    线路名称
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <select-dispatch-line name="lineNo" [clrCenterNo]="formModel['clrCenterNo']" [(ngModel)]="formModel['lineNo']" lineType="0"></select-dispatch-line>
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+                    开始月份
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-month-picker
+                        [(ngModel)]="formModel['startMonth']" name="startMonth" [nzFormat]="'yyyy-MM'"
+                        (ngModelChange)="_startValueChange()" style="width: 100%"
+                        nzPlaceHolder="请选择开始月份"
+                    ></nz-month-picker>
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+                    结束月份
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-month-picker
+                        [(ngModel)]="formModel['endMonth']" [nzFormat]="'yyyy-MM'"
+                        (ngModelChange)="_endValueChange()" name="endMonth" style="width: 100%"
+                        nzPlaceHolder="请选择结束月份"
+                    ></nz-month-picker>
+                </nz-form-control>
+            </div>
+        </div>
+
+    </div>
+    <div nz-row align="center" style="margin-top: 15px">
+        <div nz-col [nzSpan]="14" class="text-right">
+            <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+                <i class="anticon anticon-search"></i>
+                <span>查询</span>
+            </button>
+            <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="form.reset({clrCenterNo: curClrCenterNo});reset()" [nzLoading]="loading">
+                <i class="anticon anticon-sync"></i>
+                <span>重置</span>
+            </button>
+        </div>
+
+    </div>
+</form>
+<div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+        <span style="font-size: 17px;">ATM线路排班信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+        <button nz-button [nzType]="'primary'" (click)="openGenerate()" [nzSize]="'default'" *authId="'E020202'">
+            <i class="anticon anticon-plus"></i>
+            <span>生成ATM线路排班</span>
+        </button>
+    </div>
+</div>
+<ng-template #pageSizeTem>
+    共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+    <nz-table #nzTable nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem" [nzData]="dataSet" [(nzPageIndex)]="page.curPage"
+        [(nzPageSize)]="page.pageSize" [nzTotal]="page.totalRow" nzShowTotal (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+        <thead nz-thead>
+            <tr>
+                <th nz-th width="15%">
+                    <div>
+                        <span>线路名称</span>
+                    </div>
+                </th>
+                <th nz-th width="15%">
+                    <div>
+                        <span>年月</span>
+                    </div>
+                </th>
+                <th nz-th width="15%">
+                    <div align="right">
+                        <span>设备数量</span>
+                    </div>
+                </th>
+                <th nz-th width="15%">
+                    <div>
+                        <span>操作</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody nz-tbody>
+            <tr *ngFor="let data of dataSet">
+
+                <td nz-td>
+                    {{data.lineName}}
+                </td>
+                <td nz-td>
+                    {{data.theYearMonth}}
+                </td>
+                <td nz-td>
+                    {{data.customerCount}}
+                </td>
+                <td nz-td>
+                    <a (click)="openDayDetail(data)">详情</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="mod(data)" *authId="'E020203'">修改</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

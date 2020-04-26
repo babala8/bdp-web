@@ -1,0 +1,18 @@
+<div class="router-progress-bar" *ngIf="isFetching"></div>
+<app-header></app-header>
+<div class="user-content-wrapper">
+  <zj-sidebar class="content-sideBar-wrapper"
+    [ngStyle]="{'margin-left': layoutService.sideBarShowFlag ? '0px': '-230px'}"></zj-sidebar>
+  <i (click)="changeSideBar()" nz-icon nzType="menu-{{layoutService.sideBarShowFlag ? 'fold': 'unfold'}}"
+    nzTheme="outline" class="menu-fold-unfold"></i>
+  <section class="content-outer-wrapper">
+    <tab-bar></tab-bar>
+    <div class="content-inner-wrapper">
+      <nz-spin nzSize="large" [nzSpinning]="isFetching"></nz-spin>
+      <router-outlet></router-outlet>
+      <div [style.display]="display" style="height: 100%">
+        <app-manager></app-manager>
+      </div>
+    </div>
+  </section>
+</div>

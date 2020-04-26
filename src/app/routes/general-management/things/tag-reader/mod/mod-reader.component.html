@@ -1,0 +1,235 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24" nzRequired>
+          清机中心
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+          <select-clr-center name="clrCenterNo" formControlName="clrCenterNo" allowClear="true"></select-clr-center>
+          <nz-form-explain *ngIf="getFormControl('clrCenterNo')?.dirty && getFormControl('clrCenterNo')?.hasError('required')">
+            <span style="color: red;">请选择清机中心</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24" nzRequired>
+          读写器编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagReaderNo')">
+          <input nz-input nzSize="middle" id="tagReaderNo" formControlName="tagReaderNo" maxlength="32">
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24" nzRequired>
+          读写器类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('readerType')" nzHasFeedback>
+          <nz-select [nzSize]="'middle'" id="readerType" formControlName="readerType" name="readerType" nzAllowClear
+                     [nzPlaceHolder]="'--请选择读写器类型--'"  (ngModelChange)="isfIX()">
+            <nz-option *ngFor="let r of rType" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="getFormControl('readerType')?.dirty && getFormControl('readerType')?.hasError('required')">
+            <span style="color: red;">请选择读写器类型</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24" nzRequired>
+          读写器状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('status')" nzHasFeedback>
+          <nz-select [nzSize]="'middle'" id="status" formControlName="status" name="status" nzAllowClear
+                     [nzPlaceHolder]="'--请选择读写器状态--'">
+            <nz-option *ngFor="let r of rStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="getFormControl('status')?.dirty && getFormControl('status')?.hasError('required')">
+            <span style="color: red;">请选择读写器状态</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('readerType').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          安放地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('location')">
+          <input nz-input nzSize="middle" id="location" formControlName="location">
+          <nz-form-explain *ngIf="validateForm.controls['location'].dirty && validateForm.controls['location'].errors">
+            <ng-container *ngIf="validateForm.controls['location'].hasError('maxlength')">
+              <span style="color: red">地址长度不得超过100位</span>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          是否有GPS模块
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('whetherGpsModule')">
+          <nz-select [nzSize]="'middle'" [nzPlaceHolder]="'--请选择--'" id="whetherGpsModule" formControlName="whetherGpsModule">
+            <nz-option *ngFor="let r of YON" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          是否有GPRS模块
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('whetherGprsModule')" >
+          <nz-select [nzSize]="'middle'" [nzPlaceHolder]="'--请选择--'" id="whetherGprsModule" formControlName="whetherGprsModule" (ngModelChange)="isGPRS()">
+            <nz-option *ngFor="let r of YON" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          是否有WIFI模块
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('whetherWifiModule')">
+          <nz-select [nzSize]="'middle'" [nzPlaceHolder]="'--请选择--'" id="whetherWifiModule" formControlName="whetherWifiModule">
+            <nz-option *ngFor="let r of YON" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          是否有条码模块
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('whetherBarcodeModule')">
+          <nz-select [nzSize]="'middle'" [nzPlaceHolder]="'--请选择--'" id="whetherBarcodeModule" formControlName="whetherBarcodeModule">
+            <nz-option *ngFor="let r of YON" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          GPRS信号量阈值
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('gprsVolThreshold')">
+          <input type="number" min="0" nz-input nzSize="middle" id="gprsVolThreshold" formControlName="gprsVolThreshold" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          GPRS信号量最大阈值
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('gprsVolMaxThreshold')">
+          <input type="number" min="0" nz-input nzSize="middle" id="gprsVolMaxThreshold" formControlName="gprsVolMaxThreshold" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          GPRS信号量最小阈值
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('gprsVolMinThreshold')">
+          <input type="number" min="0" nz-input nzSize="middle" id="gprsVolMinThreshold" formControlName="gprsVolMinThreshold" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          GPRS信号量下浮偏移量
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('gprsVolOffset')">
+          <input type="number" min="0" nz-input nzSize="middle" id="gprsVolOffset" formControlName="gprsVolOffset" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          定时任务时间间隔
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('timingTaskInterval')">
+          <nz-input-group nzAddOnAfter="分钟">
+            <input type="number" min="0" nz-input nzSize="middle" id="timingTaskInterval" formControlName="timingTaskInterval" >
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('whetherGprsModule').value === 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          手持机GPRS包月流量
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('gprsMonthlyFreeFlow')">
+          <nz-input-group nzAddOnAfter="MB">
+            <input type="number" min="0" nz-input nzSize="middle" id="gprsMonthlyFreeFlow" formControlName="gprsMonthlyFreeFlow" >
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          主密钥
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tmk')">
+          <input nz-input nzSize="middle" id="tmk" formControlName="tmk">
+          <nz-form-explain *ngIf="validateForm.controls['tmk'].dirty&&validateForm.controls['tmk'].errors">
+            <span style="color: red">主密钥长度不得超过48位</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24" *ngIf="getFormControl('readerType').value != 1">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          SIM卡手机号码
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('simNumberNo')" >
+          <input nz-input nzSize="middle" id="simNumberNo" formControlName="simNumberNo" maxlength="20">
+          <nz-form-explain *ngIf="validateForm.controls['simNumberNo'].dirty&&validateForm.controls['simNumberNo'].errors">
+            <ng-container *ngIf="validateForm.controls['simNumberNo'].hasError('pattern')">
+              <span style="color: red">手机号码格式不正确</span>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="8" [nzXs]="24">
+          备注
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+          <input nz-input nzSize="middle" id="note" formControlName="note" maxlength="100">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center;">
+      <button nz-button nzSize="middle" nzType="primary" style="width: 20%">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

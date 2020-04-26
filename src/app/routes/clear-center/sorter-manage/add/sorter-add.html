@@ -1,0 +1,145 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <div nz-row>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    所属金库
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')" nzHasFeedback>
+                    <select-clr-center name="clrCenterNo" defaultSelect formControlName="clrCenterNo"></select-clr-center>
+                    <nz-form-explain  *ngIf="getFormControl('clrCenterNo').dirty&&validateForm.controls['clrCenterNo'].errors">
+                        <span style="color: red;">请选择所属金库</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备编号
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devNo')" nzHasFeedback>
+                    <input nz-input [nzSize]="'middle'" formControlName="devNo" id="'devNo'">
+                    <nz-form-explain  *ngIf="getFormControl('devNo').dirty&&validateForm.controls['devNo'].errors">
+                        <span style="color: red;">请输入设备编号</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备型号
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devModel')" nzHasFeedback>
+                    <input nz-input [nzSize]="'middle'" formControlName="devModel" id="'devModel'">
+                    <nz-form-explain  *ngIf="getFormControl('devModel').dirty&&validateForm.controls['devModel'].errors">
+                        <span style="color: red;">请输入设备型号</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备类型
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devType')" nzHasFeedback>
+                    <nz-select formControlName="devType" [nzSize]="'default'" nzPlaceHolder="'--请选择设备类型--'">
+                        <nz-option *ngFor="let d of typeList"  [nzLabel]="d.label" [nzValue]="d.value"></nz-option>
+                    </nz-select>
+                    <nz-form-explain  *ngIf="getFormControl('devType').dirty&&validateForm.controls['devType'].errors">
+                        <span style="color: red;">请选择类型</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备规格
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devStandards')" nzHasFeedback>
+                    <input nz-input [nzSize]="'middle'" formControlName="devStandards" id="'devStandards'">
+                    <nz-form-explain  *ngIf="getFormControl('devStandards').dirty&&validateForm.controls['devStandards'].errors">
+                        <span style="color: red;">请输入设备规格</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备IP
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('ip')" nzHasFeedback>
+                    <input nz-input [nzSize]="'middle'" formControlName="ip" id="'ip'">
+                    <nz-form-explain  *ngIf="getFormControl('ip').dirty&&validateForm.controls['ip'].errors">
+                        <span style="color: red;">请输入设备规格</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    设备状态
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devStatus')" nzHasFeedback>
+                    <nz-select formControlName="devStatus" [nzSize]="'default'" nzPlaceHolder="'--请选择设备状态--'">
+                        <nz-option *ngFor="let d of statusList" [nzLabel]="d.label" [nzValue]="d.value"></nz-option>
+                    </nz-select>
+                    <nz-form-explain  *ngIf="getFormControl('devStatus').dirty&&validateForm.controls['devStatus'].errors">
+                        <span style="color: red;">请选择设备状态</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    摆放位置
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('location')" nzHasFeedback>
+                    <input nz-input [nzSize]="'middle'" formControlName="location" id="'location'">
+                    <nz-form-explain  *ngIf="getFormControl('location').dirty&&validateForm.controls['location'].errors">
+                        <span style="color: red;">请输入摆放位置</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                    投用日期
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('userDate')" nzHasFeedback>
+                    <nz-date-picker style="width: 100%" [nzSize]="'middle'" formControlName="userDate" id="'userDate'"></nz-date-picker>
+                    <nz-form-explain  *ngIf="getFormControl('userDate').dirty&&validateForm.controls['userDate'].errors">
+                        <span style="color: red;">请选择投用日期</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12">
+            <nz-form-item  nz-row>
+                <nz-form-label  nz-col [nzSm]="6" [nzXs]="24">
+                    备注
+                </nz-form-label>
+                <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+                    <input nz-input [nzSize]="'middle'" formControlName="note" id="'note'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+    </div>
+
+    <nz-form-item style="margin-bottom:8px;text-align: center">
+        <nz-form-control>
+            <button nz-button [nzSize]="'middle'" [nzType]="'primary'" style="width: 30%;">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

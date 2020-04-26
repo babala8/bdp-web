@@ -1,0 +1,81 @@
+<div>
+  <div class="search-result-list">
+    <nz-table #nzTable1
+              nzSize="default"
+              [nzFrontPagination]="false"
+              [nzShowPagination]="false"
+              [nzLoading]="false"
+              [nzData]="money"
+              [nzScroll]="{ y: '240px' }"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="10%">操作</th>
+        <th nzWidth="35%">任务单编号</th>
+        <th nzWidth="35%">计划金额</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable1.data;let i = index;">
+        <td><label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refresh($event);"></label></td>
+        <td>{{item?.taskNo}}</td>
+        <td>{{item?.checkAmount}}</td>
+      </tr>
+      </tbody>
+
+    </nz-table>
+  </div>
+  <form nz-form [formGroup]="validateForm">
+    <div nz-row>
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="5" nzFor="batch" style="font-size: 16px;text-align: left">
+            批次
+          </nz-form-label>
+          <nz-form-control  nz-col [nzSm]="10" [nzXs]="24" [nzValidateStatus]="getFormControl('batch')" nzHasFeedback>
+            <nz-input-number style="width: 100%" [nzSize]="'default'" [nzMin]="0" formControlName="batch" [(ngModel)]="formModel['batch']"></nz-input-number>
+            <nz-form-explain  *ngIf="validateForm.controls['batch'].dirty&&validateForm.controls['batch'].errors">
+              <span style="color: red;">请输入批次</span>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <div nz-row>
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 16px; color: rgba(0, 0, 0, 0.85);">选择清分机</span>
+    </div>
+  </div>
+  <div class="search-result-list">
+    <nz-table #nzTable2
+              nzSize="default"
+              [nzFrontPagination]="false"
+              [nzShowPagination]="false"
+              [nzLoading]="false"
+              [nzData]="dataSet"
+              [nzScroll]="{ y: '240px' }"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="10%">操作</th>
+        <th nzWidth="35%">清分机编号</th>
+        <th nzWidth="35%">批次数量</th>
+        <th nzWidth="35%">工作状态</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable2.data;let i = index;">
+        <td><label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus($event, item);"></label></td>
+        <td>{{item?.devNo}}</td>
+        <td>{{item?.countNum}}</td>
+        <td>{{exampleObj[item?.devStatus]}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+    <div nz-col [nzSpan]="24" style="text-align: right">
+      <button nz-button (click)="postInventory()" nzSize="default" nzType="primary">分配</button>
+    </div>
+  </div>
+
+</div>

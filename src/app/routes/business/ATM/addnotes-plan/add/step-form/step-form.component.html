@@ -1,0 +1,10 @@
+<div class="ant-modal-header" [ngSwitch]="item.step">
+    <div *ngSwitchCase="0" class="ant-modal-title">加钞计划——选择设备</div>
+    <div *ngSwitchCase="1" class="ant-modal-title">加钞计划——金额预测</div>
+    <div *ngSwitchCase="2" class="ant-modal-title">加钞计划——规划分组</div>
+    <div *ngSwitchDefault>加钞计划配置</div>
+</div>
+<device-selection *ngIf="item.step==0" [planNo]="addnotesPlanNo"></device-selection>
+<adjust-atms *ngIf="item.step==1" [planNo]="addnotesPlanNo"></adjust-atms>
+<fix-group-tsp *ngIf="item.step==2&&item.ADDNOTE_MODE==MOD.FIX" [planNo]="addnotesPlanNo"></fix-group-tsp>
+<auto-group-tsp *ngIf="item.step==2&&item.ADDNOTE_MODE==MOD.DYNAMIC" [planNo]="addnotesPlanNo"></auto-group-tsp>

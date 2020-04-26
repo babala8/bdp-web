@@ -1,0 +1,59 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      岗位名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('postName')">
+      <input nz-input nzSize="default" formControlName="postName" [id]="'postName'">
+      <nz-form-explain *ngIf="getFormControl('postName').dirty && getFormControl('postName').errors">
+        <span style="color: red">请输入岗位名称!</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      岗位类型
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('postType')">
+      <nz-select formControlName="postType" [nzPlaceHolder]="'--请选择岗位类型--'" nzallowclear
+                 name="postType" style="width: 100%">
+        <nz-option
+          *ngFor="let option of postTypeList"
+          [nzLabel]="option.label"
+          [nzValue]="option.value">
+        </nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('postType').dirty && getFormControl('postType').errors">
+        <span style="color: red;">请选择岗位类型!</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      制约岗位
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('postLimitType')">
+      <nz-select formControlName="postLimitType" nzMode="multiple" [nzPlaceHolder]="'--请选择制约岗位类型--'" nzallowclear
+                 name="postLimitType" style="width: 100%">
+        <nz-option
+          *ngFor="let option of postList"
+          [nzLabel]="option.postName"
+          [nzValue]="option.postNo">
+        </nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('postLimitType').dirty && getFormControl('postLimitType').errors">
+        <span style="color: red;">请选择制约岗位类型!</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      备注
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('note')">
+      <input nz-input nzSize="default" formControlName="note" [id]="'note'">
+    </nz-form-control>
+  </nz-form-item>
+</form>

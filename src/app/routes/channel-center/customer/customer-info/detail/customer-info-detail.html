@@ -1,0 +1,224 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div nz-row>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired nzFor="customerNumber">
+          客户号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" [nzValidateStatus]="getFormControl('customerNumber')">
+          <input nz-input [nzSize]="'default'" formControlName="customerNumber" name="customerNumber"
+                 [id]="'customerNumber'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['customerNumber'].dirty && validateForm.controls['customerNumber'].errors">
+            请输入
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired nzFor="customerShortName">
+          客户简称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('customerShortName')">
+          <input nz-input [nzSize]="'default'" formControlName="customerShortName" [id]="'customerShortName'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['customerShortName'].dirty && validateForm.controls['customerShortName'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired nzFor="cnCustomerLongName">
+          客户全称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('cnCustomerLongName')">
+          <input nz-input [nzSize]="'default'" formControlName="cnCustomerLongName" [id]="'cnCustomerLongName'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['cnCustomerLongName'].dirty && validateForm.controls['cnCustomerLongName'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired nzFor="callCustomerTypeList">
+          客户类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('callCustomerType')">
+          <nz-select formControlName="callCustomerType" [nzSize]="'default'" [nzPlaceHolder]="'请选择'">
+            <nz-option *ngFor="let type of callCustomerTypeList" [nzLabel]="type.name" [nzValue]="type.no"></nz-option>
+          </nz-select>
+          <nz-form-explain
+            *ngIf="validateForm.controls['callCustomerType'].dirty && validateForm.controls['callCustomerType'].errors">
+            <span>请选择</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          收款周期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('callClrPeriod')">
+          <nz-input-number style="width: 100%" [nzSize]="'default'" [nzMax]="30" [nzMin]="0"
+                           formControlName="callClrPeriod"></nz-input-number>
+          <nz-form-explain
+            *ngIf="validateForm.controls['callClrPeriod'].dirty && validateForm.controls['callClrPeriod'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          区域
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('location')">
+          <input nz-input [nzSize]="'default'" formControlName="location" [id]="'location'">
+          <nz-form-explain *ngIf="validateForm.controls['location'].dirty && validateForm.controls['location'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('address')">
+          <input nz-input [nzSize]="'default'" formControlName="address" [id]="'address'">
+          <nz-form-explain *ngIf="validateForm.controls['address'].dirty && validateForm.controls['address'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          是否为本行客户
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('isOneself')">
+          <nz-select formControlName="isOneself" [nzSize]="'default'" [nzPlaceHolder]="'请选择'">
+            <nz-option *ngFor="let r of isOneselfs" [nzLabel]="r.label" [nzValue]="r.value"></nz-option>
+          </nz-select>
+          <nz-form-explain
+            *ngIf="validateForm.controls['isOneself'].dirty && validateForm.controls['isOneself'].errors">
+            <span>请选择</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          上门线路
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('callCustomerLine')">
+          <nz-select formControlName="callCustomerLine" [nzSize]="'default'" [nzPlaceHolder]="'请选择'">
+            <nz-option *ngFor="let line of lines" [nzLabel]="line.lineName" [nzValue]="line.lineNo"></nz-option>
+          </nz-select>
+          <nz-form-explain
+            *ngIf="validateForm.controls['callCustomerLine'].dirty && validateForm.controls['callCustomerLine'].errors">
+            <span>请选择</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          经度
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('x')">
+          <input nz-input [nzSize]="'default'" formControlName="x" [id]="'x'">
+          <nz-form-explain *ngIf="validateForm.controls['x'].dirty && validateForm.controls['x'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          纬度
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('y')">
+          <input nz-input [nzSize]="'default'" formControlName="y" [id]="'y'">
+          <nz-form-explain *ngIf="validateForm.controls['y'].dirty && validateForm.controls['y'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6">
+          客户身份认证电话
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('customerAuthPhone')">
+          <input nz-input [nzSize]="'default'" formControlName="customerAuthPhone" [id]="'customerAuthPhone'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['customerAuthPhone'].dirty && validateForm.controls['customerAuthPhone'].errors">
+            <span>长度需小于11</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+          客户经理
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('customerManage')">
+          <input nz-input [nzSize]="'default'" formControlName="customerManage" [id]="'customerManage'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['customerManage'].dirty && validateForm.controls['customerManage'].errors">
+            <span>请输入</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6">
+          联系电话1
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('touchPhoneOne')">
+          <input nz-input [nzSize]="'default'" formControlName="touchPhoneOne" [id]="'touchPhoneOne'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['touchPhoneOne'].dirty && validateForm.controls['touchPhoneOne'].errors">
+            <span>长度需小于11</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6">
+          联系电话2
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16" nzHasFeedback [nzValidateStatus]="getFormControl('touchPhoneTwo')">
+          <input nz-input [nzSize]="'default'" formControlName="touchPhoneTwo" [id]="'touchPhoneTwo'">
+          <nz-form-explain
+            *ngIf="validateForm.controls['touchPhoneTwo'].dirty && validateForm.controls['touchPhoneTwo'].errors">
+            <span style="color: red;">长度需小于11</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row style="padding-top: 16px">
+    <div nz-col style="text-align: center">
+      <button nz-button [nzSize]="'default'" [nzType]="'primary'" style="width: 30%">关闭</button>
+    </div>
+  </div>
+</form>

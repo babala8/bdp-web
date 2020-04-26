@@ -1,0 +1,121 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+        清机中心
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+        <select-clr-center name="clrCenterNo" formControlName="clrCenterNo" allowClear="true"></select-clr-center>
+        <nz-form-explain *ngIf="getFormControl('clrCenterNo')?.dirty && getFormControl('clrCenterNo')?.hasError('required')">
+          <span style="color: red;">请选择清机中心</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+        标签编号
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagTid')">
+        <input nz-input nzSize="middle" id="tagTid" formControlName="tagTid" maxlength="50">
+        <nz-form-explain *ngIf="getFormControl('tagTid')?.dirty && getFormControl('tagTid')?.hasError('required')">
+          <span style="color: red;">请输入标签编号</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+        标签类型
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagType')">
+        <nz-select [nzSize]="'middle'" id="tagType" formControlName="tagType" name="tagType" nzAllowClear
+                   [nzPlaceHolder]="'--请选择标签类型--'">
+          <nz-option *ngFor="let r of tType" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+        </nz-select>
+        <nz-form-explain *ngIf="getFormControl('tagType')?.dirty && getFormControl('tagType')?.hasError('required')">
+          <span style="color: red;">请选择标签类型</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+        状态
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('status')">
+        <nz-select [nzSize]="'middle'" id="status" formControlName="status" name="status" nzAllowClear
+                   [nzPlaceHolder]="'--请选择状态--'">
+          <nz-option *ngFor="let r of tStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+        </nz-select>
+        <nz-form-explain *ngIf="getFormControl('status')?.dirty && getFormControl('status')?.hasError('required')">
+          <span style="color: red;">请选择状态</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        EPC区信息
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('epcInfo')">
+        <input nz-input nzSize="middle" id="epcInfo" formControlName="epcInfo"  maxlength="32">
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        EPC存储容量
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('epcMemorySize')">
+        <input nz-input nzSize="middle" id="epcMemorySize" formControlName="epcMemorySize">
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        用户区存储容量
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('userdataMemorySize')">
+        <input nz-input nzSize="middle" id="userdataMemorySize" formControlName="userdataMemorySize">
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        备注
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+        <input nz-input nzSize="middle" id="note" formControlName="note" maxlength="100">
+      </nz-form-control>
+    </nz-form-item>
+    </div>
+  </div>
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control  nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 50%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

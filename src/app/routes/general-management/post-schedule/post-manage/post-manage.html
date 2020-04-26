@@ -1,0 +1,103 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="username">
+          岗位名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['postName']" name="username"
+                 id="username">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="roleNo">
+          岗位类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['postType']" name="postType" nzAllowClear id="postType"
+                     [nzPlaceHolder]="'--请选择岗位类型--'">
+            <nz-option *ngFor="let r of postTypeList" [nzLabel]="r.label" [nzValue]="r.value"></nz-option>
+            e
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6" [nzOffset]="1">
+      <button nz-button [nzType]="'primary'" (click)="search()" nzSize="middle" [nzLoading]="loading"><i
+        nz-icon type="search"></i><span>查询</span></button>
+      <button nz-button (click)="form.reset();_refreshData(true)" nzSize="middle" [nzLoading]="loading"><i
+        nz-icon type="sync"></i><span>重置</span></button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">岗位管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'C0902'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="_refreshData(true)"
+            (nzPageIndexChange)="_refreshData()"
+  >
+
+    <thead>
+    <tr>
+      <th>
+        <span>岗位名称</span>
+      </th>
+      <th>
+        <span>岗位类型</span>
+      </th>
+      <th>
+        <span>备注</span>
+      </th>
+      <th>
+        <span>操作</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of nzTable.data;let i = index;">
+      <td>
+        <a (click)="openDetail(item)">{{item?.postName}}</a>
+      </td>
+      <td>
+        <ng-container *ngFor="let post of postTypeList">
+          <ng-container *ngIf="post.value == item.postType">{{post.label}}</ng-container>
+        </ng-container>
+      </td>
+      <td>
+        <span>{{item?.note}}</span>
+      </td>
+      <td>
+        <a (click)="modifyUser(item)" *authId="'C0903'">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'确定要删除该岗位吗？'" (nzOnConfirm)="deletePost(item)">
+          <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C0904'">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

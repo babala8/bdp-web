@@ -1,0 +1,90 @@
+<form nz-form [formGroup]="validateForm">
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="ruleId" nz-form-item-required>规则编号</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleId" [id]="'ruleId'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="ruleDesp" nz-form-item-required>规则名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleDesp" [id]="'ruleDesp'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="ruleGenOpNo" nz-form-item-required>规则制定人编号</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleGenOpNo" [id]="'ruleGenOpNo'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="ruleGenOpName" nz-form-item-required>规则制定人</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleGenOpName" [id]="'ruleGenOpName'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="ruleGenDate" nz-form-item-required>规则制定日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleGenDate" [id]="'ruleGenDate'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="addnotesPeriod" nz-form-item-required>加钞周期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="addnotesPeriod" [id]="'addnotesPeriod'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="addnotesCoeff" nz-form-item-required>配钞系数</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="addnotesCoeff" [id]="'addnotesCoeff'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label for="quotaRatio" nz-form-item-required>定额配比</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="quotaRatio" [id]="'quotaRatio'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</form>

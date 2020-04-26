@@ -1,0 +1,90 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="8">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="name">
+          服务商名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['name']" name="name"
+                 id="name">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col nzSpan="8" style="text-align: center">
+      <button nz-button nzType="primary" (click)="search()" [nzSize]="'middle'" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="form.reset();refreshData()" style="margin-left: 10px;" [nzSize]="'middle'"
+              [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">服务商信息</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button [nzType]="'primary'" (click)="openAddMutiple()" [nzSize]="'middle'" *authId="'C120205'">
+      <i class="anticon anticon-plus"></i>
+      <span>批量添加</span>
+    </button>
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'C120202'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            [nzShowTotal]="pageSizeTem"
+            [nzFrontPagination]="false"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+  >
+
+    <thead>
+    <tr >
+      <th>
+        <span>服务商名称</span>
+      </th>
+      <th>
+        <span>联系人</span>
+      </th>
+      <th>
+        <span>联系电话</span>
+      </th>
+      <th>
+        <span>操作</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of nzTable.data;let i = index;">
+      <td>
+        <span>{{item?.name}}</span>
+      </td>
+      <td>
+        <span>{{item?.linkman}}</span>
+      </td>
+      <td>
+        <span>{{item?.mobile}}</span>
+      </td>
+      <td>
+        <a (click)="openMod(item)" *authId="'C120203'">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'确定要删除该服务商吗？'" (nzOnConfirm)="delProvider(item)">
+          <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C120204'">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

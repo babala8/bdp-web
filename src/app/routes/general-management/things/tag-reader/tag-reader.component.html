@@ -1,0 +1,152 @@
+<form nz-form class="search-form">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'clrCenterNo'">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" allowClear="true"></select-clr-center>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'readerType'">
+          读写器类型
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['readerType']" name="readerType" nzAllowClear
+                     [nzPlaceHolder]="'--请选择读写器类型--'">
+            <nz-option *ngFor="let r of rType" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'tagReaderNo'">
+          读写器编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['tagReaderNo']" [nzSize]="'default'" name="tagReaderNo" style="width: 100%" maxlength="32">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'location'">
+          安放地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['location']" [nzSize]="'default'" name="location" style="width: 100%" maxlength="100">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'simNumberNo'">
+          SIM卡编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['simNumberNo']" [nzSize]="'default'" name="simNumberNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'readerStatus'">
+          读写器状态
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['readerStatus']" name="readerStatus" nzAllowClear
+                     [nzPlaceHolder]="'--请选择读写器状态--'">
+            <nz-option *ngFor="let r of rStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row align="center">
+    <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()">
+      <i class="anticon anticon-search"></i>
+      <span>查询</span>
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()">
+      <i class="anticon anticon-sync"></i>
+      <span>重置</span>
+    </button>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">标签读写器管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'C020302'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>读写器编号</th>
+      <th>读写器类型</th>
+      <th>安放地址</th>
+      <th>SIM卡编号</th>
+      <th>备注</th>
+      <th>状态</th>
+      <th style="text-align: center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.tagReaderNo}}
+      </td>
+      <td>
+        {{data.readerTypeName}}
+      </td>
+      <td>
+        {{data.location}}
+      </td>
+      <td>
+        {{data.simNumberNo}}
+      </td>
+      <td>
+        {{data.note}}
+      </td>
+      <td>
+        {{data.readerStatus}}
+      </td>
+      <td style="text-align: center">
+        <ng-container *ngIf="data.status != 2 && data.status != 3">
+          <a (click)="openMod(data)" *authId="'C020303'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定删除该项吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'" (nzOnConfirm)="delReader(data.tagReaderNo)">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C020304'">删除</a>
+          </nz-popconfirm>
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

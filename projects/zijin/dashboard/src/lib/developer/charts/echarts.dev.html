@@ -1,0 +1,54 @@
+<as-split (dragEnd)="onDragEnd(null,$event)">
+    <as-split-area>
+        <div nz-row style="font-size:20px; font-weight:bold ;margin-left: 10px;height: 35px ">Form表单</div>
+        <ng-content select="form"></ng-content>
+
+    </as-split-area>
+    <as-split-area>
+        <div nz-row style="font-size:20px; font-weight:bold ;margin-left: 10px;height: 35px ">JSON数据</div>
+        <div ace-editor
+             [text]="_payload"
+             [mode]="'json'"
+             [theme]="'clouds'"
+             [readOnly]="true"
+             style="height:calc(100% - 35px);"></div>
+    </as-split-area>
+    <as-split-area>
+        <div style="padding-left: 10px; position: relative;">
+            <span style="font-size: 20px; font-weight:bold;">
+                Echarts Option
+            </span>
+            <button nz-button [nzType]="'primary'" (click)="preview()" style="position: absolute; right: 0;">
+                预览
+            </button>
+        </div>
+        <div ace-editor
+             [text]="aceConfig.text"
+             [mode]="aceConfig.mode"
+             [theme]="aceConfig.theme"
+             [options]="aceConfig.options"
+             [readOnly]="aceConfig.readOnly"
+             (textChanged)="aceConfig.textChanged($event)"
+             style="height:calc(100% - 32px);"></div>
+    </as-split-area>
+    <as-split-area>
+        <as-split direction="vertical" (dragEnd)="onDragEnd(true,$event)">
+            <as-split-area>
+                <p style="font-size:20px; font-weight:600; margin-left: 10px; height: 35px; ">
+                    预览图
+                </p>
+                <p style="color: #e21313; margin-top: 10px;">
+                    <i>容器宽度：{{divSize.width + 'px'}}, 高度：{{divSize.height + 'px'}}</i>
+                </p>
+            </as-split-area>
+            <as-split-area>
+                <div echarts [options]="option" (chartInit)="onChartInit($event)" style="background-color: rgba(169, 169, 169, 0.4); height: 99%;"></div>
+            </as-split-area>
+            <as-split-area>
+                <p style="background-color: #ecf90e; color: #e21313; margin-top: 30px;">
+                    注：可以拖拽分隔条来改变ECharts容器的大小
+                </p>
+            </as-split-area>
+        </as-split>
+    </as-split-area>
+</as-split>

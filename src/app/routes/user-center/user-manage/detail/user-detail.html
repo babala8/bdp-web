@@ -1,0 +1,84 @@
+<form nz-form #form="ngForm">
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            用户账号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['username']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['username']" [id]="'username'" name="username"
+                      [disabled]="true" >
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            用户姓名
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['name']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['name']" [id]="'name'" name="name"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            所属机构
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['org']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['org']" [id]="'org'" name="org"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            角色
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="form.controls['role']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['role']" [id]="'role'" name="role"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      岗位
+    </nz-form-label>
+    <nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="form.controls['post']">
+      <input nz-input nzSize="middle" [(ngModel)]="formModel['post']" [id]="'post'" name="post"
+             [disabled]="true">
+    </nz-form-control>
+  </nz-form-item>
+  <!--<nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        岗位
+    </nz-form-label>
+    <nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="form.controls['post']">
+      <nz-select [(ngModel)]="formModel['post']" nzSize="middle" name="post" [nzDisabled]="true">
+        <nz-option *ngFor="let option of post" [nzLabel]="option.postName" [nzValue]="option.postNo"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>-->
+    <nz-form-item nz-row style="margin-bottom: 20px;">
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            电子邮箱
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['email']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['email']" [id]="'email'" name="email"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6">
+           固定电话
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['phone']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['phone']" [id]="'phone'" name="phone"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+           手机号码
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['mobile']">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['mobile']" [id]="'mobile'" name="mobile"
+                   [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+</form>

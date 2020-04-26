@@ -1,0 +1,138 @@
+<form nz-form #form="ngForm" class="search-form">
+    <div nz-row [nzGutter]="24">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzFor="org">
+                    所属金库
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <select-clr-center name="clrCenterNo" defaultSelect [(ngModel)]="formModel['clrCenterNo']"></select-clr-center>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzFor="devNo">
+                    设备编号
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['devNo']" placeholder="请输入"
+                           name="devNo"
+                           [id]="'devNo'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzFor="devModel">
+                    设备型号
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['devModel']" placeholder="请输入"
+                           name="devModel"
+                           [id]="'devModel'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzFor="devStatus">
+                    设备状态
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['devStatus']" [nzPlaceHolder]="'请选择状态'" name="devStatus"
+                               [nzSize]="'default'"
+                               nzAllowClear>
+                        <nz-option *ngFor="let option of statusList" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzFor="devType">
+                    设备类型
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['devType']" [nzPlaceHolder]="'请选择状态'" name="devType"
+                               [nzSize]="'default'"
+                               nzAllowClear>
+                        <nz-option *ngFor="let option of typeList" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm" style="padding-top: 4px;">
+            <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData(true)">
+                <i class="anticon anticon-search"></i>
+                <span>查询</span>
+            </button>
+            <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="form.reset();refreshData(true)" [nzLoading]="loading">
+                <i class="anticon anticon-sync"></i>
+                <span>重置</span>
+            </button>
+            <a (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+            </a>
+        </div>
+    </div>
+</form>
+
+<div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+        <span style="font-size: 20px;">清分机信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+        <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'" *authId="'K0402'">
+            <i class="anticon anticon-plus"></i><span>添加</span>
+        </button>
+    </div>
+</div>
+<ng-template #pageSizeTem>
+    共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+    <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem"
+              [nzLoading]="loading" [nzData]="dataList" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+        <thead>
+        <tr>
+            <th><span>所属金库</span></th>
+            <th><span>设备类型</span></th>
+            <th><span>设备编号</span></th>
+            <th><span>设备状态</span></th>
+            <th><span>设备型号</span></th>
+            <th><span>设备规格</span></th>
+            <th><span>摆放位置</span></th>
+            <th><span>投用日期</span></th>
+            <th><span>备注</span></th>
+            <th><span>操作</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable.data;let i = index">
+            <td>{{item.centerName}}</td>
+            <td><app-enum-info type="DEV_TYPE" [value]="item.devType"></app-enum-info></td>
+            <td>{{item.devNo}}</td>
+            <td>
+                <app-enum-info type="DEV_STATUS" [value]="item.devStatus"></app-enum-info>
+            </td>
+            <td>{{item.devModel}}</td>
+            <td>{{item.devStandards}}</td>
+            <td>{{item.location}}</td>
+            <td>{{item.userDate}}</td>
+            <td>{{item.note}}</td>
+            <td>
+                <a (click)="openModify(item)" *authId="'K0403'">修改</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <nz-popconfirm [nzTitle]="'确定要删除该清分机吗？'" (nzOnConfirm)="confirmDel(item.devNo)">
+                    <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'K0404'">删除</a>
+                </nz-popconfirm>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>

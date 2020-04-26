@@ -1,0 +1,55 @@
+<nz-table #nzTable
+          nzSize="middle"
+          [nzData]="lineRunMapDetailInfoList"
+          [nzShowPagination]="false"
+          [nzFrontPagination]="false"
+          [nzBordered]="true"
+          [nzLoading]="loading">
+    <thead >
+        <tr>
+            <th  rowspan="2" width="6%">
+                <div align="center">
+                    <span>日期</span>
+                </div>
+            </th>
+            <th rowspan="2" width="8%">
+                <div align="center">
+                    <span>网点数</span>
+                </div>
+            </th>
+            <th rowspan="2" width="13%">
+                <div align="center">
+                    <span>网点</span>
+                </div>
+            </th>
+            <th rowspan="2" width="8%">
+                <div align="center">
+                    <span>操作</span>
+                </div>
+            </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of nzTable.data">
+            <td>
+                <div align="center">
+                    <span>{{data.theDay}}</span>
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    <span>{{data.networkCount}}</span>
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    <single-line [content]="data.orgList" [tooltip]="data.orgListMultiLine"></single-line>
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    <a (click)="openRunMapOrgDetail(data)">详情</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

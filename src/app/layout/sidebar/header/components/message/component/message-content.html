@@ -1,0 +1,16 @@
+<div nz-row>
+  <nz-table #nzTable [nzData]="messageList" [nzBordered]="true" [nzSize]="'middle'" [nzShowPagination]="false">
+    <thead nz-thead>
+    <tr>
+      <th nz-th>消息标题</th>
+      <th nz-th>消息内容</th>
+    </tr>
+    </thead>
+    <tbody nz-tbody>
+      <tr>
+        <td align="center">{{data.title}}</td>
+        <td align="center">{{data.message}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

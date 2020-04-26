@@ -1,0 +1,233 @@
+<form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'clrCenterNo'">所属金库</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']"
+                                       [allowClear]="true"></select-clr-center>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'lineNo'">加钞线路</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <select-dispatch-line name="lineNo" [clrCenterNo]="formModel['clrCenterNo']"
+                                          [(ngModel)]="formModel['lineNo']"></select-dispatch-line>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+            <nz-form-item nz-row>
+              <nz-form-label nzFor="dateRange" nzSpan="8">
+                加钞日期
+              </nz-form-label>
+              <nz-form-control nz-col nzSpan="14">
+                <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="formModel['dateRange']" name="dateRange" [nzSize]="'default'" nzAllowClear="false"></nz-range-picker>
+              </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'status'">计划状态</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['status']" [nzPlaceHolder]="'请选择状态'" name="status"
+                               [nzSize]="'default'" nzAllowClear>
+                        <nz-option *ngFor="let option of states" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div *ngIf="expandForm" nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'urgencyFlag'">加钞状态</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['urgencyFlag']" name="urgencyFlag" nzAllowClear
+                               [nzPlaceHolder]="'--请选择--'" [nzSize]="'default'">
+                        <nz-option *ngFor="let a of urgencyFlags" [nzLabel]="a.name" [nzValue]="a.no"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
+            <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()">
+                <i class="anticon anticon-search"></i>
+                <span>查询</span>
+            </button>
+            <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+                <i class="anticon anticon-sync"></i>
+                <span>重置</span>
+            </button>
+            <a (click)="expandForm=!expandForm">
+                {{expandForm ? '收起' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+            </a>
+        </div>
+    </div>
+</form>
+<span style="display: block; margin-left: 40px; color: #C50819;">
+    * 红色背景的条目表示紧急加钞计划；
+</span>
+<div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+        <span style="font-size: 20px;"> 加钞计划</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+        <button style="margin-right: 10px" data-id="'C010101'" nz-button [nzType]="'primary'" (click)="openCrashPlan()"
+                [nzSize]="'default'" *authId="'B010103'">
+            <i class="anticon anticon-exclamation"></i>
+            <span>添加紧急加钞计划</span>
+        </button>
+        <button data-id="'C010101'" nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'"
+                *authId="'B010102'">
+            <i class="anticon anticon-plus"></i>
+            <span>添加</span>
+        </button>
+    </div>
+</div>
+<ng-template #pageSizeTem>
+    共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+    <nz-table #nzTable [nzLoading]="loading" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem" [nzData]="dataSet"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize" [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()"
+              [nzPageSizeOptions]="PAGESIZE_SELECTOR">
+        <thead nz-thead>
+        <tr>
+            <th nz-th width="11%">
+                <div>
+                    <span>计划状态</span>
+                </div>
+            </th>
+            <th nz-th width="13%">
+                <div>
+                    <span>计划批次</span>
+                </div>
+            </th>
+            <th nz-th width="11%">
+                <div>
+                    <span>计划加钞日期</span>
+                </div>
+            </th>
+            <th nz-th width="9%">
+                <div>
+                    <span>创建人</span>
+                </div>
+            </th>
+            <th nz-th width="12%">
+                <div>
+                    <span>设备数(总金额)</span>
+                </div>
+            </th>
+            <th nz-th width="15%">
+                <div>
+                    <span>加钞线路</span>
+                </div>
+            </th>
+          <th nz-th width="10%">
+            <div>
+              <span>所属金库</span>
+            </div>
+          </th>
+            <th nz-th width="26%">
+                <div>
+                    <span>操作</span>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr *ngFor="let data of dataSet" [style.background]="data.background">
+            <td nz-td align="left" style="padding-left: 35px;">
+                <div [ngSwitch]="data.status">
+                    <ng-container *ngFor="let item of states">
+                        <nz-badge *ngSwitchCase="item.value" [nzStatus]="item.badge" [nzText]="item.label"></nz-badge>
+                    </ng-container>
+                </div>
+            </td>
+            <td nz-td>
+                <a (click)="openDetail(data.addnotesPlanNo)" [title]="data.addnotesPlanNo">{{data.addnotesPlanNo}}</a>
+            </td>
+            <td nz-td>
+                {{data.planAddnotesDate}}
+            </td>
+            <td nz-td>
+                {{data.planGenOpName}}
+            </td>
+            <td nz-td>
+                {{data.planDevCount}}台&nbsp;-&nbsp;{{data.planAddnotesAmt / 10000}}万
+            </td>
+            <td nz-td>
+                <ellipsis title="{{data.lineNameTitle}}" lines="1"
+                          style="max-width: 190px; white-space: nowrap;text-overflow: ellipsis;display: block;">{{data.lineName}}</ellipsis>
+            </td>
+            <td nz-td>
+                {{data.clrCenterName}}
+            </td>
+            <td nz-td rowspan="1">
+                <ng-container *ngIf="data.isUrgency == 1">
+                    <div [ngSwitch]="data.status">
+                        <ng-container *ngIf="data.status<states[4].value || data.status==states[5].value">
+                            <span>
+                                <a (click)="modifyCrashPlan(data)">调整</a>
+                            </span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </ng-container>
+
+                        <nz-popconfirm [nzTitle]="'确定删除该条数据？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"
+                                       (nzOnConfirm)="delete(data.addnotesPlanNo)">
+                            <a *ngIf="data.status<states[4].value || data.status==states[5].value" nz-popconfirm
+                               [ngStyle]="{'color':'red'}">删除</a>
+                        </nz-popconfirm>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isUrgency == 0">
+                    <div [ngSwitch]="data.status">
+                        <ng-container>
+                            <ng-container
+                                *ngIf="data.status>=states[0].value&&data.status<=states[3].value || data.status==states[5].value">
+                                    <span>
+                                        <a (click)="openModal(data, 0)">选设备</a>
+                                    </span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="data.status>=states[1].value&&data.status<=states[3].value || data.status==states[5].value">
+                                    <span>
+                                        <a (click)="openModal(data, 1)">预测</a>
+                                    </span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="data.status==states[2].value||data.status==states[3].value || data.status==states[5].value">
+                                    <span>
+                                        <a (click)="openModal(data, 2)">分组</a>
+                                    </span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                            </ng-container>
+                        </ng-container>
+                        <nz-popconfirm [nzTitle]="'确定删除该条数据？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"
+                                       (nzOnConfirm)="delete(data.addnotesPlanNo)">
+                            <ng-container *authId="'B010104'">
+                                <a *ngIf="data.status!=4 && data.status!=7" nz-popconfirm [ngStyle]="{'color':'red'}" >删除</a>
+                            </ng-container>
+                        </nz-popconfirm>
+                    </div>
+                </ng-container>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>

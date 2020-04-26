@@ -1,0 +1,72 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                金库编号
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+                <input nz-input nzSize="middle" formControlName="clrCenterNo" [id]="'clrCenterNo'">
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                金库名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('centerName')">
+                <input nz-input nzSize="middle" formControlName="centerName" [id]="'centerName'">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6" nzRequired>
+                是否是自动化库
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select formControlName="autoFlag" nzSize="middle" [nzPlaceHolder]="'请选择'">
+                    <nz-option *ngFor="let info of autoFlags" [nzLabel]="info.name" [nzValue]="info.no"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['autoFlag'].dirty && validateForm.controls['autoFlag'].errors">
+                    <!--{{ validateForm.controls['region'].errors['explain'] }}-->
+                    <span [style.color]="'red'">请选择!</span>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6" nzRequired>
+                金库类型
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select formControlName="centerType" nzSize="middle" [nzPlaceHolder]="'请选择'">
+                    <nz-option *ngFor="let info1 of centerTypes" [nzLabel]="info1.name" [nzValue]="info1.no"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['centerType'].dirty && validateForm.controls['centerType'].errors">
+                    <span [style.color]="'red'">请选择!</span>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+  <nz-form-item nz-row>
+    <div nz-col nzSpan="12">
+      <nz-form-label nz-col nzSpan="6" nzRequired>
+        线路模式
+      </nz-form-label>
+      <nz-form-control nz-col nzSpan="14">
+        <nz-select formControlName="lineMode" nzPlaceHolder="请选择">
+          <nz-option *ngFor="let lineMode of centerLineMode" [nzLabel]="lineMode.name" [nzValue]="lineMode.no"></nz-option>
+        </nz-select>
+        <nz-form-explain *ngIf="validateForm.controls['lineMode'].dirty && validateForm.controls['lineMode'].errors">
+          <span>请选择!</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </div>
+  </nz-form-item>
+
+    <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control nz-col [nzSpan]="14" [nzOffset]="8">
+            <button nz-button nzSize="middle" [nzType]="'primary'" style="width: 50%;" [nzLoading]="loading" [disabled]="validateForm.invalid">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

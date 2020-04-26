@@ -1,0 +1,55 @@
+<div style="padding: 20px">
+  <h3 style="margin-top: 20px;">当前任务单信息：</h3>
+  <detail-table [data]="context" [itemWidth]="4"></detail-table>
+</div>
+
+<div style="margin: 20px">
+  <h3 style="margin-top: 20px;">当前扫描信息：</h3>
+  <nz-table #nzTable
+            nzSize="small"
+            [nzShowPagination]="false"
+            [nzData]="entityNoList">
+    <thead>
+    <tr>
+      <th>款箱编号</th>
+      <th>配款金额</th>
+      <th>是否匹配</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;let i = index;">
+      <td>{{data.entityNo}}</td>
+      <td>{{data.amount}}</td>
+      <td>
+        <span *ngIf="data.matchFlag">匹配</span>
+        <span *ngIf="!data.matchFlag">不匹配</span>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<form nz-form [formGroup]="validateForm" style="margin-left: 20px">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="10" nzFor="'shelfNo'" nzRequired>
+          绑定笼车编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12" [nzValidateStatus]="getFormControl('shelfNo')">
+          <input nz-input [(ngModel)]="formModel['shelfNo']" [nzSize]="'default'" name="shelfNo" formControlName="shelfNo">
+          <nz-form-explain *ngIf="validateForm.controls['shelfNo'].dirty && validateForm.controls['shelfNo'].errors">
+            <ng-container *ngIf="validateForm.controls['shelfNo'].hasError('required')">
+              <span style="color: red">请输入笼车编号</span>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-form-item  nz-row style="margin-bottom:8px;">
+    <nz-form-control  nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" (click)="goodCheckOut()" [nzLoading]="loading">确认出库</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,0 +1,182 @@
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="username">
+            用户账号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['username']" name="username"
+                   id="username">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="name">
+            用户姓名
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['name']" name="name"
+                   id="name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="org">
+            所属机构
+          </nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <org-tree [(ngModel)]="formModel['org']" [zjId]="'org'" name="org"
+                      (ngModelChange)="selectRole($event)"></org-tree>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="roleNo">
+            所属角色
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['roleNo']" name="roleNo" nzAllowClear id="roleNo"
+                       [nzPlaceHolder]="'--请选择角色--'">
+              <nz-option *ngFor="let r of roles" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row style="text-align: center;">
+      <div nz-col>
+        <button nz-button nzType="primary" (click)="search()" [nzSize]="'middle'" [nzLoading]="loading">
+          <i class="anticon anticon-search"></i>
+          <span>查询</span>
+        </button>
+        <button nz-button (click)="reset();" style="margin-left: 10px;" [nzSize]="'middle'"
+                [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i>
+          <span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">用户信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'A0301'">
+        <i class="anticon anticon-plus"></i>添加
+      </button>
+    </div>
+  </div>
+  <ng-template #pageSizeTem>
+    共{{page.totalRow}}条
+  </ng-template>
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzSize="middle"
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzShowTotal]="pageSizeTem"
+              [nzLoading]="loading"
+              [nzData]="dataSet"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="_refreshData(true)"
+              (nzPageIndexChange)="_refreshData()"
+    >
+
+      <thead>
+      <tr>
+        <th>
+          <span>用户账号</span>
+        </th>
+        <th>
+          <span>用户姓名</span>
+        </th>
+        <th>
+          <span>角色名称</span>
+        </th>
+        <th>
+          <span>岗位信息</span>
+        </th>
+        <th>
+          <span>用户状态</span>
+        </th>
+        <th>
+          <span>所属机构</span>
+        </th>
+        <th>
+          <span>审核状态</span>
+        </th>
+        <th>
+          <span>操作</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td>
+          <a (click)="openDetail(item)">{{item?.username}}</a>
+        </td>
+        <td>{{item?.name}}</td>
+        <td>
+          <span>{{item?.roleName}}</span>
+        </td>
+        <td>
+          <span>{{item?.postName}}</span>
+        </td>
+        <td>
+          <span *ngIf="item.status == 1" [ngStyle]="{'color':'green'}">启用</span>
+          <span *ngIf="item.status == 0" [ngStyle]="{'color':'red'}">停用</span>
+          <span *ngIf="item.status == -1" [ngStyle]="{'color':'blue'}">新增</span>
+        </td>
+        <td>
+          <span>{{item?.sysOrg.name}}</span>
+        </td>
+        <td>
+          <span *ngIf="!item?.auditStatus" [ngStyle]="{'color':'green'}">正常</span>
+          <span *ngIf="item?.auditStatus==1" [ngStyle]="{'color':'red'}">新增未审批</span>
+          <span *ngIf="item?.auditStatus==2" [ngStyle]="{'color':'red'}">删除未审批</span>
+          <span *ngIf="item?.auditStatus==3" [ngStyle]="{'color':'red'}">新增退回</span>
+          <span *ngIf="item?.auditStatus==4" [ngStyle]="{'color':'red'}">删除退回</span>
+        </td>
+        <td>
+          <!--                <ng-container>-->
+          <!--                    <a *ngIf="(item.auditStatus == 1 || item.auditStatus == 2) && item.operator != myAccount"-->
+          <!--                       (click)="audit(item)">审核</a>-->
+          <!--                </ng-container>-->
+          <!--                <a *ngIf="(item.auditStatus == 3 || item.auditStatus == 4) && item.operator == myAccount"-->
+          <!--                   (click)="resubmit(item)">重新提交</a>-->
+          <!--                <ng-container *ngIf="!item.auditStatus">-->
+          <!--                    <a (click)="modify(item)">修改</a>-->
+          <!--                  <nz-divider nzType="vertical"></nz-divider>-->
+          <!--                    <nz-popconfirm  [nzTitle]="'确定要删除该用户吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"-->
+          <!--                                   (nzOnConfirm)="deleteUser(item)">-->
+          <!--                        <a *ngIf="myAccount != item.no" nz-popconfirm [ngStyle]="{'color':'red'}">删除</a>-->
+          <!--                      <nz-divider *ngIf="myAccount != item.no" nzType="vertical"></nz-divider>-->
+          <!--                    </nz-popconfirm>-->
+          <!--                    <ng-container >-->
+          <!--                            <span *ngIf="item.status == 2">-->
+          <!--                             <nz-divider nzType="vertical"></nz-divider>-->
+          <!--                                <a (click)="unlock(item)">解锁</a>-->
+          <!--                            </span>-->
+          <!--                    </ng-container>-->
+          <!--                    <a  (click)="resetPassword(item)">重置密码</a>-->
+          <!--                </ng-container>-->
+
+          <a (click)="modifyUser(item)" *authId="'A0302'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定要删除该用户吗？'" (nzOnConfirm)="deleteUser(item)">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'A0303'">删除</a>
+          </nz-popconfirm>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a  (click)="resetPassword(item)" *authId="'A0305'">重置密码</a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>

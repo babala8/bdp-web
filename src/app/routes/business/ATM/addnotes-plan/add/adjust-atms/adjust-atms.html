@@ -1,0 +1,221 @@
+<div (click)="clickThing($event)">
+    <nz-card [nzHoverable]="false" [nzBordered]="false">
+        <div class="detail-style">
+            <div nz-row>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>计划批次：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{detail.addnotesPlanNo}}</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>金库：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{detail.clrCenterName}}</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>计划加钞日期：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{detail.planAddnotesDate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>设备台数：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{detail.planDevCount}}</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>加钞总量(万元)：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{detail.planAddnotesAmt}}</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>计划状态：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span [ngSwitch]="detail.status">
+                            <ng-container *ngFor="let item of states">
+                                <span *ngSwitchCase="item.value">{{item.label}}</span>
+                            </ng-container>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nz-divider class="mb-lg"></nz-divider>
+        <span style="display: block; margin: 20px; margin-left: 10px; color: #C50819;">
+            * 加钞金额列带星号的值为系统默认值；
+            <span *ngIf="daysShowFlag"><br> * 修改使用天数后需要重新预测；</span>
+        </span>
+        <nz-table #nzTable [nzData]="dataSet" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'" [nzLoading]="loading">
+            <thead nz-thead>
+                <tr>
+                    <th nz-th rowspan="2" width="80px">
+                        <div align="center">
+                            <span>设备号</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>加钞金额(万元)</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>使用天数</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>所属网点</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>加钞分析</span>
+                        </div>
+                    </th>
+
+                    <th nz-th rowspan="2" nzWidth="20%">
+                        <div align="center">
+                            <span>所属线路</span>
+                        </div>
+                    </th>
+                    <th nz-th>
+                        <div align="center">
+                            <span>余钞量(元)</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>未加钞天数(天)</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>事件描述</span>
+                        </div>
+                    </th>
+            </thead>
+            <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of nzTable.data; let i = index">
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.devNo}}</span>
+                        </div>
+                    </td>
+                    <td nz-td width="10%">
+                        <div nz-row *ngIf="i !== chooseId || type !== 'amount'" style="font-size: 18px;">
+                            <div nz-col nzSpan="8" align="right">
+                                <i name="onchangValue" class="anticon anticon-edit" style="color: #1890ff;" (click)="chooseInput(i,'amount')"></i>
+                            </div>
+                            <div nz-col nzSpan="12" [nzOffset]="2" align="left">
+                                <span *ngIf="!data.msgOfAmt">{{data.planAddnotesAmt}}</span>
+                                <span *ngIf="data.msgOfAmt">{{data.planAddnotesAmt}}*</span>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="i == chooseId && type == 'amount'">
+                            
+                            <nz-input-number #myInput [(ngModel)]="data.planAddnotesAmt"  (keydown)="clearNoNum($event)"
+                                (keyup)="dataFormat($event, i)"></nz-input-number>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <span *ngIf="!daysShowFlag">
+                            2
+                        </span>
+                        <ng-container *ngIf="daysShowFlag">
+                            <div nz-row *ngIf="i != chooseId || type == 'amount'" style="font-size: 18px;">
+                                <div nz-col nzSpan="8" align="right">
+                                    <i name="onchangValue" class="anticon anticon-edit" style="color: #1890ff;" (click)="chooseInput(i,'date')"></i>
+                                </div>
+                                <div nz-col nzSpan="12" [nzOffset]="2" align="left">
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div *ngIf="i == chooseId && type == 'date'">
+                                <nz-input-number [(ngModel)]="data.useDays" (keydown)="clearNoNum($event)"></nz-input-number>
+                            </div>
+                        </ng-container>
+                        <!-- <div align="center">
+                            <span>{{data.useDays}}</span>
+                        </div> -->
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <single-line [content]="data.orgName"></single-line>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <!-- <span>{{data.devCatalogName}}</span> -->
+                            <button nz-button (click)="openAnalysis(data)"  style="background: rgb(52, 194, 182);" >
+                                <span>加钞分析</span>
+                                <i name="onchangValue" class="anticon anticon-bar-chart"></i>
+                            </button>                            
+                        </div>
+                    </td>
+
+                    <td nz-td>
+                        <div align="center">
+                            <single-line [content]="data.devLineName"></single-line>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <span *ngIf="data.availableAmt == -1">没有数据</span>
+                            <span *ngIf="data.availableAmt != -1">{{data.availableAmt | currency:'CNY':'symbol-narrow'}}</span>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.notAddCashDays}}</span>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.keyEventDetail}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <div style=" width: 100%; margin-top: 20px;" align="center">
+            <button nz-button [nzSize]="'default'" [nzType]="'primary'" (click)="cashReqAmt()">
+                重新预测
+            </button>&nbsp;
+            <button nz-button [nzLoading]="loading_operating" [nzSize]="'default'" [nzType]="'primary'" (click)="modify()" [disabled]="!canGroup">
+                下一步，设备分组
+            </button>
+        </div>
+    </nz-card>
+</div>

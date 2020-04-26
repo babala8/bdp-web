@@ -1,0 +1,31 @@
+<div class="header-wrapper">
+    <header-logo></header-logo>
+    <header-menu></header-menu>
+    <header-search></header-search>
+    <header-message></header-message>
+    <!--<header-button></header-button>-->
+  <div class="settings-wrapper">
+      <nz-dropdown nzTrigger="click" nzPlacement="bottomRight">
+        <i class="anticon anticon-setting" nz-dropdown></i>
+        <div nz-menu style="width:200px">
+          <div nz-menu-item class="theme-switch">
+            <header-theme></header-theme>
+          </div>
+          <div nz-menu-item>
+            <header-fullscreen></header-fullscreen>
+          </div>
+          <div nz-menu-item  (click)="openQuickMenu()">
+            <i nz-icon nzType="rocket" nzTheme="outline"></i>
+            配置快捷菜单
+          </div>
+          <div nz-menu-item>
+            <header-storage></header-storage>
+          </div>
+          <!--<div nz-menu-item>
+              <header-i18n></header-i18n>
+          </div>-->
+        </div>
+      </nz-dropdown>
+  </div>
+  <header-user-info></header-user-info>
+</div>

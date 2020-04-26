@@ -1,0 +1,62 @@
+<nz-table #nzTable [nzData]="lineRunMapDetailInfoList" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'"
+        [nzLoading]="loading">
+        <thead nz-thead>
+                <tr>
+                        <th nz-th rowspan="2" width="8%">
+                                <div align="center">
+                                        <span>日期({{theYearMonth}})</span>
+                                </div>
+                        </th>
+                        <th nz-th rowspan="2" width="8%">
+                                <div align="center">
+                                        <span>机器设备数</span>
+                                </div>
+                        </th>
+                        <th nz-th rowspan="2" width="16%">
+                                <div align="center">
+                                        <span>上午设备</span>
+                                </div>
+                        </th>
+                        <th nz-th rowspan="2" width="16%">
+                                <div align="center">
+                                        <span>下午设备</span>
+                                </div>
+                        </th>
+                        <th nz-th rowspan="2" width="8%">
+                                <div align="center">
+                                        <span>操作</span>
+                                </div>
+                        </th>
+        </thead>
+        <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                        <td nz-td>
+                                <div align="center">
+                                        <span>{{data.theDay}}</span>
+                                </div>
+                        </td>
+                        <td nz-td>
+                                <div align="center">
+                                        <span>{{data.devCountAM+data.devCountPM}}</span>
+                                </div>
+                        </td>
+                        <td nz-td>
+                                <div align="center">
+                                        <single-line [content]="data.devListAM" [tooltip]="data.devListAMMultiLine"></single-line>
+                                </div>
+                        </td>
+                        <td nz-td>
+                                <div align="center">
+                                        <single-line [content]="data.devListPM" [tooltip]="data.devListPMMultiLine"></single-line>
+                                </div>
+                        </td>
+                        <td nz-td>
+                                <div align="center">
+                                        <i class="anticon anticon-environment" (click)="openGroupMap(data)"></i>
+                                                <nz-divider nzType="vertical"></nz-divider>    
+                                        <a (click)="openRunMapDevDetail(data)">详情</a>
+                                </div>
+                        </td>
+                </tr>
+        </tbody>
+</nz-table>

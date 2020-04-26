@@ -1,0 +1,70 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="add()">
+    <div nz-row>
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'org'" nz-form-item-required>所属机构</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <org-tree formControlName="org" [zjId]="'org'"></org-tree>
+                    <div nz-form-explain *ngIf="validateForm.controls['org'].dirty && validateForm.controls['org'].errors">
+                        {{ validateForm.controls['org'].errors['explain'] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'mouldType'" nz-form-item-required>模板类型</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <nz-select formControlName="mouldType" [nzPlaceHolder]="'请选择'" name="mouldType" nzAllowClear>
+                        <nz-option *ngFor="let option of mouldTypes" [nzLabel]="option.name" [nzValue]="option.no">
+                        </nz-option>
+                    </nz-select>
+                    <div nz-form-explain *ngIf="validateForm.controls['mouldType'].dirty && validateForm.controls['mouldType'].errors">
+                        {{ validateForm.controls['mouldType'].errors['explain'] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div nz-row style="margin-top: 10px">
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'postInfo'">岗位</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <nz-select formControlName="postInfo" [nzPlaceHolder]="'请选择'" name="postInfo" nzAllowClear>
+                        <nz-option *ngFor="let option of postInfos" [nzLabel]="option.postName" [nzValue]="option.postNo">
+                        </nz-option>
+                    </nz-select>
+                    <div nz-form-explain *ngIf="validateForm.controls['postInfo'].dirty && validateForm.controls['postInfo'].errors">
+                        {{ validateForm.controls['postInfo'].errors['explain'] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'mouldName'" nz-form-item-required>模板名称</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="mouldName" name="mouldName" [id]="'mouldName'">
+                    <div nz-form-explain *ngIf="validateForm.controls['mouldName'].dirty && validateForm.controls['mouldName'].errors">
+                        {{ validateForm.controls['mouldName'].errors['explain'] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div nz-row align="center" style="margin-top: 10px;">
+        <button nz-button [nzType]="'primary'" [nzSize]="'default'" [nzLoading]="loading">
+            <span>分配人员</span>
+        </button>
+    </div>
+</form>

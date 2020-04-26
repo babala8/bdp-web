@@ -1,0 +1,18 @@
+<div nz-row>
+    <div nz-col [nzSpan]="16" style="height: 500px">
+
+        <div #bmap style="height: 100%;width: 100%;"></div>
+    </div>
+    <div nz-col [nzSpan]="7" style="height: 500px" [nzOffset]="1">
+        <span style="font-size: 16px; color: #2a8dd4">建议路线</span><br>
+        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="routeList" [nzScroll]="{ y: 475 }">
+            <tbody nz-tbody>
+            <tr *ngFor="let data of nzTable.data;index as i">
+                <td>
+                    <span>{{i+1}} {{data.startOrgName}} --> {{data.endOrgName}},{{data.distance/1000.0 | number:'1.1-1'}}千米,{{data.time}}分</span><br>
+                </td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

@@ -1,0 +1,251 @@
+<div class="allocation-box" style="margin: 25px">
+  <div nz-row style="margin-bottom: 15px">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">配款任务管理</span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span>清分工位数: </span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span>配款任务数: </span>
+    </div>
+  </div>
+
+  <ng-template #daiPeiKuanTitle>
+    <div nz-row>
+      <div nz-col [nzSpan]="12">
+        ① 待配款
+      </div>
+      <div nz-col [nzSpan]="12" style="text-align: right">
+        <button nz-button (click)="openSorterDistribute()" nzSize="default" nzType="primary" *authId="'K0407'">分配清分机</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <nz-row>
+    <nz-col nzSpan="11">
+      <nz-table #nzTable1
+                nzSize="middle"
+                nzBordered
+                [nzFrontPagination]="false"
+                [nzLoading]="loading"
+                [nzData]="dataSet1"
+                [nzTitle]="daiPeiKuanTitle"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="10%">操作</th>
+          <th nzWidth="35%">任务单编号</th>
+          <th nzWidth="30%">机构名称</th>
+          <th nzWidth="25">线路名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable1.data;let i = index">
+          <td>
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus();"></label>
+          </td>
+          <td>
+            {{ item.taskNo }}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.lineName}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable2
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="loading"
+                [nzData]="dataSet2"
+                [nzTitle]="title2"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="35%">任务单编号</th>
+          <th nzWidth="35%">机构名称</th>
+          <th>线路名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable2.data;let i = index">
+          <td>
+            {{ item.taskNo }}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.lineName}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+
+  <nz-row style="margin-top: 20px">
+    <nz-col nzSpan="11">
+      <nz-table #nzTable3
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="loading"
+                [nzData]="dataSet3"
+                [nzTitle]="title3"
+                [nzHideOnSinglePage]="true"
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="30%">任务单编号</th>
+          <th nzWidth="30%">机构名称</th>
+          <th>线路名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable3.data;let i = index">
+          <td>
+            {{ item.taskNo }}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.lineName}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable4
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="loading"
+                [nzData]="dataSet4"
+                [nzTitle]="title4"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="35%">托盘编号</th>
+          <th nzWidth="35%">机构名称</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable4.data;let i = index">
+          <td>
+            {{ item.taskNo }}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.containerCount }}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+
+  <nz-row style="margin-top: 20px">
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable5
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="loading"
+                [nzData]="dataSet5"
+                [nzTitle]="title5"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="35%">托盘编号</th>
+          <th nzWidth="35%">机构名称</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable5.data;let i = index">
+          <td>
+            {{item.taskNo}}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.containerCount }}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable6
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="loading"
+                [nzData]="dataSet6"
+                [nzTitle]="title6"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="25%">清点工位</th>
+          <th nzWidth="30%">托盘编号</th>
+          <th nzWidth="25%">机构名称</th>
+          <th nzWidth="20">箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable6.data;let i = index">
+          <td>
+            一号位
+          </td>
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{ item.customerName }}
+          </td>
+          <td>
+            {{ item.containerCount }}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+
+</div>

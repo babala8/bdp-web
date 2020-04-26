@@ -1,0 +1,36 @@
+@theme-icon-label-hw: 30px;
+.theme-icons {
+  display: flex;
+  flex-wrap: wrap;
+  vertical-align: middle;
+  padding-left: 4px;
+  label {
+    flex: 0 1 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: @theme-icon-label-hw;
+    height: @theme-icon-label-hw;
+    margin-top: 6px;
+    margin-right: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    .anticon {
+      position: absolute;
+      top: (@theme-icon-label-hw - 16px) / 2;
+      left: (@theme-icon-label-hw - 16px) / 2;
+      font-size: 16px;
+      color: #fff;
+    }
+  }
+
+  .areas {
+    display: flex;
+    height: @theme-icon-label-hw / 2;
+    margin-top: 50%;
+    span {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+}

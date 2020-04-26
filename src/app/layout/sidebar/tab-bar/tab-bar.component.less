@@ -1,0 +1,84 @@
+@tab_width: 132px;
+@tab_height: 32px;
+
+.tab_container {
+  border-bottom: 1px silver solid;
+  height: @tab_height;
+  width: 100%;
+
+  .tab_text {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    padding-left: 3px;
+    width: 96%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {display:none}
+
+    &>div {
+      position: relative;
+      width: @tab_width;
+      height: @tab_height - 4px;
+      margin: 3px 2px 1px 0;
+      line-height: @tab_height - 3px;
+      text-align: center;
+      border-right: 1px solid #ddd;
+      background: white;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      user-select: none;
+
+      :first-child {
+        width: 100%;
+        padding: 0 29px 0 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+
+        &:hover {
+          color: #00CCFF;
+        }
+      }
+
+      :last-child {
+        height: 100%;
+        line-height: @tab_height + 2px;
+        display: inline-block;
+        position: absolute;
+        right: -4px;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+
+  .tab_handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    div {
+      height: 100%;
+      width: 24px;
+      margin: 2px 8px;
+      line-height: @tab_height;
+      font-size: larger;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}
+
+.context_menu {
+  position: absolute;
+}
+
+.active {
+  border-bottom: #00CCFF 2px solid;
+}

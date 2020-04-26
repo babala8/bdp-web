@@ -1,0 +1,50 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                <label [attr.for]="'description'" nz-form-item-required>路线名称</label>
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('description')">
+                <input nz-input [nzSize]="'default'" formControlName="description" [id]="'description'">
+                <nz-form-explain *ngIf="validateForm.controls['description'].dirty && validateForm.controls['description'].errors">
+                    <span style="color: red">请输入路线名称!</span>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                <label [attr.for]="'clrCenterNo'" nz-form-item-required>所属金库</label>
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+                <select-clr-center formControlName="clrCenterNo" name="clrCenterNo"></select-clr-center>
+                <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                    <span style="color: red">请输入所属金库!</span>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                <label [attr.for]="'description'" >备注</label>
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('note')">
+                <textarea nz-input [nzSize]="'default'" formControlName="note" [id]="'note'" rows="'2'"></textarea>
+                <nz-form-explain *ngIf="validateForm.controls['note'].dirty && validateForm.controls['note'].errors">
+                    {{ validateForm.controls['note'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center">
+      <button nz-button [nzSize]="'default'" [nzType]="'primary'" [nzLoading]="loading" style="width: 30%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

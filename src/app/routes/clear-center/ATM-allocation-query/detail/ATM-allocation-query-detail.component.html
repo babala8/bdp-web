@@ -1,0 +1,73 @@
+<div>
+    <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+</div>
+
+<div style="font-size: 18px;margin-top: 15px;">设备列表</div>
+<nz-table #nzTable nzSize="middle" [nzShowPagination]="false" [nzLoading]="loading" [nzData]="dataList" nzBordered>
+    <thead>
+        <tr style="white-space: nowrap">
+            <th nzShowExpand></th>
+            <th>ATM设备</th>
+            <th nzAlign="right">配钞金额</th>
+            <th>状态</th>
+            <th>配钞人员</th>
+            <th>配钞时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-template ngFor let-data [ngForOf]="nzTable.data">
+            <tr>
+                <td nzShowExpand [(nzExpand)]="data.expand"></td>
+                <td>{{data?.customerNo}}</td>
+                <td nzAlign="right">{{data?.amount | currency:'CNY':'symbol-narrow'}}</td>
+                <td [ngSwitch]="data?.status">
+                    <span *ngSwitchCase="1">已配钞</span>
+                    <span *ngSwitchCase="2">已签收</span>
+                    <span *ngSwitchCase="3">已回收</span>
+                    <span *ngSwitchCase="4">已清点</span>
+                    <span *ngSwitchDefault>未配钞</span>
+                </td>
+                <td>{{'未知'}}</td>
+                <td>{{'未知'}}</td>
+
+            </tr>
+            <tr [nzExpand]="data.expand">
+                <td></td>
+                <td colspan="5">
+                    <nz-table #innerTable [nzData]="data.containerEntityDTOs" nzSize="middle" [nzShowPagination]="false"
+                        style="margin: 12px;">
+                        <thead>
+                            <tr>
+                                <th>容器编号</th>
+                                <th>容器类型</th>
+                                <th nzAlign="right">配钞金额</th>
+                                <th>币种</th>
+                                <th>面值</th>
+                                <th>类别</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let innerData of innerTable.data">
+                                <td>{{ innerData.containerNo }}</td>
+                                <td>{{ innerData.containerType == 1 ? '钞袋' : '钞箱' }}</td>
+                                <td nzAlign="right">{{ innerData.containerType == 1 ? '' : innerData.amount | currency:'CNY':'symbol-narrow'}}</td>
+                                <td>
+                                    <app-enum-info type="CURRENCY_CODE"
+                                        [value]="innerData.containerType == 1 ? '' : innerData.currencyCode"></app-enum-info>
+                                </td>
+                                <td>
+                                    <app-enum-info type="DENOMINATION" [value]="innerData.containerType == 1 ? '' : innerData.denomination">
+                                    </app-enum-info>
+                                </td>
+                                <td>
+                                    <app-enum-info type="CURRENCY_TYPE"
+                                        [value]="innerData.containerType == 1 ? '' : innerData.currencyType"></app-enum-info>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                 </td>
+            </tr>
+        </ng-template>
+    </tbody>
+</nz-table>

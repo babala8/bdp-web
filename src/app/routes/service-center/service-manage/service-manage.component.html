@@ -1,0 +1,129 @@
+<form nz-form #form="ngForm" class="search-form">
+  <nz-form-item nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="serviceNo">
+          服务编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['serviceNo']" name="serviceNo" id="serviceNo">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="serviceName">
+          服务名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['serviceName']" name="serviceName"
+            id="serviceName">
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="customerType">
+          服务对象
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select name="customerType" [nzSize]="'middle'" [(ngModel)]="formModel['customerType']" id="customerType">
+            <nz-option *ngFor="let customerType of customerTypeList" [nzLabel]="customerType.name"
+              [nzValue]="customerType.customerType"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+  </nz-form-item>
+  <div nz-row style="text-align: center;">
+    <div nz-col [nzSpan]="24" style="text-align: center">
+      <button nz-button nzType="primary" (click)="refreshData(true)" [nzSize]="'middle'" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="form.reset();" style="margin-left: 10px;" [nzSize]="'middle'" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div style="padding: 32px">
+  <div nz-row style="margin-bottom: 10px">
+    <div nz-col nzSpan="24" style="text-align: right">
+      <nz-pagination [(nzPageIndex)]="page.curPage" [nzTotal]="page.totalRow" (nzPageIndexChange)="refreshData(false)"
+        [nzPageSize]="page.pageSize" [nzShowTotal]="totalTemplate"></nz-pagination>
+      <ng-template #totalTemplate let-total> 共{{total}}条 </ng-template>
+    </div>
+  </div>
+
+  <nz-list [nzLoading]="loading" [nzDataSource]="serviceList" [nzRenderItem]="item"
+    [nzGrid]="{ gutter: 24, lg: 8, md: 12, sm: 24, xs: 24 }">
+    <ng-template #item let-item>
+      <nz-list-item>
+        <ng-container *authId="'P0202'">
+          <button *ngIf="item === null" nz-button (click)="addProduction()" [nzType]="'dashed'"
+            style="width: 100%; height: 120px;">
+            <i nz-icon nzType="plus"></i>
+            <span>新增服务</span>
+          </button>
+        </ng-container>
+        <nz-card nzHoverable *ngIf="item !== null" [nzActions]="[op1, op2]">
+          <ng-template #op1>
+            <a (click)="openDetail(item)"><i nz-icon nzType="menu" nzTheme="outline"
+                style="margin-right: 5px"></i>查看详情</a>
+          </ng-template>
+          <ng-template #op2>
+            <nz-dropdown>
+              <a nz-dropdown><i nz-icon nzType="edit" nzTheme="outline"></i> 操作<i nz-icon type="down"></i> </a>
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item>
+                  <a (click)="modProduction(item)">基本信息管理</a>
+                </li>
+                <!--<li nz-menu-item>-->
+                <!--<a (click)="openStatusManage(item)">状态信息管理</a>-->
+                <!--</li>-->
+                <li nz-menu-item>
+                  <a (click)="openStatusTransitionManage(item)" *authId="'P0206'">流程信息管理</a>
+                </li>
+                <li nz-menu-item>
+                  <a (click)="openGoodsManage(item)" *authId="'P0207'">物品信息管理</a>
+                </li>
+                <li nz-menu-item>
+                  <ng-container *authId="'P0203'">
+                    <a *ngIf="item.status==0" (click)="changeProdStatus(item.serviceNo, 1)">上线</a>
+                  </ng-container>
+                  <ng-container *authId="'P0203'">
+                    <a *ngIf="item.status==1" (click)="changeProdStatus(item.serviceNo, 0)">下线</a>
+                  </ng-container>
+                </li>
+              </ul>
+            </nz-dropdown>
+          </ng-template>
+          <nz-card-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription" style="height: 130px">
+            <ng-template #nzAvatar>
+              <nz-avatar *ngIf="item.type == 0; else selfProductPng" nzSize="large"
+                [nzSrc]="'assets/images/pages/product/product_blue.png'"></nz-avatar>
+              <ng-template #selfProductPng>
+                <nz-avatar nzSize="large" [nzSrc]="'assets/images/pages/product/product_green.png'"></nz-avatar>
+              </ng-template>
+            </ng-template>
+            <ng-template #nzTitle>
+              <a>服务编号：{{ item.serviceNo }}<br />
+                服务名称：{{item.serviceName}}<br />
+                服务状态：<span *ngIf="item.status == 0" style="color: red">已废弃</span>
+                <span *ngIf="item.status == 1" style="color: green;">使用中</span>
+              </a>
+            </ng-template>
+            <ng-template #nzDescription>
+              <!--<ellipsis>{{ item.description }}</ellipsis>-->
+              <div style="width: 100%; height: 60px;">
+                <ellipsis>{{item.note}}</ellipsis>
+              </div>
+            </ng-template>
+          </nz-card-meta>
+        </nz-card>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>

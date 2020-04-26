@@ -1,0 +1,31 @@
+<div nz-row>
+    <div nz-col [nzSpan]="16" style="height: 700px">
+        <div #map style="height: 100%;width: 100%;"></div>
+    </div>
+    <div nz-col [nzSpan]="8">
+        <div style="margin-left: 25px">
+            <div style="font-size: 16px; color: #2a8dd4;margin-bottom: 10px">流转任务信息</div>
+            <detail-table [data]="detailList" [itemWidth]="12"></detail-table>
+
+            <div style="font-size: 16px; color: #2a8dd4;margin-top:30px;margin-bottom: 10px">图示</div>
+            <p style="margin-top: 5px">
+                <span style="display: inline-block;height: 4px;width: 35px;background: blue"></span> ：计划加钞路线
+            </p>
+            <p style="margin-top: 5px">
+                <span style="display:  inline-block;height: 4px;width: 35px;background: red"></span> ：实际加钞路线
+            </p>
+            <p style="margin-top: 5px">
+                <img src="assets/images/pages/addnotes/blue-ATM-icon.png" alt=""> ：已加钞设备
+            </p>
+            <p style="margin-top: 5px">
+                <img src="assets/images/pages/addnotes/gray-ATM-icon.png" alt=""> ：未加钞设备
+            </p>
+            <p style="margin-top: 5px">
+                <img src="assets/images/pages/addnotes/icon_2.png" alt=""> ：清机中心
+            </p>
+            <p style="margin-top: 5px">
+                <img src="assets/images/pages/addnotes/icon01.png" alt=""> ：加钞员位置
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="modal-body">
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'clrCenterNo'">所属金库</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input name="clrCenterNo" [ngModel]="detail?.clrCenterNo" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'customer'">申请网点</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail?.customerName" name="customer" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'planFinishDate'">寄库日期</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail?.planFinishDate" name="planFinishDate" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="3" nzFor="note">备注</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="21">
+            <input nz-input [ngModel]="detail?.note" name="note" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="原任务单现金明细" nzActive="true" [nzExtra]="extraTem0">
+      <ng-template #extraTem0>
+        <button nz-button (click)="addSplitGroup()" nzType="link"><i nz-icon nzType="apartment" nzTheme="outline"></i>拆分至新分组</button>
+      </ng-template>
+      <nz-table #editRowTable nzBordered [nzSize]="'middle'" [nzData]="detail?.currencyList" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th>币种</th>
+          <th>类别</th>
+          <th>券别</th>
+          <th nzAlign="right">金额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template ngFor let-data [ngForOf]="editRowTable.data">
+          <tr>
+            <td>
+              {{data.currencyCode}}
+            </td>
+            <td>
+              {{data.currencyType}}
+            </td>
+            <td>
+              {{data.denomination}}
+            </td>
+            <td nzAlign="right">{{ data.amount | currency:'CNY':'symbol-narrow' }}</td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="拆分分组信息" nzActive="true" [nzExtra]="extraTem1">
+      <ng-template #extraTem1>
+        <button nz-button (click)="resetAllSplitGroup($event)" nzType="link" [disabled]="splitList.length===0"><i nz-icon nzTheme="outline" nzType="undo"></i>还原所有分组</button>
+      </ng-template>
+      <ng-container *ngFor="let splitGroup of splitList; let i = index;">
+        <div nz-row style="margin-top: 10px;">
+          <div nz-col nzSpan="12">
+            <h4>新订单 {{i + 1}}</h4>
+          </div>
+          <div nz-col nzSpan="12" style="text-align: right">
+            <button nz-button nzType="default" (click)="resetSplitGroup(i)" [nzSize]="'small'">
+              <i nz-icon nzType="undo" nzTheme="outline"></i>撤销当前分组
+            </button>
+          </div>
+        </div>
+        <nz-table #groupTable nzBordered [nzData]="splitGroup" [nzShowPagination]="false">
+          <thead>
+          <tr>
+            <th>币种</th>
+            <th>类别</th>
+            <th>券别</th>
+            <th nzAlign="right">金额</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-template ngFor let-data [ngForOf]="groupTable.data">
+            <tr>
+              <td>
+                {{data.currencyCode}}
+              </td>
+              <td>
+                {{data.currencyType}}
+              </td>
+              <td>
+                {{data.denomination}}
+              </td>
+              <td nzAlign="right">{{ data.amount | currency:'CNY':'symbol-narrow' }}</td>
+            </tr>
+          </ng-template>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<div nz-row>
+  <div nz-col style="margin-bottom: 16px; text-align: center">
+    <button nz-button nzType="primary" (click)="confirmSplit()" [nzLoading]="loading" [disabled]="splitList.length==0"><i nz-icon nzType="apartment" nzTheme="outline"></i>确认拆分</button>
+  </div>
+</div>

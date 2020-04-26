@@ -1,0 +1,65 @@
+<form nz-form #form="ngForm">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="direction" nzRequired>
+      调拨方向
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select nzSize="default" [(ngModel)]="productInfo['direction']" name="direction">
+        <nz-option *ngFor="let direction of directionList" [nzLabel]="direction.label" [nzValue]="direction.value">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="mergeFlag" nzRequired>
+      是否可拆分
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select nzSize="default" [(ngModel)]="productInfo['splitFlag']" name="splitFlag">
+        <nz-option nzLabel="可拆分" nzValue="1"></nz-option>
+        <nz-option nzLabel="不可拆分" nzValue="2"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+      数量上限
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input type="number" nz-input min="1" nzSize="default" [(ngModel)]="productInfo['maxNum']" name="maxNum">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="productNo" nzRequired>
+      物品名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select nzSize="default" [ngModel]="productInfo['productNo']" (ngModelChange)="productChange($event)" name="productNo">
+        <nz-option *ngFor="let product of productList" [nzLabel]="product.productName" [nzValue]="product.productNo"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div style="width: 80%; margin:0 auto; text-align: center;">
+  <ng-container *ngFor="let productProperty of productPropertyList; let i = index;">
+    <nz-checkbox-wrapper style="width: 100%;margin-bottom: 10px; text-align: left"
+      (nzOnChange)="propertyValueChange($event, i)">
+      <div nz-row>
+        <div nz-col>
+          {{productProperty.propertyName}}:
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6" *ngFor="let property of productProperty.propertyValueDetail">
+          <label nz-checkbox [nzValue]="property">{{property.propertyValue}}</label>
+        </div>
+      </div>
+    </nz-checkbox-wrapper>
+  </ng-container>
+</div>
+
+<div nz-row style="margin: 20px 0 0 0">
+  <div nz-col style="text-align: center">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="submitChanges()">提交</button>
+  </div>
+</div>

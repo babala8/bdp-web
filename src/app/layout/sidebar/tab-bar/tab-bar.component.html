@@ -1,0 +1,16 @@
+<div class="tab_container">
+  <div class="tab_text">
+    <div [ngClass]="{'active':item.active}" (contextmenu)="handleMenu($event)" (click)="navigateUrl(item)" *ngFor="let item of tabArray">
+      <div>{{item.text}}</div>
+      <div (click)="deleteItem(item.id)">
+        <i class="anticon anticon-close"></i>
+      </div>
+    </div>
+  </div>
+  <div class="tab_handle">
+    <div (click)="clearTab()">
+      <i class="anticon anticon-delete"></i>
+    </div>
+    <div></div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          定时任务名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['jobName']" name="jobName" [id]="'jobName'">
+        </nz-form-control>
+      </div>
+    </div>
+    <!-- <div nz-col [nzSpan]="6">
+        <div nz-row>
+            <div nz-form-label nz-col [nzSpan]="8">
+                <label [attr.for]="'jobType'">任务类型</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="14">
+                <nz-input [nzSize]="'large'" [(ngModel)]="formModel['jobType']" name="jobType" [nzId]="'jobType'"></nz-input>
+            </div>
+        </div>
+    </div> -->
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          执行结果
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'default'" [(ngModel)]="formModel['jobResult']" name="resultDesc" nzAllowClear
+                     [nzPlaceHolder]="'--请选择执行结果--'">
+            <nz-option *ngFor="let a of jobResult" [nzLabel]="a.name" [nzValue]="a.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          开始时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['startTime']" [nzPlaceHolder]="'请选择开始日期'" [nzSize]="'default'"
+                          name="startTime"
+                          style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          结束时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['endTime']" [nzPlaceHolder]="'请选择结束日期'" [nzSize]="'default'"
+                          name="endTime" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row align="center" style="padding-top: 16px">
+    <div nz-col [nzSpan]="14" class="text-right">
+      <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="refreshData(true)" [nzSize]="'default'">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="reset()" [nzSize]="'default'" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">定时任务执行结果查询</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead nz-thead>
+    <tr>
+      <th nz-th width="10%">
+        <span>任务名称</span>
+      </th>
+      <!-- <th nz-th width="10%">
+          <span>任务类型</span>
+      </th> -->
+      <th nz-th width="10%">
+        <span>执行结果及描述</span>
+      </th>
+      <th nz-th width="10%">
+        <span>任务开始时间</span>
+      </th>
+      <th nz-th width="10%">
+        <span>任务结束时间</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;let i = index;">
+      <td>{{data.jobName}}</td>
+      <td>{{data.resultDesc}}</td>
+      <td>{{data.startTime}}</td>
+      <td>{{data.endTime}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

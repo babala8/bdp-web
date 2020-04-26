@@ -1,0 +1,79 @@
+<nz-spin *ngIf="loading" align="center" hAlign="center" nzTip='加载中...' [nzSize]="'large'"></nz-spin>
+<div *ngIf="!loading">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [(nzSelectedIndex)]="selectedIndex">
+    <nz-tab [nzTitle]="'基础信息'">
+    <detail-table [data]="detailList" [itemWidth]="3"></detail-table>
+    <nz-divider class="mb-lg"></nz-divider>
+    <div nz-row>
+        <nz-table #nzTable [nzData]="dispatchDetailGroups" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false" [nzSize]="'middle'">
+            <thead nz-thead>
+                <tr>
+                    <th nz-th>加钞顺序号</th>
+                    <th nz-th>设备号</th>
+                    <th nz-th>所属机构</th>
+                    <th nz-th>加钞金额(万元)</th>
+                    <th nz-th>设备地址</th>
+                    <th nz-th>设备类型</th>
+                    <th nz-th>设备品牌</th>
+                    <th nz-th>设备型号</th>
+                </tr>
+            </thead>
+            <tbody nz-tbody>
+                <ng-container *ngFor="let data of nzTable.data;">
+                    <tr *ngFor="let d of nzTable.data">
+                        <td align="center">{{sortNo}}</td>
+                        <td align="center">{{d.customerNo}}</td>
+                        <td align="center">{{devList.orgName}}</td>
+                        <td align="center">{{amount/10000.0}}</td>
+                        <td align="center">{{address}}</td>
+                        <td align="center">{{devCatalog}}</td>
+                        <td align="center">{{vendor}}</td>
+                        <td align="center">{{devList.devName}}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+    </nz-tab>
+    <nz-tab nzTitle="操作记录">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'操作流程图'"
+          [nzActive]="true">
+          <ng-container *ngIf="selectedIndex===1">
+            <operate-flow-chart [recordList]="recordList" [statusList]="statusList"
+                                [statusTransitionList]="statusTransitionList"></operate-flow-chart>
+          </ng-container>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'操作表'"
+          [nzActive]="true">
+          <nz-table #operateTable nzBordered [nzSize]="'middle'" [nzData]="recordList"
+                    [nzShowPagination]="false">
+            <thead>
+            <tr>
+              <th>上一状态</th>
+              <th>当前状态</th>
+              <th>操作</th>
+              <th>时间</th>
+              <th>操作人员</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of recordList">
+              <td>{{data.beforeNodeName}}</td>
+              <td>{{data.curNodeName}}</td>
+              <td>{{data.operateTypeName}}</td>
+              <td>{{data.finishTime}}</td>
+              <td>{{data.opName}}</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-tab>
+  </nz-tabset>
+
+</div>

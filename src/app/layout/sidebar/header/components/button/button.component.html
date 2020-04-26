@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="spin">
+        <a class="tile-button" >
+            <span class="zijin-icon-icon_screen" routerLink="/screen"></span>
+        </a>
+        <a class="tile-button" (click)="toggle()">
+            <i class="anticon anticon-menu-fold"></i>
+        </a>
+        <a class="tile-button">
+            <nz-dropdown nzTrigger="click" nzPlacement="bottomRight">
+                <i class="anticon anticon-setting" nz-dropdown></i>
+                <div nz-menu style="width:200px">
+                    <div nz-menu-item class="theme-switch">
+                        <header-theme></header-theme>
+                    </div>
+                    <div nz-menu-item>
+                        <header-fullscreen></header-fullscreen>
+                    </div>
+                    <div nz-menu-item>
+                        <header-storage></header-storage>
+                    </div>
+                    <!--<div nz-menu-item>
+                        <header-i18n></header-i18n>
+                    </div>-->
+                </div>
+            </nz-dropdown>
+        </a>
+        <a class="tile-button" (click)="logout()">
+            <span class="zijin-icon-power"></span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="add()">
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="clrCenterNo" nz-form-item-required>金库编号</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <select-clr-center name="clrCenterNo" formControlName="clrCenterNo" (ngModelChange)="devListInit($event)"></select-clr-center>
+                    <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                        <span style="color: red">请输入金库名称!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="devNo" nz-form-item-required>设备号</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <nz-select style="width: 100%;height: 100%;" [nzSize]="'default'" nzPlaceHolder="请选择设备" formControlName="devNo" (nzOnSearch)="devFilter($event)"
+                        [nzNotFoundContent]="'无法找到'" nzShowSearch>
+                        <nz-option *ngFor="let option1 of devFilterList" [nzLabel]="option1.no" [nzValue]="option1.no">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain *ngIf="validateForm.controls['devNo'].dirty && validateForm.controls['devNo'].errors">
+                        <span style="color: red">请输入设备号!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzRequired>
+                    <label [attr.for]="'startDate'" nz-form-item-required>开始日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <nz-date-picker formControlName="startDate" [nzPlaceHolder]="'请选择开始日期'" [nzSize]="'default'" 
+                                    name="startDate" style="width: 100%"></nz-date-picker>
+                    <nz-form-explain *ngIf="validateForm.controls['startDate'].dirty && (validateForm.controls['startDate'].errors)">
+                        {{ validateForm.controls['startDate'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8" nzRequired>
+                    <label [attr.for]="'endDate'" nz-form-item-required>结束日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <nz-date-picker formControlName="endDate" [nzPlaceHolder]="'请选择结束时间'" [nzSize]="'default'"
+                                   name="endDate" style="width: 100%"></nz-date-picker>
+                    <nz-form-explain *ngIf="validateForm.controls['endDate'].dirty && validateForm.controls['endDate'].errors">
+                        {{ validateForm.controls['endDate'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="addnotesRuleId" nz-form-item-required>规则名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <nz-select style="width: 100%;height: 100%;" [nzSize]="'default'" nzPlaceHolder="请选择规则" formControlName="addnotesRuleId" (nzSearchChange)="ruleListFilter($event)" (nzOpenChange)="ruleListFilter($event)"
+                        [nzNotFoundContent]="'无法找到'" nzShowSearch>
+                        <nz-option *ngFor="let option of ruleList" [nzLabel]="option.ruleDesp" [nzValue]="option.ruleId">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain *ngIf="validateForm.controls['addnotesRuleId'].dirty && validateForm.controls['addnotesRuleId'].errors">
+                        <span style="color: red">请输入规则名称!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row style="margin-bottom:8px;">
+        <div nz-col [nzSpan]="14" [nzOffset]="8">
+            <button nz-button [nzSize]="'default'" [nzType]="'primary'" style="width: 50%;">提交</button>
+        </div>
+    </div>
+</form>

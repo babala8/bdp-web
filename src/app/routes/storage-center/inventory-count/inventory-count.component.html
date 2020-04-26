@@ -1,0 +1,90 @@
+<form nz-form class="search-form">
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          盘库人员
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['opUser']" name="opUser">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          盘库结果
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <nz-select [(ngModel)]="formModel['result']" nzAllowClear nzPlaceHolder="---请选择---" name="result">
+            <nz-option nzValue="" nzLabel="所有"></nz-option>
+            <nz-option nzValue="正确" nzLabel="正确"></nz-option>
+            <nz-option nzValue="不正确" nzLabel="不正确"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          盘库时间
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="formModel['dateRange']" name="dateRange"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row style="text-align: center">
+    <div nz-col>
+      <button nz-button [nzSize]="'default'" [nzType]="'primary'" [nzLoading]="loading" (click)="refreshData(true)">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="reset()" [nzSize]="'default'" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">历史盘库信息列表</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            [nzFrontPagination]="false"
+            [nzTotal]="page.totalRow"
+            [nzShowTotal]="pageSizeTem"
+            [(nzPageSize)]="page.pageSize"
+            [nzShowSizeChanger]="true"
+            (nzPageSizeChange)="refreshData(true)"
+            [(nzPageIndex)]="page.curPage"
+            (nzPageIndexChange)="refreshData()"
+            [nzLoading]="loading"
+            [nzData]="inventoryCountHistoryList"
+  >
+    <thead>
+    <tr>
+      <th>盘点人员</th>
+      <th>盘点类型</th>
+      <th>盘点结果</th>
+      <th>盘点时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data">
+      <td>{{data.userName}}</td>
+      <td>{{data.productType}}</td>
+      <td>{{data.result}}</td>
+      <td>{{data.checkDate}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</div>

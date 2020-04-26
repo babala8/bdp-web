@@ -1,0 +1,114 @@
+<div>
+    <form nz-form class="search-form" #form="ngForm">
+        <div nz-row>
+            <div nz-col [nzSpan]="6" [nzOffset]="1">
+                <div nz-row>
+                    <div nz-col [nzSpan]="6" style="padding-top: 5px">
+                        <label>所属金库:</label>
+                    </div>
+                    <div nz-col [nzSpan]="18" style="left: auto">
+                        <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" defaultSelect="true" (ngModelChange)="getDevConfig()"></select-clr-center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="search-result-list">
+        <nz-card style="width:100%;">
+                <form #formCon="ngForm" nz-form (ngSubmit)="modify(formCon)">
+                    <div>
+                        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzData]="keyList" [nzSize]="'small'" [nzBordered]="true">
+                            <thead nz-thead>
+                            <tr>
+                                <th nz-th colspan=20>
+                                    <div align="center">决定型事件配置</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody nz-tbody>
+                            <tr nz-tbody-tr>
+                                <td nz-td nzCheckbox align="center" *ngFor="let data of keyList; let i=index;">
+                                    <label nz-checkbox name="key{{i}}" [(ngModel)]="data.state">
+                                        <span> {{data.eventName}}</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                    <div style="margin-top: 50px">
+                        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzData]="auxList" [nzSize]="'small'" [nzBordered]="true">
+                            <thead nz-thead>
+                            <tr>
+                                <th nz-th colspan=20>
+                                    <div align="center">维护型事件配置</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody nz-tbody>
+                            <tr nz-tbody-tr>
+                                <td nz-td nzCheckbox align="center" *ngFor="let data of auxList;let i=index;">
+                                    <label nz-checkbox name="aux{{i}}" [(ngModel)]="data.state">
+                                        <span> {{data.eventName}}</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                    <div style="margin-top: 50px">
+                        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzData]="estList" [nzSize]="'small'" [nzBordered]="true">
+                            <thead nz-thead>
+                            <tr>
+                                <th nz-th colspan="20">
+                                    <div align="center">预测型事件配置</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody nz-tbody>
+                            <tr nz-tbody-tr>
+                                <td nz-td align="center" *ngFor="let data of estList;let i=index;">
+                                    <div nz-row>
+                                        <div nz-col nzCheckbox [nzSpan]="5" style="width: auto" [nzOffset]="4">
+                                            <label name="est{{i}}" nz-checkbox [(ngModel)]="data.state">
+                                                <span> {{data.eventName}}</span>
+                                            </label>
+                                        </div>
+                                        <div nz-col [nzSpan]="6" style="width: auto">
+                                            <input nz-input name="weight{{i}}" est-weight="[0,1]" [(ngModel)]="data.weight" max="1" min="0" #weight="ngModel">
+                                            <div *ngIf="weight.errors" style="color: red">
+                                                <p *ngIf="weight.errors.required">必填</p>
+                                                <p *ngIf="weight.errors.msg">{{weight.errors.msg}}</p>
+                                            </div>
+
+                                        </div>
+                                        <div nz-col [nzSpan]="4" style="width: auto">
+                                            <span>（取值范围:[0,1] )</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                    <div align="center" style="margin-top: 20px;">
+                        <button data-id="'C050201'" type="submit" nz-button [nzType]="'primary'" [disabled]="formCon.invalid" [nzLoading]="loading">
+                            <span>修改</span>
+                        </button>
+                    </div>
+                </form>
+
+        </nz-card>
+
+        <div style="color: #C50819;">
+            <span style="font-weight: bold;">* 业务规则：</span>
+            <ul>
+                <li>加钞设备选择参数用于选择加钞设备，是计算设备加钞优先度评分值的权重数据。各参数值体现相应的因素在设备加钞优先度评价策略中的影响权重，按其类型进行分级管理：</li>
+                <li>（1）决定型参数（一级）：此类参数对应的事件（如设备缺钞停止服务、设备满钞停止服务、设备缺纸停止服务、超出最大清机周期(基于设备自身预定清机周期)、“周期顺延”、“吞卡”等）一旦发生，则必须加钞；</li>
+                <li>（2）维护型参数（二级）：此类参数对应事件包括：缺钞暂停服务、满钞暂停服务、将满、吞卡；</li>
+                <li>（3）预测型参数（三级）：如设备现金剩余使用时长权重、设备距离最近一次加钞间隔时长权重等，当决定型和维护型参数事件未发生时，本级参数生效，参与加钞优先度评分计算；</li>
+            </ul>
+        </div>
+    </div>
+</div>

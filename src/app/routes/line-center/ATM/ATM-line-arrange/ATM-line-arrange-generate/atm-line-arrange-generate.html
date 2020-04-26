@@ -1,0 +1,53 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+      <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+              所属金库
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+                <select-clr-center name="clrCenterNo" formControlName="clrCenterNo" defaultSelect="true" (ngModelChange)="getLineList($event)"></select-clr-center>
+                <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                    {{ validateForm.controls['clrCenterNo'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+      </div>
+  </nz-form-item>
+  <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+              <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                线路名称
+              </nz-form-label>
+              <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('lineNo')">
+                  <nz-select formControlName="lineNo" [nzPlaceHolder]="'--请选择线路--'" [nzSize]="'default'"
+                             name="lineNo"
+                             nzAllowClear>
+                      <nz-option *ngFor="let option of lineList" [nzLabel]="option.lineName" [nzValue]="option.lineNo">
+                      </nz-option>
+                  </nz-select>
+                  <nz-form-explain *ngIf="validateForm.controls['lineNo'].dirty && validateForm.controls['lineNo'].errors">
+                      {{ validateForm.controls['lineNo'].errors['explain'] }}
+                  </nz-form-explain>
+              </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                年月
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('theYearMonth')">
+                <nz-month-picker
+                    formControlName="theYearMonth" name="theYearMonth" [nzFormat]="'yyyy-MM'"
+                    style="width: 100%"
+                    nzPlaceHolder="请选择年月"
+                ></nz-month-picker>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col [nzSpan]="24" [nzOffset]="8">
+      <button nz-button [nzSize]="'default'" [nzType]="'primary'" [nzLoading]="loading" style="width: 30%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

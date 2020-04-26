@@ -1,0 +1,151 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label  nz-col [nzSpan]="8">
+          锁具序列号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['lockCode']" [nzSize]="'default'" id="lockCode" name="lockCode">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          设备编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['devNo']" [nzSize]="'default'" name="devNo">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          交易流水号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['serialNo']" [nzSize]="'default'" name="serialNo">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          交易类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [(ngModel)]="formModel['tranType']" [nzPlaceHolder]="'--请选择状态--'" nzAllowClear
+                     name="tranType" [nzSize]="'default'">
+            <nz-option
+              *ngFor="let option of lockTransType"
+              [nzLabel]="option.name"
+              [nzValue]="option.no">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12"  [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          交易开始日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['tranStartDate']" [nzPlaceHolder]="'请选择开始时间'"
+                          [nzSize]="'default'"
+                          name="tranStartDate" style="width: 100%" [nzFormat]="'yyyy-MM-dd'"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12"  [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          交易结束日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['tranEndDate']" [nzPlaceHolder]="'请选择结束时间'"
+                          [nzSize]="'default'"
+                          name="tranEndDate" style="width: 100%" [nzFormat]="'yyyy-MM-dd'"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="24" [nzXs]="12" style="text-align: center">
+      <nz-form-item nz-row>
+        <div nz-col>
+          <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+            <i class="anticon anticon-search"></i><span>查询</span>
+          </button>
+          <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+          <a style="margin-left:8px;font-size:12px;" (click)="expandForm = !expandForm">
+            {{expandForm ? '收起' : '展开'}}
+            <i nz-icon [type]="expandForm ? 'up' : 'down'"></i>
+          </a>
+        </div>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">锁具日志管理</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>锁具序列号</th>
+      <th>设备编号</th>
+      <th>交易流水号</th>
+      <th>交易时间</th>
+      <th>交易类型</th>
+      <th>密码服务器返回码</th>
+      <th>ESB服务器返回码</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>{{data.lockCode}}</td>
+      <td>{{data.devNo}}</td>
+      <td>{{data.serialNo}}</td>
+      <td>{{data.tranDate}}  {{data.tranTime}}</td>
+      <td>
+        <ng-container [ngSwitch]="data.tranType">
+          <ng-container *ngFor="let item of lockTransType">
+            <span *ngSwitchCase="item.no" >
+              {{item.name}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </td>
+      <td>{{data.encryptCode}}</td>
+      <td>{{data.esbCode}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+

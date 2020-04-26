@@ -1,0 +1,59 @@
+<div class="content">
+  <h2 class="zj-header-title">金库智能运营管理系统</h2>
+  <ul class="zj-first-menu-wrapper">
+    <li class="zj-first-menu">
+      <div class="zj-menu-title" (click)="openQuickMenu()">
+        <span>
+          <span class="zj-icon"><i nz-icon nzType="star" nzTheme="fill"></i></span>
+          {{quickMenu.text}}</span>
+        <!--<i class="anticon anticon-setting" style="float: right;margin-top: 12px" (click)="openQuickMenu()"></i>-->
+        <i class="i-icon" nz-icon nzType="caret-down" nzTheme="outline" *ngIf="quickMenu.selected"></i>
+        <i class="i-icon" nz-icon nzType="caret-right" nzTheme="outline" *ngIf="!quickMenu.selected"></i>
+      </div>
+
+      <ul class="zj-second-menu-wrapper">
+        <li class="zj-second-menu" [ngStyle]="{height: quickMenu.selected ? '40px': '0px'}"
+          *ngFor="let menu of quickMenu.children; let j=index" (click)="navigate(menu)"
+          [class.selected]="menu.selected">
+          <span class="zj-icon {{menu.icon}}"></span>
+          {{menu.name}}
+        </li>
+      </ul>
+    </li>
+    <!--遍历菜单数组-->
+    <li class="zj-first-menu" *ngFor="let menu1 of subMenu.children; let i=index">
+      <ng-container *ngIf="menu1.children.length > 0">
+        <div class="zj-menu-title" (click)="openSubMenu(menu1)">
+          <span>
+            <nz-badge [nzColor]="'#999'" style="margin-left: 5px; margin-right: 5px;"></nz-badge>
+            {{menu1.text}}
+          </span>
+          <i class="i-icon" nz-icon nzType="caret-down" nzTheme="outline" *ngIf="menu1.selected"></i>
+          <i class="i-icon" nz-icon nzType="caret-right" nzTheme="outline" *ngIf="!menu1.selected"></i>
+        </div>
+        <ul class="zj-second-menu-wrapper">
+          <li class="zj-second-menu" [ngStyle]="{height: menu1.selected ? '40px': '0px'}"
+            *ngFor="let menu2 of menu1.children; let j=index" (click)="navigate(menu2)"
+            [class.selected]="menu2.selected">
+            <span class="zj-icon {{menu2.icon}}"></span>
+            <span class="zj-text-span">{{menu2.text}}</span>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="menu1.children.length <=0">
+        <div class="zj-menu-title" (click)="navigate(menu1)" [class.selected]="menu1.selected">
+          <span><span class="zj-icon {{menu1.icon}}"></span>
+            {{menu1.text}}</span>
+        </div>
+      </ng-container>
+    </li>
+  </ul>
+  <div class="menu-fold-unfold" (click)="changeSidebarSize()">
+    <span>
+      <span class="zj-icon" style="margin-right: 10px;">
+        <i nz-icon nzType="menu-{{layoutService.sideBarShowFlag ? 'fold': 'unfold'}}" nzTheme="outline"></i>
+      </span>
+      收起菜单
+    </span>
+  </div>
+</div>

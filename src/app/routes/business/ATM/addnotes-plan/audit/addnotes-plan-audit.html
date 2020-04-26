@@ -1,0 +1,153 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <!--        <div nz-col [nzSpan]="6">-->
+    <!--            <div nz-row>-->
+    <!--                <nz-form-label nz-col [nzSpan]="8">-->
+    <!--                    <label [attr.for]="'planStartDate'">开始时间</label>-->
+    <!--                </nz-form-label>-->
+    <!--                <nz-form-control nz-col [nzSpan]="14">-->
+    <!--                    <nz-date-picker [(ngModel)]="formModel['planStartDate']" [nzPlaceHolder]="'请选择开始日期'" [nzSize]="'default'" name="planStartDate"-->
+    <!--                        style="width: 100%"></nz-date-picker>-->
+    <!--                </nz-form-control>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div nz-col [nzSpan]="6">-->
+    <!--            <div nz-row>-->
+    <!--                <nz-form-label nz-col [nzSpan]="8">-->
+    <!--                    <label [attr.for]="'planEndDate'">结束时间</label>-->
+    <!--                </nz-form-label>-->
+    <!--                <nz-form-control nz-col [nzSpan]="14">-->
+    <!--                    <nz-date-picker [(ngModel)]="formModel['planEndDate']" [nzPlaceHolder]="'请选择结束日期'" [nzSize]="'default'" name="planEndDate" style="width: 100%"></nz-date-picker>-->
+    <!--                </nz-form-control>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8">
+      <nz-form-item nz-row>
+        <nz-form-label nzFor="dateRange" nzSpan="8">
+          加钞日期
+        </nz-form-label>
+        <nz-form-control nz-col nzSpan="14">
+          <nz-range-picker [nzDisabledDate]="disabledDate" [(ngModel)]="formModel['dateRange']" name="dateRange"
+            [nzSize]="'default'" nzAllowClear="false"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          <label [attr.for]="'clrCenterNo'">所属金库</label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" [allowClear]="true">
+          </select-clr-center>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          <label [attr.for]="'status'">计划状态</label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [(ngModel)]="formModel['status']" [nzPlaceHolder]="'请选择状态'" name="status" [nzSize]="'default'">
+            <nz-option [nzLabel]="states[4].label" [nzValue]="states[4].value"></nz-option>
+            <nz-option [nzLabel]="states[6].label" [nzValue]="states[6].value"></nz-option>
+            <!-- <nz-option [nzLabel]="states[7].label" [nzValue]="states[7].value"></nz-option> -->
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+  </div>
+  <div nz-row align="center" style="margin-top: 10px">
+    <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()" [nzLoading]="loading">
+      <i class="anticon anticon-search"></i>
+      <span>查询</span>
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+      <i class="anticon anticon-sync"></i>
+      <span>重置</span>
+    </button>
+  </div>
+</form>
+<span style="display: block;  margin-left: 40px; color: #C50819;">
+  * 红色背景的条目表示已紧急加钞计划；
+</span>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;"> 加钞计划</span>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable [nzLoading]="loading" [nzFrontPagination]="false" [nzShowSizeChanger]="true"
+    [nzShowTotal]="pageSizeTem" [nzData]="dataSet" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+    [nzTotal]="page.totalRow" nzShowTotal (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()"
+    [nzPageSizeOptions]="PAGESIZE_SELECTOR">
+    <thead nz-thead>
+      <tr>
+        <th nz-th width="10%" style="padding-left: 40px;">
+          <span>计划状态</span>
+        </th>
+        <th nz-th width="13%">
+          <span>计划批次</span>
+        </th>
+        <th nz-th width="10%">
+          <span>计划加钞日期</span>
+        </th>
+        <th nz-th width="7%">
+          <span>计划创建人员</span>
+        </th>
+        <th nz-th width="8%">
+          <span>加钞台数</span>
+        </th>
+        <th nz-th width="10%">
+          <span>加钞总金额(万元)</span>
+        </th>
+        <th nz-th width="10%">
+          <span>所属金库</span>
+        </th>
+        <th nz-th width="10%">
+          <span>操作</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody nz-tbody>
+      <tr *ngFor="let data of dataSet" [style.background]="data.background">
+        <td nz-td align="left" style="padding-left: 35px;">
+          <div [ngSwitch]="data.status">
+            <ng-container *ngFor="let item of states">
+              <nz-badge *ngSwitchCase="item.value" [nzStatus]="item.badge" [nzText]="item.label"></nz-badge>
+            </ng-container>
+          </div>
+        </td>
+        <td nz-td>
+          <a (click)="openDetail(data.addnotesPlanNo)" [title]="data.addnotesPlanNo">{{data.addnotesPlanNo}}</a>
+        </td>
+        <td nz-td>
+          {{data.planAddnotesDate}}
+        </td>
+        <td nz-td>
+          {{data.planGenOpName}}
+        </td>
+        <td nz-td align="right">
+          {{data.planDevCount}}
+        </td>
+        <td nz-td align="right">
+          {{data.planAddnotesAmt/10000}}
+        </td>
+        <td nz-td>
+          <single-line [content]="data.clrCenterName"></single-line>
+        </td>
+        <td nz-td>
+          <ng-container data-id="'C010501'">
+            <ng-container *authId="'B010202'">
+              <a *ngIf="data.status == states[4].value" (click)="audit(data)">审核</a>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

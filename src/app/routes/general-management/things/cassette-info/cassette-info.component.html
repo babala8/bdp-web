@@ -1,0 +1,119 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            钞箱编号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['casstte_no']" name="casstte_no"
+              [id]="'casstte_no'">
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            钞箱品牌
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['cassette_vendor']" id="cassette_vendor"
+              name="cassette_vendor" nzAllowClear [nzPlaceHolder]="'--请选择钞箱品牌--'">
+              <nz-option *ngFor="let r of devVendors" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            钞箱类型
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'default'" [(ngModel)]="formModel['cassetteType']" name="cassetteType"
+              [nzAllowClear]="true" [nzPlaceHolder]="'--请选择钞箱类型--'">
+              <nz-option *ngFor="let cassetteType of cassetteTypes" [nzValue]="cassetteType.no"
+                [nzLabel]="cassetteType.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            钞箱状态
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'default'" [(ngModel)]="formModel['cassetteStaus']" name="cassetteStaus"
+              [nzAllowClear]="true" [nzPlaceHolder]="'--请选择钞箱状态--'">
+              <nz-option *ngFor="let status of statusList" nzLabel="{{status.name}}" [nzValue]="status.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+    </div>
+    <div nz-row align="center" style="padding-top: 16px">
+      <div nz-col [nzSpan]="14" class="text-right">
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="search()" [nzSize]="'default'">
+          <i class="anticon anticon-search"></i>
+          <span>查询</span>
+        </button>
+        <button nz-button (click)="form.reset();refreshData(true)" [nzSize]="'default'" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i>
+          <span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">钞箱信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'" *authId="'C020102'">
+        <i class="anticon anticon-plus"></i>
+        <span>添加</span>
+      </button>
+    </div>
+  </div>
+  <ng-template #pageSizeTem>
+    共 {{page.totalRow}} 条
+  </ng-template>
+  <div class="search-result-list">
+    <nz-table #nzTable nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem" [nzLoading]="loading"
+      [nzData]="dataList" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize" [nzTotal]="page.totalRow"
+      (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+      <thead>
+        <tr>
+          <th>钞箱编号</th>
+          <th>所属ATM设备</th>
+          <th *ngFor="let attr of attrList">{{attr.propertyName}}</th>
+          <th>钞箱状态</th>
+          <th style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of nzTable.data;let i = index;">
+          <td>{{item.containerNo}}</td>
+          <td>
+            {{item.customerNo}}
+          </td>
+          <td *ngFor="let attr of attrList">
+            {{getPropertyValue(item, attr.propertyNo)}}
+          </td>
+          <td>
+            <app-enum-info type="CONTAINER_STATUS" [value]="item.status"></app-enum-info>
+          </td>
+          <td style="text-align: center">
+            <a (click)="openModify(item)" *authId="'C020103'">修改</a>
+            <nz-popconfirm [nzTitle]="'确定要删除该项吗？'" (nzOnConfirm)="confirmDel(item.containerNo)">
+              <nz-divider nzType="vertical"></nz-divider>
+              <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C020104'">删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

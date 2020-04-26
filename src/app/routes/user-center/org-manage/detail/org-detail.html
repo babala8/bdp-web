@@ -1,0 +1,141 @@
+<form nz-form>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                机构编号
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.no" [id]="'no'" name="no" [disabled]="true">
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+               机构名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.name" [id]="'name'" name="name" [disabled]="true">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                上级机构
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.parentOrg.name" name="upper" [id]="'upper'"
+                          [disabled]="true">
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                机构等级
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.orgGrade.name" name="grade" [id]="'grade'"
+                          [disabled]="true">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6">
+               金库标志
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select  [ngModel]="org?.clrCenterFlag"   name="clrCenterFlag"  nzSize="middle"  [nzPlaceHolder]="'请选择'" [disabled]="true" >
+                    <nz-option  [nzLabel]="'否'" [nzValue]="0"></nz-option>
+                    <nz-option  [nzLabel]="'是'" [nzValue]="1"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </div>
+        <ng-container *ngIf="showFlag == 1">
+             <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                   车辆数
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback >
+                    <input nz-input nzSize="middle" [ngModel]="org?.cashTruckNum" name="cashTruckNum" [disabled]="true">
+                </nz-form-control>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="showFlag == 0">
+            <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                   所属金库
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback >
+                    <select-clr-center nzSize="middle" [ngModel]="org.clrCenterNo" name="clrCenterNo" disabled="true"></select-clr-center>
+                </nz-form-control>
+            </div>
+        </ng-container>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+               省份
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.region" name="region" [disabled]="true">
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                城市
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.city" name="city" [disabled]="true">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="3" [nzXs]="24">
+            机构地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="19" [nzXs]="24">
+            <input nz-input nzSize="middle" [ngModel]="org.address" name="address" [id]="'address'"
+                      [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                经度信息
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.x" name="longitude" [disabled]="true">
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+               纬度信息
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                <input nz-input nzSize="middle" [ngModel]="org.y" name="latitude" [disabled]="true">
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="showFlag !== 1" nz-row>
+            <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                    送达时间
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                    <input nz-input nzSize="middle" [ngModel]="org.deliveryTime" name="deliveryTime" [disabled]="true">
+                </nz-form-control>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                    回库时间
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                    <input nz-input nzSize="middle" [ngModel]="org.backTime" name="backTime" [disabled]="true">
+                </nz-form-control>
+            </div>
+        </nz-form-item>
+</form>
+

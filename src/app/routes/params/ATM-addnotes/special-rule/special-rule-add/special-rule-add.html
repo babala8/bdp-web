@@ -1,0 +1,78 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="add()">
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="clrCenterNo" nz-form-item-required>金库名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <select-clr-center name="clrCenterNo" formControlName="clrCenterNo"></select-clr-center>
+                    <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                        <span style="color: red">请输入金库名称!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="quotaRatio">定额配比</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="quotaRatio" [id]="'quotaRatio'" placeholder="'取值范围（0,1]'">
+                    <nz-form-explain *ngIf="validateForm.controls['quotaRatio'].dirty && validateForm.controls['quotaRatio'].errors">
+                        {{ validateForm.controls['quotaRatio'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="addnotesPeriod" nz-form-item-required>加钞周期(天)</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="addnotesPeriod"  [id]="'addnotesPeriod'">
+                    <nz-form-explain *ngIf="validateForm.controls['addnotesPeriod'].dirty && validateForm.controls['addnotesPeriod'].errors">
+                        <span style="color: red">请输入加钞周期!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="addnotesCoeff">配钞系数</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="addnotesCoeff" [id]="'addnotesCoeff'" placeholder="'取值范围（0,2]'">
+                    <nz-form-explain *ngIf="validateForm.controls['addnotesCoeff'].dirty && validateForm.controls['addnotesCoeff'].errors">
+                        {{ validateForm.controls['addnotesCoeff'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8" nzRequired>
+                    <label for="ruleDesp" nz-form-item-required>规则名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="ruleDesp" [id]="'ruleDesp'">
+                    <nz-form-explain *ngIf="validateForm.controls['ruleDesp'].dirty && validateForm.controls['ruleDesp'].errors">
+                        <span style="color: red">请输入规则名称!</span>
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="14" [nzOffset]="8">
+            <button nz-button [nzSize]="'large'" [nzType]="'primary'" style="width: 50%">提交</button>
+        </div>
+    </div>
+</form>

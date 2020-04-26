@@ -1,0 +1,119 @@
+<div class="modal-body">
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'clrCenterNo'">所属金库</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <select-clr-center name="clrCenterNo" [(ngModel)]="detail.clrCenterNo" defaultSelect="true">
+            </select-clr-center>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'customer'">申请网点</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <org-tree name="customer" [(ngModel)]="detail.customer"></org-tree>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'planFinishDate'">寄库日期</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <nz-date-picker [(ngModel)]="detail.planFinishDate" name="planFinishDate" style="width: 100%;"
+                            [nzDisabledDate]="disabledDate" [nzAllowClear]="false">
+            </nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="3" nzFor="note">备注</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="21">
+            <input nz-input [(ngModel)]="detail.note" name="note" maxlength="100">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="款箱信息" nzActive="true" [nzExtra]="extraTpl">
+      <ng-template #extraTpl>
+        <button nz-button (click)="addCashBox($event)" nzType="link"><i nz-icon nzType="plus"></i>添加款箱</button>
+      </ng-template>
+      <nz-table #cashBoxTable [nzData]="listOfData" nzSize="small" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th nzWidth="30%">款箱编号</th>
+<!--          <th>款箱类型</th>-->
+          <th>出库日期</th>
+          <th>寄库类型</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template ngFor let-data [ngForOf]="cashBoxTable.data">
+          <tr>
+            <td>{{ data.entityNo }}</td>
+<!--            <td>-->
+<!--              <app-enum-info type="GOODS_TYPE" [value]="data.containerType"></app-enum-info>-->
+<!--            </td>-->
+            <td>{{ detail.planFinishDate }}</td>
+            <td>
+              <app-enum-info type="DEPOSITE_TYPE" [value]="data.depositType"></app-enum-info>
+            </td>
+            <td>
+              <a nz-popconfirm nzTitle="确定删除该款箱?" [ngStyle]="{'color':'red'}"
+                 (nzOnConfirm)="deleteRow(data.entityNo)">删除</a>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <nz-collapse style="margin-top: 20px;">
+    <nz-collapse-panel nzHeader="解现信息（总金额：{{totalAmount | currency:'CNY':'symbol-narrow' }}）" nzActive="true"
+                       [nzExtra]="extraTpl1">
+      <ng-template #extraTpl1>
+        <button nz-button (click)="modCash($event)" nzType="link"><i nz-icon nzType="plus"></i>
+          {{ transferCurrencyTypeDTOS.length > 0 ? '调整解现信息' : '添加解现信息' }}</button>
+      </ng-template>
+      <nz-table #cashTable [nzData]="transferCurrencyTypeDTOS" nzSize="small" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th>币种</th>
+          <th>类别</th>
+          <th>券别</th>
+          <th nzAlign="right">金额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cashData of cashTable.data">
+          <td>
+            {{cashData.currencyCode}}
+            <!--              <app-enum-info type="CURRENCY_CODE" [value]="cashData.currencyCode"></app-enum-info>-->
+          </td>
+          <td>
+            {{cashData.currencyType}}
+            <!--              <app-enum-info type="CURRENCY_TYPE" [value]="cashData.currencyType"></app-enum-info>-->
+          </td>
+          <td>
+            {{cashData.denomination}}
+            <!--              <app-enum-info type="DENOMINATION" [value]="cashData.denomination"></app-enum-info>-->
+          </td>
+          <td nzAlign="right">{{ cashData.amount | currency:'CNY':'symbol-narrow' }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<div class="ant-modal-footer">
+  <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+  <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确定</button>
+</div>

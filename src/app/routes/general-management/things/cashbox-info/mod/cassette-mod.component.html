@@ -1,0 +1,64 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()" style="padding-bottom: 20px">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      款箱编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('entityNo')">
+      <input nz-input nzSize="middle" formControlName="entityNo" [id]="'entityNo'">
+      <nz-form-explain *ngIf="validateForm.controls['entityNo'].dirty && validateForm.controls['entityNo'].errors">
+        <span style="color: red">请输入款箱编号!</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <ng-container>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+        所属机构
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('customerNo')">
+        <org-tree formControlName="customerNo" [zjId]="'customerNo'" [size]="'middle'" name="customerNo"></org-tree>
+        <nz-form-explain
+          *ngIf="validateForm.controls['customerNo'].dirty && validateForm.controls['customerNo'].errors">
+          <span style="color: red">请选择所属机构!</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </ng-container>
+  </nz-form-item>
+  <nz-form-item *ngFor="let attr of attrList" nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      {{attr.propertyName}}
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('propertyNo')">
+      <nz-select *ngIf="attr.propertyType === 1" nzSize="middle" [formControlName]="attr.propertyNo" [id]="attr.propertyNo">
+        <nz-option *ngFor="let pv of attr.propertyValueDetail" [nzLabel]="pv.propertyValue" [nzValue]="r.propertyValue"></nz-option>
+      </nz-select>
+      <input *ngIf="attr.propertyType === 2" nz-input nzSize="middle" [formControlName]="attr.propertyNo" [id]="attr.propertyNo">
+      <nz-input-number *ngIf="attr.propertyType === 3" nzSize="middle" [formControlName]="attr.propertyNo" [id]="attr.propertyNo"></nz-input-number>
+      <nz-form-explain
+        *ngIf="validateForm.controls[attr.propertyNo].dirty && validateForm.controls[attr.propertyNo].errors">
+        <ng-container *ngIf="validateForm.controls[attr.propertyNo].hasError('required')">
+          <span style="color: red">请输入{{attr.propertyName}}!</span>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      款箱状态
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('status')" nzHasFeedback>
+      <nz-select [nzSize]="'middle'" id="status" formControlName="status" name="status" nzAllowClear
+        [nzPlaceHolder]="'--请选择钞箱状态--'">
+        <nz-option *ngFor="let r of statusList" [nzLabel]="r.name" [nzValue]="r.value"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('status').dirty&&validateForm.controls['status'].errors">
+        <span style="color: red;">请选择款箱状态</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row style="text-align: center">
+    <div nz-col>
+      <button nz-button [nzSize]="'middle'" [nzType]="'primary'" style="width: 30%">提交</button>
+    </div>
+  </div>
+</form>

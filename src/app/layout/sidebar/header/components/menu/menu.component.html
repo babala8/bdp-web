@@ -1,0 +1,16 @@
+<div class="arrow-wrapper left-arrow-wrapper" *ngIf="leftHidden">
+  <i class="anticon anticon-left" (click)="toLeft()"></i>
+
+</div>
+<div class="scroll-wrapper">
+    <ul class="top-menu">
+        <li *ngFor="let menu of menuArray;let i=index;" (click)="doShow(i)"  [class.active]="menu._selected">
+          <span class="item-icon {{menu.icon}}"></span>
+          <span class="item-label">{{menu.text}}</span>
+        </li>
+      <li class="slide-block"></li>
+    </ul>
+</div>
+<div class="arrow-wrapper right-arrow-wrapper" *ngIf="rightHidden">
+  <i class="anticon anticon-right" (click)="toRight()"></i>
+</div>

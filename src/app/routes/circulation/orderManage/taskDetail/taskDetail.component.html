@@ -1,0 +1,90 @@
+<div class="modal-body">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [(nzSelectedIndex)]="selectedIndex">
+    <nz-tab [nzTitle]="'基础信息'">
+      <div nz-row class="detail-table" style="margin: 10px 0">
+        <div nz-col nzSpan="4">所属金库</div>
+        <div nz-col nzSpan="4">{{detail?.clrCenterNo}}</div>
+        <div nz-col nzSpan="4">申请单位</div>
+        <div nz-col nzSpan="4">{{detail?.customerName}}</div>
+        <div nz-col nzSpan="4">领现日期</div>
+        <div nz-col nzSpan="4">{{detail?.planFinishDate}}</div>
+        <div nz-col nzSpan="4">申请人</div>
+        <div nz-col nzSpan="4">{{detail?.createOpNo}}</div>
+        <div nz-col nzSpan="4">申请日期</div>
+        <div nz-col nzSpan="4">{{detail?.createTime}}</div>
+        <div nz-col nzSpan="4">领现金额</div>
+        <div nz-col nzSpan="4">{{amount}}</div>
+        <div nz-col nzSpan="4">备注</div>
+        <div nz-col nzSpan="20">{{detail?.note}}</div>
+      </div>
+
+      <nz-collapse style="margin-top: 20px;">
+        <nz-collapse-panel nzHeader="金额明细" nzActive="true">
+          <nz-table #cashTable [nzData]="detail.currencyTypeList" nzSize="small" [nzShowPagination]="false">
+            <thead>
+            <tr>
+              <th>币种</th>
+              <th>类别</th>
+              <th>券别</th>
+              <th nzAlign="right">金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cashData of cashTable.data">
+              <td>
+                {{cashData.currencyCode}}
+              </td>
+              <td>
+                {{cashData.currencyType}}
+              </td>
+              <td>
+                {{cashData.denomination}}
+              </td>
+              <td nzAlign="right">{{ cashData.amount | currency:'CNY':'symbol-narrow' }}</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-tab>
+
+    <nz-tab nzTitle="操作记录">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'操作流程图'"
+          [nzActive]="true">
+          <ng-container *ngIf="selectedIndex===1">
+            <operate-flow-chart [recordList]="recordList" [statusList]="statusList"
+                                [statusTransitionList]="statusTransitionList"></operate-flow-chart>
+          </ng-container>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'列表'"
+          [nzActive]="true">
+          <nz-table #operateTable nzBordered [nzSize]="'middle'" [nzData]="recordList"
+                    [nzShowPagination]="false">
+            <thead>
+            <tr>
+              <th>编号</th>
+              <th>操作人员</th>
+              <th>操作时间</th>
+              <th>操作名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of recordList">
+              <td>{{data.taskNo}}</td>
+              <td>{{data.opName}}</td>
+              <td>{{data.finishTime}}</td>
+              <td>{{data.operateTypeName}}</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-tab>
+
+  </nz-tabset>
+</div>

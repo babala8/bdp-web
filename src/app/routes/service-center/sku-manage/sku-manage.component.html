@@ -1,0 +1,97 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            产品编号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['productNo']" name="productNo" [id]="'productNo'"
+              required>
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            产品名称
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['productName']" name="productName"
+              [id]="'productName'" required>
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            所属分类
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <nz-select name="upperGoodsNo" [nzSize]="'default'" [(ngModel)]="formModel['productType']"
+              id="upperGoodsNo" required>
+              <nz-option *ngFor="let i of upperGoodsList" [nzLabel]="i.productName" [nzValue]="i.productNo"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="3" [nzOffset]="1" style="width: auto">
+        <button nz-button [nzType]="'primary'" (click)="search()" [nzSize]="'default'" [nzLoading]="loading"><i
+            class="anticon anticon-search"></i><span>查询</span></button>
+        <button nz-button (click)="form.reset();refreshData()" [nzSize]="'default'" [nzLoading]="loading"><i
+            class="anticon anticon-sync"></i><span>重置</span></button>
+      </div>
+    </div>
+  </form>
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">产品列表</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <!--      <button nz-button [nzType]="'primary'" (click)="openAddMuti()" [nzSize]="'default'">-->
+      <!--      <i class="anticon anticon-plus"></i>-->
+      <!--      <span>批量添加</span>-->
+      <!--      </button>-->
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" nzSize="middle" *authId="'P0301'">
+        <i class="anticon anticon-plus"></i>
+        <span>添加</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-result-list">
+    <nz-table #nzTable nzSize="default" [nzFrontPagination]="false" [nzShowPagination]="false" [nzLoading]="loading"
+      [nzData]="dataList" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+      <thead>
+        <tr>
+          <th>产品编号</th>
+          <th>产品名称</th>
+          <th>所属分类</th>
+          <th>添加日期</th>
+          <th>更新日期</th>
+          <th style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of nzTable.data;let i = index;">
+          <td><a (click)="openDetail(item)">{{item?.productNo}}</a></td>
+          <td>{{item?.productName}}</td>
+          <td>{{item?.productTypeName}}</td>
+          <td>{{item?.createTime}}</td>
+          <td>{{item?.updateTime}}</td>
+          <td>
+            <a (click)="openModify(item)" *authId="'P0303'">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定要删除该产品类别吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"
+              (nzOnConfirm)="confirmDel(item.productNo)">
+              <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'P0304'">删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>

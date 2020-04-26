@@ -1,0 +1,145 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="carNumber">
+            车牌号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['carNumber']" name="carNumber"
+                   [id]="'carNumber'">
+          </nz-form-control>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="status">
+            状态
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['status']" name="status"
+                       [nzAllowClear]="true" [nzPlaceHolder]="'--请选择--'">
+              <nz-option *ngFor="let status of statusList" [nzValue]="status.value"
+                         [nzLabel]="status.label"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="type">
+            类型
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['type']" name="type"
+                       [nzAllowClear]="true" [nzPlaceHolder]="'--请选择--'">
+              <nz-option *ngFor="let type of typeList" [nzValue]="type.value"
+                         [nzLabel]="type.label"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </div>
+    </div>
+
+    <div nz-row align="center" style="padding-top: 16px">
+      <div nz-col [nzSpan]="14" class="text-right">
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="search()" [nzSize]="'default'">
+          <i class="anticon anticon-search"></i>
+          <span>查询</span>
+        </button>
+        <button nz-button (click)="form.reset();refreshData(true)" [nzSize]="'default'" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i>
+          <span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">运钞车信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAddMutiple()" [nzSize]="'middle'" *authId="'C120105'">
+        <i class="anticon anticon-plus"></i>
+        <span>批量添加</span>
+      </button>
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'" *authId="'C120102'">
+        <i class="anticon anticon-plus"></i>
+        <span>添加</span>
+      </button>
+    </div>
+  </div>
+  <ng-template #pageSizeTem>
+    共 {{page.totalRow}} 条
+  </ng-template>
+
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzShowTotal]="pageSizeTem"
+              [nzLoading]="loading"
+              [nzData]="dataList"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="refreshData(true)"
+              (nzPageIndexChange)="refreshData()"
+    >
+      <thead>
+      <tr>
+        <th>
+          <span>车牌号</span>
+        </th>
+        <th>
+          <span>所属公司</span>
+        </th>
+        <th>
+          <span>车辆类型</span>
+        </th>
+        <th>
+          <span>签约方式</span>
+        </th>
+        <th>
+          <span>车辆状态</span>
+        </th>
+        <th style="text-align: center">操作</th>
+      </tr>
+      </thead>
+
+
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td>{{item.carNumber}}</td>
+        <td>{{item.companyName}}</td>
+        <td>
+          <span *ngIf="item.type=='0'">小型</span>
+          <span *ngIf="item.type=='1'">中型</span>
+          <span *ngIf="item.type=='2'">大型</span>
+        </td>
+        <td>
+          <ng-container *ngFor="let i of singingType">
+            <span *ngIf="i.value==item.signingType">{{i.label}}</span>
+          </ng-container>
+        </td>
+        <td>
+          <span *ngIf="item.status=='0'" style="color: red">故障</span>
+          <span *ngIf="item.status=='1'" style="color: green">正常</span>
+        </td>
+        <td style="text-align: center">
+          <a (click)="openModify(item)" *authId="'C120103'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定要删除该车辆吗？'" (nzOnConfirm)="confirmDel(item)">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C120104'">删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>
+

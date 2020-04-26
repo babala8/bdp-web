@@ -1,0 +1,129 @@
+<form nz-form [formGroup]="validateForm">
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageId'" nzRequired>预警编号
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageId" name="warnMessageId" [id]="'warnMessageId'" >
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageType'" nzRequired>预警类型
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <nz-select formControlName="warnMessageType" [nzPlaceHolder]="'请选择预警类型'" [nzSize]="'default'"  name="warnMessageType">
+                        <nz-option *ngFor="let option of warnTypes" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageInfo'" nzRequired>预警信息
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageInfo" name="warnMessageInfo" [id]="'warnMessageInfo'" >
+                </nz-form-control>
+            </div>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageDetailInfo'" nzRequired>备注
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageDetailInfo" name="warnMessageDetailInfo" [id]="'warnMessageDetailInfo'" >
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageDate'" nzRequired>预警日期
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageDate" [id]="'warnMessageDate'" >
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageTime'">预警时间
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageTime" [id]="'warnMessageTime'" >
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageToUserNo'">预警发送人员
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageToUserNo" [id]="'warnMessageToUserNo'" >
+                </nz-form-control>
+            </div>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageToRoleNo'">预警发送角色
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageToRoleNo" [id]="'warnMessageToRoleNo'" >
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageHandleStatus'">预警处理状态
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageHandleStatus" [id]="'warnMessageHandleStatus'" >
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageHandleUserNo'">预警处理人员编号
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageHandleUserNo" [id]="'warnMessageHandleUserNo'" >
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageHandleDate'" nzRequired>预警处理日期
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageHandleDate" [id]="'warnMessageHandleDate'" >
+                </nz-form-control>
+            </div>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="6" [nzFor]="'warnMessageHandleResult'" nzRequired>预警处理结果
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="warnMessageHandleResult" [id]="'warnMessageHandleResult'" >
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+
+</form>

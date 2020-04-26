@@ -1,0 +1,25 @@
+<nz-card [nzHoverable]="true"  [nzBordered]="false">
+    <div>用户信息</div>
+    <detail-table [data]="detailList" [itemWidth]="3"></detail-table>
+    <div style="margin-top: 48px;">审批意见</div>
+    <form nz-form [formGroup]="validateForm" autocomplete="off">
+        <nz-form-item nz-row>
+            <div nz-col [nzSpan]="24" nz-form-control nzHasFeedback>
+                <textarea nz-input formControlName="opinion" name="opinion"></textarea>
+                <div nz-form-explain *ngIf="validateForm.controls['opinion'].dirty && validateForm.controls['opinion'].errors">
+                    <span style="color:red">请填写审批意见!</span>
+                </div>
+            </div>
+        </nz-form-item>
+    </form>
+    <div align="center" style="margin-top: 15px;">
+        <button nz-button [nzLoading]="loading" nzType="primary" [nzSize]="'middle'" nzType="danger" (click)="audit(1)">
+            <i class="anticon anticon-rollback"></i>
+            <span>退&nbsp;&nbsp;&nbsp;&nbsp;回</span>
+        </button>
+        <button nz-button [nzLoading]="loading" style="margin-left: 50px;" [nzSize]="'middle'" nzType="primary" (click)="audit(0)">
+            <i class="anticon anticon-check"></i>
+            <span>审批通过</span>
+        </button>
+    </div>
+</nz-card>

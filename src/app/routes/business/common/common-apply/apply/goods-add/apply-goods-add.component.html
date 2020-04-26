@@ -1,0 +1,37 @@
+<form nz-form>
+  <div nz-row>
+    <div nz-col>
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" [nzFor]="'goodsNo'">物品名称</nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [ngModel]="productDetail" name="goodsNo" (ngModelChange)="selectProduct($event)">
+            <nz-option *ngFor="let product of productList" [nzLabel]="product.productName" [nzValue]="product"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row *ngFor="let params of paramsList; let i = index;">
+    <div nz-col>
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" [nzFor]="params.parameter">{{params.parameterName}}</nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <ng-container [ngSwitch]="params.dataType">
+            <ng-container *ngSwitchCase="'date'">
+              <nz-date-picker [(ngModel)]="params.value" [name]="params.parameter" style="width: 100%;">
+              </nz-date-picker>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <input nz-input [name]="params.parameter" [(ngModel)]="params.value">
+            </ng-container>
+          </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<div nz-row style="margin: 20px 0;text-align: center">
+  <div nz-col>
+    <button nz-button nzType="default" (click)="submitProduct()">确认添加</button>
+  </div>
+</div>

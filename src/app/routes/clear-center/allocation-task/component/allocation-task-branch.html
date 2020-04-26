@@ -1,0 +1,97 @@
+<div class="search-result-list">
+  <nz-table #nzTableTask
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzData]="dataSet"
+            nzHideOnSinglePage
+            [nzScroll]="{ y: '240px' }"
+  >
+    <thead>
+    <tr>
+      <th nzWidth="50%">任务单编号</th>
+      <th nzWidth="50%">金额</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTableTask.data;let i = index;">
+      <td>
+        {{data.taskNo}}
+      </td>
+      <td>
+        {{data.addnoteAmount}}
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<form nz-form [formGroup]="validateForm">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'batch'" nzRequired>
+          配款批次
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="getFormControl('bag_no')" nzHasFeedback>
+          <input nz-input [(ngModel)]="formModel['batch']" [nzSize]="'default'" name="batch" style="width: 100%" formControlName="batch">
+          <nz-form-explain *ngIf="getFormControl('batch').dirty&&validateForm.controls['batch'].errors">
+            <span style="color: red;">请输入配款批次</span>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">选择清分机</span>
+  </div>
+</div>
+
+<div class="search-result-list">
+  <nz-table #nzTableDev
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzData]="devList"
+            nzHideOnSinglePage
+            [nzScroll]="{ y: '200px' }"
+  >
+    <thead>
+    <tr>
+      <th>操作</th>
+      <th>清分机编号</th>
+      <th>批次数量</th>
+      <th>工作状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTableDev.data;let i = index;">
+      <td>
+        <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event,data);"></label>
+      </td>
+      <td>
+        {{data.devNo}}
+      </td>
+      <td>
+        {{data.countNum}}
+      </td>
+      <td>
+        <span *ngIf="data.devStatus == 1">启用</span>
+        <span *ngIf="data.devStatus == 2">停用</span>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div>
+  <form nz-form>
+    <nz-form-item  nz-row style="margin-bottom:8px;">
+      <nz-form-control  nz-col style="text-align: center">
+        <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 25%;" (click)="clearDevDistribute()">分配</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

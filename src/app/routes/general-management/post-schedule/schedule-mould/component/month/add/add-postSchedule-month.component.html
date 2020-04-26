@@ -1,0 +1,947 @@
+<div>
+    <nz-card [nzHoverable]="true" [nzBordered]="false">
+        <div style="margin-top: 5px">
+            <nz-table #nzTable2 [nzBordered]="true" [nzSize]="'middle'" [nzLoading]="loading" [nzNoResult]="'为模板设置人员'">
+                <thead nz-thead>
+                    <tr>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>班次</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>1号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>2号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>3号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>4号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>5号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>6号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>7号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>8号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>9号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>10号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>11号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>12号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>13号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>14号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>15号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>16号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>17号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>18号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>19号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>20号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>21号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>22号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>23号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>24号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>25号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>26号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>27号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>28号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>29号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>30号</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2" width="10%">
+                            <div align="center">
+                                <span>31号</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody nz-tbody>
+                    <tr nz-tbody-tr>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                上午
+                            </div>
+                        </td>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList11']" name="userList11"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList11" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--2-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList12']" name="userList12"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList12" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--3-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList13']" name="userList13"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList13" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--4-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList14']" name="userList14"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList14" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--5-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList15']" name="userList15"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList15" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--6-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList16']" name="userList16"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList16" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--7-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList17']" name="userList17"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList17" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--8-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList18']" name="userList18"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList18" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--9-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList19']" name="userList19"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList19" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--10-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList110']" name="userList110"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList110" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--11-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList111']" name="userList111"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList111" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--12-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList112']" name="userList112"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList112" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--13-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList113']" name="userList113"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList113" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--14-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList114']" name="userList114"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList114" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--15-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList115']" name="userList115"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList115" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--16-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList116']" name="userList116"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList116" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--17-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList117']" name="userList117"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList117" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--18-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList118']" name="userList118"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList118" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--19-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList119']" name="userList119"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList119" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--20-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList120']" name="userList120"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList120" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--21-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList121']" name="userList121"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList121" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--22-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList122']" name="userList122"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList122" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--23-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList123']" name="userList123"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList123" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--24-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList124']" name="userList124"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList124" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--25-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList125']" name="userList125"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList125" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--26-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList126']" name="userList126"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList126" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--27-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList127']" name="userList127"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList127" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--28-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList128']" name="userList128"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList128" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--29-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList129']" name="userList129"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList129" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--30-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList130']" name="userList130"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList130" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--31-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList131']" name="userList131"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList131" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr nz-tbody-tr>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                下午
+                            </div>
+                        </td>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList21']" name="userList21"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList21" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--2-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList22']" name="userList22"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList22" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--3-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList23']" name="userList23"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList23" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--4-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList24']" name="userList24"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList24" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--5-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList25']" name="userList25"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList25" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--6-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList26']" name="userList26"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList26" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--7-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList27']" name="userList27"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList27" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--8-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList28']" name="userList28"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList28" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--9-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList29']" name="userList29"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList29" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--10-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList210']" name="userList210"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList210" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--11-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList211']" name="userList211"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList211" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--12-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList212']" name="userList212"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList212" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--13-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList213']" name="userList213"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList213" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--14-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList214']" name="userList214"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList214" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--15-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList215']" name="userList215"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList215" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--16-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList216']" name="userList216"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList216" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--17-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList217']" name="userList217"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList217" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--18-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList218']" name="userList218"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList218" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--19-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList219']" name="userList219"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList219" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--20-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList220']" name="userList220"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList220" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--21-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList221']" name="userList221"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList221" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--22-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList222']" name="userList222"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList222" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--23-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList223']" name="userList223"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList223" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--24-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList224']" name="userList224"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList224" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--25-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList225']" name="userList225"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList225" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--26-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList226']" name="userList226"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList226" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--27-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList227']" name="userList227"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList227" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--28-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList228']" name="userList228"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList228" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--29-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList229']" name="userList229"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList229" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--30-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList230']" name="userList230"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList230" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--31-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList231']" name="userList231"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList231" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr nz-tbody-tr>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                晚上
+                            </div>
+                        </td>
+                        <td nz-td><!--1-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList31']" name="userList31"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList31" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--2-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList32']" name="userList32"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList32" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--3-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList33']" name="userList33"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList33" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--4-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList34']" name="userList34"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList34" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--5-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList35']" name="userList35"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList35" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--6-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList36']" name="userList36"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList36" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--7-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList37']" name="userList37"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList37" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--8-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList38']" name="userList38"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList38" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--9-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList39']" name="userList39"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList39" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--10-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList310']" name="userList310"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList310" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--11-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList311']" name="userList311"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList311" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--12-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList312']" name="userList312"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList312" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--13-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList313']" name="userList313"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList313" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--14-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList314']" name="userList314"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList314" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--15-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList315']" name="userList315"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList315" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--16-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList316']" name="userList316"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList316" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--17-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList317']" name="userList317"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList317" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--18-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList318']" name="userList318"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList318" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--19-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList319']" name="userList319"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList319" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--20-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList320']" name="userList320"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList320" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--21-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList321']" name="userList321"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList321" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--22-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList322']" name="userList322"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList322" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--23-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList323']" name="userList323"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList323" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--24-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList324']" name="userList324"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList324" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--25-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList325']" name="userList325"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList325" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--26-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList326']" name="userList326"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList326" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--27-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList327']" name="userList327"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList327" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--28-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList328']" name="userList328"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList328" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--29-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList329']" name="userList329"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList329" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--30-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList330']" name="userList330"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList330" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                        <td nz-td><!--31-->
+                            <div align="center">
+                                <nz-select style="width: 95%" [(ngModel)]="formModel['userList331']" name="userList331"
+                                    nzAllowClear [nzPlaceHolder]="'--请选择--'" [nzSize]="'large'" [nzMode]="'multiple'">
+                                    <nz-option *ngFor="let a of userList331" [nzLabel]="a.name" [nzValue]="a.userName"></nz-option>
+                                </nz-select>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <div nz-row align="center">
+            <div nz-col align="center">
+                <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="openSure()">提交</button>
+            </div>
+        </div>
+    </nz-card>
+</div>
+    

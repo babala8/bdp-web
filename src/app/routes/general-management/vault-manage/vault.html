@@ -1,0 +1,103 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            金库编号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['clrCenterNo']" name="clrCenterNo"
+                   [id]="'clrCenterNo'"
+                   required>
+          </nz-form-control>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            <label [attr.for]="'clrCenterName'">金库名称</label>
+          </nz-form-label>
+
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input [nzSize]="'default'" [(ngModel)]="formModel['clrCenterName']" name="clrCenterName"
+                   [id]="'clrCenterName'"
+                   required>
+          </nz-form-control>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="3" [nzOffset]="1" style="width: auto">
+        <button nz-button [nzType]="'primary'" (click)="search()" [nzSize]="'default'" [nzLoading]="loading"><i class="anticon anticon-search"></i><span>查询</span></button>
+        <button nz-button (click)="form.reset();refreshData()" [nzSize]="'default'" [nzLoading]="loading"><i class="anticon anticon-sync"></i><span>重置</span></button>
+      </div>
+    </div>
+  </form>
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">金库管理</span>
+    </div>
+  </div>
+
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzSize="default"
+              [nzFrontPagination]="false"
+              [nzShowPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="dataList"
+              (nzPageSizeChange)="refreshData(true)"
+              (nzPageIndexChange)="refreshData()"
+    >
+      <thead>
+      <tr>
+        <th>金库编号</th>
+        <th>金库名称</th>
+        <th>是否是自动化库</th>
+        <th>金库类型</th>
+        <th>线路模式</th>
+        <th>设备矩阵关联状态</th>
+        <th>加钞车数目</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td>{{item?.clrCenterNo}}</td>
+        <td>
+          {{item?.centerName}}
+        </td>
+        <td>
+          <span *ngIf="item?.autoFlag==0">非自动化库</span>
+          <span *ngIf="item?.autoFlag==1">自动化库</span>
+        </td>
+        <td>
+          <ng-container *ngFor="let info of centerTypes">
+              <ng-container *ngIf="info.no == item?.centerType">{{info.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <span *ngIf="item?.lineMode == 1">自动规划</span>
+          <span *ngIf="item?.lineMode == 2">固定线路</span>
+        </td>
+        <td>
+          <span *ngIf="item?.netpointMatrixStatus==0" [ngStyle]="{'color':'red'}">已关联结束</span>
+          <span *ngIf="item?.netpointMatrixStatus==1" [ngStyle]="{'color':'green'}">正在关联</span>
+        </td>
+        <td>{{item?.cashtruckNum}}</td>
+        <td>
+<!--          <span>-->
+<!--            <a (click)="changeNum(item)">关联机构</a>-->
+<!--          </span>-->
+<!--          <nz-divider nzType="vertical"></nz-divider>-->
+          <span>
+            <a (click)="changeNum(item)" *authId="'A0403'">调整参数</a>
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div>
+<notice-icon
+  [data]="data"
+  [count]="count"
+  [loading]="loading"
+  btnClass="alain-default__nav-item"
+  btnIconClass="alain-default__nav-item-icon"
+  (clear)="clear($event)"
+  (select)="select($event)"
+  (popoverVisibleChange)="loadData()"
+></notice-icon>
+</div>

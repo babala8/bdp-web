@@ -1,0 +1,100 @@
+<div nz-row>
+  <div nz-col style="text-align: left">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="addStatusTransition()">
+      <i nz-icon nzType="plus"></i>
+      新增
+    </button>
+  </div>
+</div>
+<nz-table #nzTable nzSize="middle" [nzData]="statusTransitionList" [nzShowPagination]="false" nzFrontPagination="false"
+          nzBordered>
+  <thead>
+  <tr>
+    <th>当前状态</th>
+    <th>执行操作</th>
+    <th>下一步状态</th>
+    <th>所属模块</th>
+    <th>节点类型</th>
+    <th>管理</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let statusTransition of nzTable.data, let i = index;">
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else curStatusInputTpl">
+        {{statusTransition.curStatusName}}
+      </ng-container>
+      <ng-template #curStatusInputTpl>
+        <nz-select [(ngModel)]="statusTransition.curStatus" nzSize="default" style="width: 100%;">
+          <nz-option *ngFor="let status of statusList" [nzValue]="status.status" [nzLabel]="status.name"></nz-option>
+        </nz-select>
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else operateInputTpl">
+        {{statusTransition.operateName}}
+      </ng-container>
+      <ng-template #operateInputTpl>
+        <nz-select [(ngModel)]="statusTransition.operateType" (ngModelChange)="changeOperate($event,statusTransition)"
+                   nzSize="default" style="width: 100%;">
+          <nz-option *ngFor="let operate of operateList" [nzValue]="operate.operateType"
+                     [nzLabel]="operate.description"></nz-option>
+        </nz-select>
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else nextStatusNameInputTpl">
+        {{statusTransition.nextStatusName ? statusTransition.nextStatusName : '***'}}
+      </ng-container>
+      <ng-template #nextStatusNameInputTpl>
+        <input nz-input type="text" [(ngModel)]="statusTransition.nextStatusName">
+      </ng-template>
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else moduleInputTpl">
+        {{statusTransition.moduleName}}
+      </ng-container>
+      <ng-template #moduleInputTpl>
+        <nz-select [(ngModel)]="statusTransition.moduleNo" nzSize="default" style="width: 100%;">
+          <nz-option *ngFor="let module of moduleList" [nzValue]="module.moduleNo" [nzLabel]="module.moduleName">
+          </nz-option>
+        </nz-select>
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else weakNodeTpl">
+        {{weakNodeObj[statusTransition.weakNode]}}
+      </ng-container>
+      <ng-template #weakNodeTpl>
+        <nz-select [(ngModel)]="statusTransition.weakNode" nzSize="default" style="width: 100%;">
+          <nz-option *ngFor="let node of weakNodeList" [nzValue]="node.value" [nzLabel]="node.label"></nz-option>
+        </nz-select>
+      </ng-template>
+    <td>
+      <ng-container *ngIf="!statusTransition.editFlag, else confirmModTpl">
+        <a (click)="changeEditFlag(statusTransition)">修改</a>
+      </ng-container>
+      <ng-template #confirmModTpl>
+        <a (click)="changeEditFlag(statusTransition)">确认</a>
+      </ng-template>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="deleteStatusTransition(i)" style="color: red">删除</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<div nz-row style="margin: 20px 0">
+  <div nz-col style="text-align: center">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="initDagre()">预览</button>
+
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="submitChanges()">提交</button>
+  </div>
+</div>
+<nz-collapse>
+
+  <nz-collapse-panel [nzHeader]="'状态转换关系流程图'" [nzActive]="true">
+    <div id="svg-render" style="width: 100%; text-align: center">
+      <svg id="svg-canvas" style="width: 100%" width="850"></svg>
+    </div>
+  </nz-collapse-panel>
+</nz-collapse>

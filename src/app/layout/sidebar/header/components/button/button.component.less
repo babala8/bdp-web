@@ -1,0 +1,46 @@
+@header-height: 64px;
+.container {
+    margin: 7px auto;
+    width: 90px;
+    height: @header-height;
+    transform: translate3d(0, 0, 0) perspective(300px);
+    transform-style: preserve-3d;
+    .spin {
+        width: 64px;
+        height: @header-height;
+        vertical-align: middle;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: space-around;
+        transform: rotateY(-40deg);
+        transition: all 0.4s ease 0s;
+        &:hover {
+            transform: rotateY(0deg);
+        }
+        .tile-button {
+            width: 25px;
+            height: 25px;
+            font-size: 15px;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            vertical-align: middle;
+            transition: all 0.4s ease 0s;
+            text-decoration: none;
+            box-shadow: 10px 2px 6px rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 1);
+        }
+        .tile-button:nth-child(1):hover {
+            background-color: rgb(246, 67, 34);
+        }
+        .tile-button:nth-child(2):hover {
+            background-color: rgb(113, 187, 28);
+        }
+        .tile-button:nth-child(3):hover {
+            background-color: rgb(82, 148, 255);
+        }
+        .tile-button:nth-child(4):hover {
+            background-color: rgb(254, 183, 31);
+        }
+    }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "app2",
+    "link": "/assets/app2",
+    "url": "http://10.34.12.164:3000/data_insight",
+    "sourceType": "link",
+    "desc": "大数据子应用"
+  },
+  {
+    "name": "app3",
+    "link": "/assets/app3",
+    "url": "http://10.34.12.164:3000/addnotes",
+    "sourceType": "link",
+    "desc": "加钞子应用"
+  }
+]

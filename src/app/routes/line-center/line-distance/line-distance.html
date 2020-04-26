@@ -1,0 +1,106 @@
+<!--<script src="line-distance.component.ts"></script>-->
+<form nz-form class="search-form">
+    <div nz-row>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="5">
+                    <label [attr.for]="'clrCenterNo'">所属金库</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['clrCenterNo']" [nzSize]="'default'" [nzPlaceHolder]="'--请选择--'" name="clrCenterNo">
+                        <nz-option *ngFor="let option of clrCenterList" [nzLabel]="option.centerName" [nzValue]="option.clrCenterNo">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="5">
+                    <label [attr.for]="'type'">类型</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <nz-select [(ngModel)]="formModel['type']" [nzSize]="'default'" [nzPlaceHolder]="'--请选择--'" nzAllowClear name="type">
+                        <nz-option *ngFor="let option of types" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="5">
+                    <label [attr.for]="'startPointNo'">起点</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input [(ngModel)]="formModel['startPointNo']" [nzSize]="'default'" name="startPointNo" style="width: 100%">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <div nz-row>
+                <nz-form-label nz-col [nzSpan]="5">
+                    <label [attr.for]="'endPointNo'">终点</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="14">
+                    <input nz-input [(ngModel)]="formModel['endPointNo']" [nzSize]="'default'" name="endPointNo" style="width: 100%">
+                </nz-form-control>
+            </div>
+        </div>
+    </div>
+    <div nz-row style="margin-top: 10px; text-align: center">
+        <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()" [nzLoading]="loading">
+            <i class="anticon anticon-search"></i>
+            <span>查询</span>
+        </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+            <i class="anticon anticon-sync"></i>
+            <span>重置</span>
+        </button>
+    </div>
+</form>
+<div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+        <span style="font-size: 17px;"> 路程管理</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+        <button data-id="'C050101'" nz-button [nzType]="'primary'" (click)="handleSelect('1')" [nzSize]="'default'" *authId="'E0502'">
+            设备关联
+        </button>
+        <button data-id="'C050101'" nz-button [nzType]="'primary'" (click)="handleSelect('2')" [nzSize]="'default'" *authId="'E0502'">
+            网点关联
+        </button>
+    </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+    <nz-table #nzTable nzShowSizeChanger [nzLoading]="loading" [nzData]="dataSet" [nzShowTotal]="pageSizeTem" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+        [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+        <thead>
+            <tr>
+                <th width="15%">起点</th>
+                <th>终点</th>
+                <th>类型</th>
+                <th>路程（km）</th>
+                <th width="15%">预计耗时（min）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nzTable.data;">
+                <td>{{data.startPointNo}}</td>
+                <td>{{data.endPointNo}}</td>
+                <td>
+                    <div [ngSwitch]="data.type">
+                        <ng-container *ngFor="let item of types">
+                            <span *ngSwitchCase="item.value">{{item.label}}</span>
+                        </ng-container>
+                    </div>
+                </td>
+                <td>{{data.distance/1000.0 | number:'1.1-1'}}</td>
+                <td>{{data.timeCost}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

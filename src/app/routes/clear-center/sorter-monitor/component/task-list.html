@@ -1,0 +1,40 @@
+<div class="modal-body">
+    <detail-table [data]="detailList" [itemWidth]="4" style="margin-bottom: 20px"></detail-table>
+    <div class="search-result-list" style="margin-right: 0;margin-left: 0;margin-top: 20px">
+        <nz-table #nzTable nzSize="middle" [nzShowSizeChanger]="false" [nzShowPagination]="false" [nzFrontPagination]="false"
+                  [nzData]="devList">
+            <thead>
+            <tr>
+                <th><span>任务编号</span></th>
+                <th><span>任务种类</span></th>
+                <th><span>清分设备编号</span></th>
+                <th><span>计划批次</span></th>
+                <th><span>计划状态</span></th>
+                <th><span>计划开始日期</span></th>
+                <th><span>计划结束日期</span></th>
+                <th><span>计划金额</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of nzTable.data;let i = index">
+                <td>{{item.taskNo}}</td>
+                <td>
+                    <ng-container *ngFor="let info of productInfo">
+                        <ng-container *ngIf="info.no == item.taskType">{{info.name}}</ng-container>
+                    </ng-container>
+                </td>
+                <td>{{item.devNo}}</td>
+                <td>{{item.batch}}</td>
+                <td> <app-enum-info type="COUNT_STATUS" [value]="item.countStatus"></app-enum-info></td>
+                <td>{{item.countStartDate}}</td>
+                <td>{{item.countEndDate}}</td>
+                <td>{{item.countAmount| currency:'CNY':'symbol-narrow'}}</td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<div class="ant-modal-footer">
+    <button nz-button nzType="default" (click)="handleCancel()">关闭</button>
+</div>

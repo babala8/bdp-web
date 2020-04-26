@@ -1,0 +1,99 @@
+<div class="modal-body">
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [(nzSelectedIndex)]="selectedIndex">
+    <nz-tab [nzTitle]="'基础信息'">
+      <div nz-row class="detail-table" style="margin: 10px 0">
+        <div nz-col nzSpan="4">所属金库</div>
+        <div nz-col nzSpan="4">{{detail?.clrCenterNo}}</div>
+        <div nz-col nzSpan="4">申请网点</div>
+        <div nz-col nzSpan="4">{{detail?.customerName}}</div>
+        <div nz-col nzSpan="4">订单状态</div>
+        <div nz-col nzSpan="4">{{task?.statusName}}</div>
+        <div nz-col nzSpan="4">订单日期</div>
+        <div nz-col nzSpan="4">{{detail?.planFinishDate}}</div>
+        <div nz-col nzSpan="4">申请人</div>
+        <div nz-col nzSpan="4">{{detail?.createOpNo}}</div>
+        <div nz-col nzSpan="4">申请日期</div>
+        <div nz-col nzSpan="4">{{detail?.createTime}}</div>
+        <div nz-col nzSpan="4">配送线路</div>
+        <div nz-col nzSpan="4">{{detail?.lineName}}</div>
+        <div nz-col nzSpan="4">配送顺序</div>
+        <div nz-col nzSpan="4">{{detail?.sortNum}}</div>
+        <div nz-col nzSpan="4">地址</div>
+        <div nz-col nzSpan="4">{{detail?.address}}</div>
+        <div nz-col nzSpan="4">备注</div>
+        <div nz-col nzSpan="20">{{detail?.note}}</div>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <span style="font-size: 20px;">具体领用</span>
+      </div>
+      <nz-table #editRowTable nzBordered [nzSize]="'middle'" [nzData]="detail?.currencyTypeList" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th>币种</th>
+          <th>类别</th>
+          <th>券别</th>
+          <th nzAlign="right">金额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template ngFor let-data [ngForOf]="editRowTable.data">
+          <tr>
+            <td>
+              {{data.currencyCode}}
+              <!--          <app-enum-info type="CURRENCY_CODE" [value]="1"></app-enum-info>-->
+            </td>
+            <td>
+              {{data.currencyType}}
+              <!--          <app-enum-info type="CURRENCY_TYPE" [value]="data.currencyType"></app-enum-info>-->
+            </td>
+            <td>
+              {{data.denomination}}
+              <!--          <app-enum-info type="DENOMINATION" [value]="data.denomination"></app-enum-info>-->
+            </td>
+            <td nzAlign="right">{{ data.amount | currency:'CNY':'symbol-narrow' }}</td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+    <nz-tab nzTitle="操作记录">
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'操作流程图'"
+          [nzActive]="true">
+          <ng-container *ngIf="selectedIndex===1">
+            <operate-flow-chart [recordList]="recordList" [statusList]="statusList"
+                                [statusTransitionList]="statusTransitionList"></operate-flow-chart>
+          </ng-container>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <nz-collapse>
+        <nz-collapse-panel
+          [nzHeader]="'操作表'"
+          [nzActive]="true">
+          <nz-table #operateTable nzBordered [nzSize]="'middle'" [nzData]="recordList"
+                    [nzShowPagination]="false">
+            <thead>
+            <tr>
+              <th>上一状态</th>
+              <th>当前状态</th>
+              <th>操作</th>
+              <th>时间</th>
+              <th>操作人员</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of recordList">
+              <td>{{data.beforeNodeName}}</td>
+              <td>{{data.curNodeName}}</td>
+              <td>{{data.operateTypeName}}</td>
+              <td>{{data.finishTime}}</td>
+              <td>{{data.opName}}</td>
+            </tr>
+            </tbody>
+          </nz-table>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-tab>
+  </nz-tabset>
+</div>

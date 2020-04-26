@@ -1,0 +1,64 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "node", "jquery"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "baseUrl": "./src/",
+    "paths": {
+      "@shared": [
+        "app/shared/index"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@core": [
+        "app/core/index"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@zijin/dashboard": [
+        "dist/zijin/dashboard"
+      ],
+      "@zijin/dashboard/*": [
+        "dist/zijin/dashboard/*"
+      ],
+      "@zijin/developer": [
+        "dist/zijin/developer"
+      ],
+      "@zijin/developer/*": [
+        "dist/zijin/developer/*"
+      ],
+      "@zijin/messi": [
+        "dist/zijin/messi"
+      ],
+      "@zijin/messi/*": [
+        "dist/zijin/messi/*"
+      ]
+    }
+  }
+}

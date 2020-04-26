@@ -1,0 +1,59 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      清机中心
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('clrCenterNo')">
+      <select-clr-center name="clrCenterNo" formControlName="clrCenterNo" allowClear="true"></select-clr-center>
+      <nz-form-explain *ngIf="getFormControl('clrCenterNo')?.dirty && getFormControl('clrCenterNo')?.hasError('required')">
+        <span style="color: red;">请选择清机中心</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      钥匙使用范围
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('keyUseRange')">
+      <nz-select [nzSize]="'middle'" id="keyUseRange" formControlName="keyUseRange" name="keyUseRange" nzAllowClear
+                 [nzPlaceHolder]="'--请选择使用范围--'">
+        <nz-option *ngFor="let r of range" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('keyUseRange')?.dirty && getFormControl('keyUseRange')?.hasError('required')">
+        <span style="color: red;">请选择钥匙使用范围</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      钥匙类型编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('keyTypeNo')">
+      <input nz-input nzSize="middle" id="keyTypeNo" formControlName="keyTypeNo" type="number" maxlength="32">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      钥匙类型名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('keyTypeName')">
+      <input nz-input nzSize="middle" id="keyTypeName" formControlName="keyTypeName" maxlength="40">
+      <nz-form-explain *ngIf="getFormControl('keyTypeName')?.dirty && getFormControl('keyTypeName')?.hasError('required')">
+        <span style="color: red;">请输入钥匙类型名称</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      备注
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+      <input nz-input nzSize="middle" id="note" formControlName="note" maxlength="100">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control  nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 50%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,0 +1,113 @@
+<form nz-form class="search-form">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'clrCenterNo'">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" allowClear="true"></select-clr-center>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'lineNo'">
+          加钞线路
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <select-dispatch-line name="lineNo" [clrCenterNo]="formModel['clrCenterNo']" [(ngModel)]="formModel['lineNo']"></select-dispatch-line>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'taskNo'">
+          任务单编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['taskNo']" [nzSize]="'default'" name="dispatchNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'dateRange'">
+          加钞日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-range-picker [(ngModel)]="formModel['dateRange']"  name="dateRange"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row align="center">
+    <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()">
+      <i class="anticon anticon-search"></i>
+      <span>查询</span>
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()">
+      <i class="anticon anticon-sync"></i>
+      <span>重置</span>
+    </button>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">ATM配钞信息查询</span>
+  </div>
+</div>
+<ng-template #totalTpl>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="totalTpl"
+            [nzLoading]="loading" [nzData]="dataSet" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+    <thead>
+    <tr>
+
+      <th>任务单编号</th>
+      <th>加钞时间</th>
+      <th>加钞线路</th>
+      <th>所属金库</th>
+      <th nzAlign="right">加钞金额（万元）</th>
+      <th nzAlign="right">设备台数</th>
+      <th>任务单状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.taskNo}}
+      </td>
+      <td>
+        {{data?.planFinishDate}}
+      </td>
+      <td>
+        {{data?.lineName}}
+      </td>
+      <td>
+        {{data?.centerName}}
+      </td>
+      <td nzAlign="right">
+        {{data?.addnoteAmount/10000}}
+      </td>
+      <td nzAlign="right">
+        {{data?.customerCount}}
+      </td>
+      <td>
+        <ng-container [ngSwitch]="data.status">
+          <ng-container *ngFor="let i of taskStatus">
+            <ng-container *ngSwitchCase="i.value">{{i.name}}</ng-container>
+          </ng-container>
+        </ng-container>
+      </td>
+      <td><a (click)="openDetail(data)">配钞明细</a></td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+

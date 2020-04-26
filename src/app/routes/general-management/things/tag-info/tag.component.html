@@ -1,0 +1,148 @@
+<form nz-form class="search-form">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'clrCenterNo'">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" allowClear="true"></select-clr-center>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row >
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'tagType'">
+          标签类型
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" [(ngModel)]="formModel['tagType']" name="tagType" nzAllowClear
+                     [nzPlaceHolder]="'--请选择标签类型--'">
+            <nz-option *ngFor="let r of tType" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'tagTid'">
+          标签编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['tagTid']" [nzSize]="'default'" name="tagTid" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'status'">
+          标签状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'middle'" id="status" [(ngModel)]="formModel['status']" name="status" nzAllowClear
+                     [nzPlaceHolder]="'--请选择标签状态--'">
+            <nz-option *ngFor="let r of tStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row align="center">
+    <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData(true)">
+      <i class="anticon anticon-search"></i>
+      <span>查询</span>
+    </button>
+    <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()">
+      <i class="anticon anticon-sync"></i>
+      <span>重置</span>
+    </button>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">标签管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button [nzType]="'primary'" (click)="openAddMuti()" [nzSize]="'default'"  *authId="'C020405'">
+      <i class="anticon anticon-plus"></i>
+      <span>批量添加</span>
+    </button>
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'"  *authId="'C020402'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>标签编号</th>
+      <th>所属金库</th>
+      <th>标签类型</th>
+      <th>EPC区信息</th>
+      <th>EPC存储容量</th>
+      <th>用户区存储容量</th>
+      <th>备注</th>
+      <th>状态</th>
+      <th style="text-align: center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.tagTid}}
+      </td>
+      <td>
+        {{data.centerName}}
+      </td>
+      <td>
+        {{data.tagTypeName}}
+      </td>
+      <td>
+        {{data.epcInfo}}
+      </td>
+      <td>
+        {{data.epcMemorySize}}
+      </td>
+      <td>
+        {{data.userdataMemorySize}}
+      </td>
+      <td>
+        {{data.note}}
+      </td>
+
+      <td>
+        {{data.tagStatus}}
+      </td>
+      <td style="text-align: center">
+        <ng-container>
+          <a (click)="openMod(data)" *authId="'C020403'">修改</a>
+        </ng-container>
+        <ng-container *ngIf="data.status == 2">
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定删除该项吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'" (nzOnConfirm)="delTag(data.tagTid)">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C020404'">删除</a>
+          </nz-popconfirm>
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+

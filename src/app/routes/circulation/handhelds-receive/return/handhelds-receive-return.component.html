@@ -1,0 +1,85 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      读写器编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagReaderNo')">
+      <input nz-input nzSize="middle" id="tagReaderNo" formControlName="tagReaderNo">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      领用人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" id="requestOpName" formControlName="requestOpName">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      发放人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" id="grantOpName" formControlName="grantOpName">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      发放日期
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('requestDate')">
+      <input nz-input nzSize="middle" id="requestDate" formControlName="requestDate">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      发放时间
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('requestTime')">
+      <input nz-input nzSize="middle" id="requestTime" formControlName="requestTime">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      领用级别
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('crashFlag')">
+      <nz-select [nzSize]="'middle'" id="crashFlag" formControlName="crashFlag" name="crashFlag" nzAllowClear
+                 [nzPlaceHolder]="'--请选择领用级别--'">
+        <nz-option *ngFor="let r of cFlag" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      归还人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('returnOpNo')">
+      <nz-select [nzSize]="'middle'"  formControlName="returnOpNo" name="returnOpNo" [nzPlaceHolder]="'--请选择或搜索用户--'" nzAllowClear>
+        <nz-option *ngFor="let r of useList" [nzLabel]="r.name" [nzValue]="r.username"></nz-option>
+      </nz-select>
+    </nz-form-control>
+    <nz-form-explain *ngIf="getFormControl('returnOpNo')?.dirty && getFormControl('returnOpNo')?.hasError('required')">
+      <span style="color: red;">请选择或搜索用户</span>
+    </nz-form-explain>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      接收人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('signOpNo')">
+      <nz-select [nzSize]="'middle'" formControlName="signOpNo" name="signOpNo" [nzPlaceHolder]="'--请选择或搜索用户--'" nzAllowClear>
+        <nz-option *ngFor="let r of useList" [nzLabel]="r.name" [nzValue]="r.username"></nz-option>
+      </nz-select>
+    </nz-form-control>
+    <nz-form-explain *ngIf="getFormControl('signOpNo')?.dirty && getFormControl('signOpNo')?.hasError('required')">
+      <span style="color: red;">请选择或搜索用户</span>
+    </nz-form-explain>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center;">
+      <button nz-button nzSize="middle" nzType="primary" [nzLoading]="loading" style="width: 30%" [disabled]="validateForm.invalid">提交
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

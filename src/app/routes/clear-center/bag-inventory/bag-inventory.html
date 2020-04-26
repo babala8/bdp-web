@@ -1,0 +1,108 @@
+<nz-card [nzBordered]="false" style="margin: 20px;">
+  <nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="智能匹配箱包"></nz-step>
+    <nz-step nzTitle="填写清点信息"></nz-step>
+    <nz-step nzTitle="对账"></nz-step>
+    <nz-step nzTitle="完成"></nz-step>
+  </nz-steps>
+  <ng-container *ngIf="current == 0">
+    <form nz-form se-container="1" labelWidth="100" style="max-width: 500px; margin: 40px auto 0;" [formGroup]="validateForm">
+      <se label="箱包" required>
+        <div nz-row>
+          <div nz-col nzSpan="19">
+            <input nz-input [(ngModel)]="initCashbox" formControlName="cashbox" [id]="'cashbox'" />
+            <nz-form-explain *ngIf="getFormControl('cashbox').dirty && getFormControl('cashbox').errors">
+              <ng-container *ngIf="getFormControl('cashbox').hasError('required')">
+                <span style="color: red">请输入箱包编号!</span>
+              </ng-container>
+            </nz-form-explain>
+          </div>
+          <div nz-col nzSpan="4" nzOffset="1">
+            <a (click)="scan()"><i nz-icon nzType="scan" nzTheme="outline"></i>扫描</a>
+          </div>
+        </div>
+      </se>
+      <se>
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <button nz-button nzType="primary" [disabled]="" [nzLoading]="loadingArr[current].loading"
+                    (click)="qryTaskDetail()">下一步</button>
+          </div>
+        </div>
+      </se>
+    </form>
+    <div class="border-top-1 mt-lg px-lg text-grey-dark">
+      <h3 class="h3 my-md">说明</h3>
+      <p class="mb-sm">
+        1. 任务单需要清点的箱包数量为多个时，需要对所有箱包编号进行匹配!
+      </p>
+      <p class="mb-sm">
+        2. 使用扫描功能前请确认本机已连接扫描设备；
+      </p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="current == 1">
+    <div nz-row style="margin: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 10px;">
+      <div nz-col nzSpan="24">
+        <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+        <nz-statistic [nzValue]="allCount | currency:'CNY':'symbol-narrow' " [nzTitle]="'解现总金额'"></nz-statistic>
+      </div>
+      <ng-container *ngFor="let item of cashClass">
+        <div nz-col nzSpan="24" style="margin-top: 10px;">{{item.name}}</div>
+        <div nz-col nzSpan="3" *ngFor="let denomination of item.denomination" style="border: 3px solid #ddd;">
+          <input nz-input [ngModel]="denomination.name" name="name" readonly>
+          <nz-input-number style="width: 100%;" [(ngModel)]="denomination.amount" name="amount" [nzMin]="1" [nzStep]="1"
+                           nzPlaceHolder="张数">
+          </nz-input-number>
+        </div>
+      </ng-container>
+      <nz-col style="text-align: center; margin-top: 20px;" nzSpan="24">
+        <button nz-button type="button" (click)="backStep()">上一步</button>
+        <button nz-button nzType="primary" type="button" (click)="nextStep()">下一步</button>
+      </nz-col>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="current == 2">
+    <form nz-form se-container="1" labelWidth="100" style="max-width: 500px; margin: 40px auto 0;">
+      <nz-alert class="pb-lg" [nzMessage]="'清点总金额与账务不匹配时，需重新进行清点。'" [nzShowIcon]="true" [nzCloseable]="true"></nz-alert>
+      <se label="账务匹配标志" required>
+        <nz-select [ngModel]="0" name="countFlag" [nzDisabled]="true">
+          <nz-option [nzValue]="0" nzLabel="平"></nz-option>
+          <nz-option [nzValue]="1" nzLabel="不平"></nz-option>
+        </nz-select>
+      </se>
+      <se label="任务单编号" class="border-top-1 pt-lg">{{ task.taskNo }}</se>
+      <se label="所属机构">{{ task.customerName }}</se>
+      <se label="解现时间">{{ task.planFinishDate }}</se>
+      <se label="清点总金额"><strong class="text-lg">{{ allCount | currency:'CNY':'symbol-narrow' }}</strong></se>
+
+      <se>
+        <button nz-button (click)="backStep()">上一步</button>
+        <button nz-button [nzType]="'primary'" [nzLoading]="loadingArr[current].loading"
+                (click)="inventory()">提交</button>
+      </se>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="current == 3">
+    <div style="display: block; width: 72%; max-width: 560px; margin: 0 auto; text-align: center;">
+      <div class="icon pt-md">
+        <i nz-icon nzType="check-circle" class="text-success icon-lg"></i>
+      </div>
+      <h1 class="h2 pt-md">清点成功</h1>
+      <div sv-container col="1" labelWidth="150" class="extra"
+           style="padding: 24px 40px; text-align: left; background: #fafafa; border-radius: 2px;">
+        <sv label="任务单编号">{{ task.taskNo }}</sv>
+        <sv label="所属机构">{{ task.customerName }}</sv>
+        <sv label="解现日期">{{ task.planFinishDate }}</sv>
+        <sv label="清点总金额"><strong class="text-lg pr-sm">{{ allCount | currency:'CNY':'symbol-narrow' }}</strong></sv>
+        <sv label="账务匹配标志">平</sv>
+      </div>
+      <div nz-row class="my-md py-md">
+        <div nz-col>
+          <button nz-button (click)="resetInfo(); current = 0" [nzType]="'primary'">继续清点</button>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</nz-card>

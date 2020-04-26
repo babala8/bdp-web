@@ -1,0 +1,68 @@
+<div class="modal-body">
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'clrCenterNo'">所属金库</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <select-clr-center name="clrCenterNo" [ngModel]="detail?.clrCenterNo" disabled>
+            </select-clr-center>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'planFinishDate'">寄库日期</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail?.planFinishDate" name="planFinishDate" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8" *ngIf="detail.customerNoList && detail.customerNoList[0]">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="9" [nzFor]="'customer'">{{detail.customerNoList[0].customerTypeName}}</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="15">
+            <input nz-input [ngModel]="detail.customerNoList[0].customerName" name="customer" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="3" nzFor="note">备注</nz-form-label>
+          <nz-form-control nz-col [nzSpan]="21">
+            <input nz-input [ngModel]="detail?.note" name="note" disabled>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="物品信息" nzActive="true">
+      <nz-table #cashBoxTable [nzData]="detail?.customer.containerList" nzSize="small" [nzShowPagination]="false">
+        <thead>
+        <tr>
+          <th nzWidth="30%">物品编号</th>
+          <th>出库日期</th>
+          <th>调拨方向</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-template ngFor let-data [ngForOf]="cashBoxTable.data">
+          <tr>
+            <td>{{ data.containerNo }}</td>
+            <td>{{ data.note }}</td>
+            <td>
+              <span *ngIf="data.direction==1">调入</span>
+              <span *ngIf="data.direction==2">调出</span>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>
+<div class="ant-modal-footer">
+  <button nz-button nzType="default" (click)="handleCancel()">关闭</button>
+</div>

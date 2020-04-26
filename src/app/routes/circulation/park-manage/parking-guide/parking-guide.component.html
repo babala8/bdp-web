@@ -1,0 +1,189 @@
+<div nz-row class="zijin-row" [nzAlign]="'middle'" style="height: 60px;background: #bcd1e8;align-content: center;border: 0.5px solid grey">
+  <div nz-col [nzSpan]="24" style="text-align: center;line-height: 60px;">
+    <span style="font-size: 30px;font-weight:bold;align-content: center;">车辆调度监控看板</span>
+  </div>
+</div>
+
+<div class="parking-car" style="display: flex; flex-grow: 1;border: 1px solid grey;"> 
+  
+  <div style="flex-grow:1; height: 420px;border-left: 0.5px solid grey;width: 40%;">
+    <div nz-row class="zijin-row" style="border-bottom: 0.5px solid grey;margin: 0!important;border-right: 0.5px solid grey">
+      
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+          <span>呼叫车辆列表</span>
+      </div>
+    </div>
+    <nz-table #nzTable1
+              nzSize="middle"
+              [nzShowPagination]="false"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="callOutCarList"
+              >
+      <thead>
+        <tr style="text-align: center !important;">
+          <th style="border-right: 0.5px solid grey;">交接区</th>
+        </tr>
+      </thead>
+      <tbody style="height:300px">
+        <tr *ngFor="let item1 of nzTable1.data;" style="text-align: center">
+
+          <td *ngIf="item1.parkingCarType == '1'">
+            请&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size:18px;font-weight:bold;">
+              {{item1?.parkingCarNo}}
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;进入交接区&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="font-size:18px;color:darkgreen;font-weight:bold;">
+              {{item1?.location}}号&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            泊位
+          </td>
+
+        </tr>
+      </tbody>
+
+    </nz-table>
+  </div>
+
+  <div style="flex-grow:1; height: 420px;border-right: 0.5px solid grey;width: 60%;">
+    <div nz-row style="border-bottom: 0.5px solid grey;margin: 0!important;border-right: 0.5px solid grey">
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+        <span>签到车辆列表</span>
+      </div>
+    </div>
+    <nz-table #nzTable
+              nzSize="middle"
+              [nzShowPagination]="false"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="enterCarList">
+      <thead>
+      <tr style="text-align: center !important;">
+        <th style="border-left: 0.5px solid grey;">
+          <span>车牌号</span>
+        </th>
+        <th>
+          <span>押运线路</span>
+        </th>
+        <th>
+          <span>入场时间</span>
+        </th>
+        <th>
+          <span>离场时间</span>
+        </th>
+        <th>
+          <span>交接泊位</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody style="height:300px">
+        <tr *ngFor="let item of nzTable.data;" style="text-align: center">
+          <td *ngIf="item.parkingCarType == '1'" style="font-size:18px;font-weight:bold;">
+            {{item?.parkingCarNo}}
+          </td>
+          <td *ngIf="item.parkingCarType == '0'" style="background: rgb(168, 167, 167);font-size:18px;font-weight:bold;">
+            {{item?.parkingCarNo}}
+          </td>
+          <td *ngIf="item.parkingCarType == '1'">
+            {{item?.lineName}}
+          </td>
+          <td *ngIf="item.parkingCarType == '0'" style="background: rgb(168, 167, 167)">
+            {{item?.lineName}}
+          </td>
+          <td *ngIf="item.parkingCarType == '1'">
+            {{item?.parkingCarEnterDate}}
+          </td>
+          <td *ngIf="item.parkingCarType == '0'" style="background:rgb(168, 167, 167)">
+            {{item?.parkingCarEnterDate}}
+          </td>
+          <td *ngIf="item.parkingCarType == '1'">
+            {{item?.parkingCarLeaveDate}}
+          </td>
+          <td *ngIf="item.parkingCarType == '0'" style="background:rgb(168, 167, 167)">
+            {{item?.parkingCarLeaveDate}}
+          </td>
+          <td *ngIf="item.parkingCarType == '1'">
+            {{item?.location}}
+          </td>
+          <td *ngIf="item.parkingCarType == '0'" style="background: rgb(168, 167, 167)">
+            {{item?.location}}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>
+
+
+
+<div class="parking-car" style="display: flex; flex-grow: 1;border: 1px solid grey;height: 220px;"> 
+  <div style="flex-grow:1; width: 40%;">
+    <div nz-row style="height: 20%;margin-top: 20px">
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+          <span>{{promptMessage.date}}</span>
+      </div>
+    </div>
+
+    <div nz-row style="height: 20%;">
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+          <span>{{promptMessage.hms}}</span>
+      </div>
+    </div>
+
+    <div nz-row style="height: 20%;">
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+          <span>{{promptMessage.day}}</span>
+      </div>
+    </div>
+
+    <div nz-row style="height: 20%;">
+      <div nz-col [nzSpan]="24" style="text-align: center; font-size: 1.4em;">
+          <button nz-button [nzSize]="'large'" (click)="callOut()" [nzType]="'primary'">
+            开始调度
+          </button>
+      </div>
+    </div>
+    
+  </div>
+
+  <div style="flex-grow:1; width: 60%;">
+    <div nz-row style="height: 100%;">
+      <div nz-col [nzSpan]="5" style="text-align: center; height: 70%;margin: 30px 40px 15px 100px;border: 1px solid #bcd1e8;background: #f0f7ff">
+        <div style="font-size: 2.4em;margin-top: 20px;">
+          {{countMessage.finshConnect}}
+        </div>
+        <div style="font-size: 2.2em;margin-top: 10px;">
+          已交接
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="5" style="text-align: center; height: 70%;margin: 30px 40px 15px 15px;border: 1px solid #bcd1e8;background: #f0f7ff">
+          <div style="font-size: 2.4em;margin-top: 20px;">
+            {{countMessage.connectIng}}
+          </div>
+          <div style="font-size: 2.2em;margin-top: 10px;">
+            交接中
+          </div>
+      </div>
+
+      <div nz-col [nzSpan]="5" style="text-align: center; height: 70%;margin: 30px 40px 15px 15px;border: 1px solid #bcd1e8;background: #f0f7ff">
+          <div style="font-size: 2.4em;margin-top: 20px;">
+            {{countMessage.notConnect}}
+          </div>
+          <div style="font-size: 2.2em;margin-top: 10px;">
+            未交接
+          </div>
+      </div>  
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+
+
+

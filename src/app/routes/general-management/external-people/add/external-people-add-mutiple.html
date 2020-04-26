@@ -1,0 +1,24 @@
+<form nz-form #form="ngForm">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSpan]="6">
+      <label required>模板文件</label>
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input [nzSize]="'large'" [(ngModel)]="ngFileModel['name']" name="filename" readonly>
+    </nz-form-control>
+    <div nz-col [nzSm]="1" [nzXs]="24" [nzOffset]="1">
+      <button (click)="asd.click()" [nzType]="'primary'" nz-button nzSize="large" style="width: 220%">
+        <i class="anticon anticon-upload"></i>
+      </button>
+      <form><input #asd type="file" id="xFile" (change)="readFile($event)"
+          style="position:absolute;clip:rect(0 0 0 0);"></form>
+      <br />
+      <button (click)="downloadTemplate()" [nzType]="'primary'" nz-button nzSize="large">模板下载</button>
+    </div>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin:8px 0; text-align: center">
+    <div nz-col>
+      <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="save()">提交</button>
+    </div>
+  </nz-form-item>
+</form>

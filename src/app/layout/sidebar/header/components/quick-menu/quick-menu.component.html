@@ -1,0 +1,26 @@
+<nz-collapse>
+  <nz-collapse-panel *ngFor="let menu1 of menus.children; let i = index" [nzHeader]="menu1.text" [nzActive]="true">
+    <div nz-row style="margin: 4px 0; padding: 0 10px;">
+      <ng-container *ngFor="let menu2 of menu1.children; let j = index">
+        <ng-container *ngIf="menu2.children.length > 0">
+          <div nz-col *ngFor="let menu3 of menu2.children; let k = index" nzSpan="4"
+            style="margin: 4px 0; padding: 0 10px;">
+            <nz-tag nzMode="checkable" [nzChecked]="quickMenuSet.has(menu3.no)" (click)="chooseMenu(menu3.no)"><span
+                style="font-size: 14px">{{menu3.text}}</span></nz-tag>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="menu2.children.length <=0">
+          <div nz-col nzSpan="4" style="margin: 4px 0; padding: 0 10px;">
+            <nz-tag nzMode="checkable" [nzChecked]="quickMenuSet.has(menu2.no)" (click)="chooseMenu(menu2.no)"><span
+                style="font-size: 14px">{{menu2.text}}</span></nz-tag>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </nz-collapse-panel>
+</nz-collapse>
+<div style="text-align: center; width: 100%; margin-top: 8px;">
+  <button nz-button (click)="save()" nzType="primary" nzSize="middle">
+    <i nz-icon nzType="save" nzTheme="outline"></i>保存
+  </button>
+</div>

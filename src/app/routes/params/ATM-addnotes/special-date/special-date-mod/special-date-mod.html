@@ -1,0 +1,53 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="modify()">
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label nz-form-item-required>金库名称</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="clrCenterName" [id]="'clrCenterName'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="8">
+                    <label nz-form-item-required>配钞系数</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16" nzHasFeedback>
+                    <input nz-input [nzSize]="'default'" formControlName="addnotesCoeff" [id]="'addnotesCoeff'"
+                              placeholder="'取值范围（0,2]'">
+                    <nz-form-explain *ngIf="validateForm.controls['addnotesCoeff'].dirty && validateForm.controls['addnotesCoeff'].errors">
+                        {{ validateForm.controls['addnotesCoeff'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'startDate'" nz-form-item-required>开始日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="startDate" [id]="'startDate'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'endDate'" nz-form-item-required>结束日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <input nz-input [nzSize]="'default'" formControlName="endDate" [id]="'endDate'">
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row align="center">
+        <button nz-button [nzType]="'primary'" [nzSize]="'default'">修改</button>
+    </div>
+</form>

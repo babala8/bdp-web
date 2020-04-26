@@ -1,0 +1,29 @@
+
+<div style="margin-top: 10px;border: 1px solid #e9e9e9;">
+    <nz-table #nzTable nzSize="middle"
+              [nzShowPagination]="false"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="dataSet"
+    >
+        <thead>
+        <tr style="white-space: nowrap">
+            <th>日期</th>
+            <th>线路名称</th>
+            <th>服务对象数量</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  *ngFor="let data of nzTable.data;" style="white-space: nowrap">
+            <td>{{data.theDay}}</td>
+            <td>{{data.lineName}}</td>
+            <td>{{data.customerCount}}</td>
+            <td>
+                <a *ngIf="isEdit == 0" (click)="openLine(data,0)">详情</a>
+                <a *ngIf="isEdit == 1" (click)="openLine(data,1)">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>

@@ -1,0 +1,175 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="5">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="10" nzFor="id">
+          上门客户名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <!--          <input nz-input [nzSize]="'middle'" [(ngModel)]="formModel['id']" name="id" id="id" >-->
+          <nz-select name="id" [(ngModel)]="formModel['id']" (ngModelChange)="matchCustomerName2ID($event)"
+                     style="width: 100%" nzShowSearch nzAllowClear>
+            <nz-option *ngFor="let visitOrder of visitOrderList" [nzLabel]="visitOrder.customerName"
+                       [nzValue]="visitOrder.customerNumber">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="6">
+          预约日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onDateChange($event)"
+                           name="dateRange"></nz-range-picker>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="5">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="orderTimePeriod">
+          预约时间段
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'default'" [(ngModel)]="formModel['orderTimePeriod']" nzAllowClear name="orderTimePeriod"
+                     id="orderTimePeriod">
+            <nz-option *ngFor="let timePeriod of timePeriodList" [nzValue]="timePeriod.value"
+                       [nzLabel]="timePeriod.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="5">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="status">
+          状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'default'" [(ngModel)]="formModel['status']" nzAllowClear name="status"
+                     id="status">
+            <nz-option *ngFor="let status of statusList" [nzValue]="status.value" [nzLabel]="status.label"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+  </div>
+  <div nz-row style="padding-top: 16px; text-align: center;">
+    <div nz-col>
+      <button nz-button nzType="primary" (click)="search()" [nzSize]="'middle'" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="reset()" style="margin-left: 10px;" [nzSize]="'middle'"
+              [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">上门预约管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共{{page.totalRow}}条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+
+    <thead>
+    <tr>
+<!--      <th>-->
+<!--        <span>上门客户编号</span>-->
+<!--      </th>-->
+      <th>
+        <span>客户名称</span>
+      </th>
+      <th>
+        <span>预约日期</span>
+      </th>
+      <th>
+        <span>预约时间段</span>
+      </th>
+      <th>
+        <span>预约时间</span>
+      </th>
+      <th>
+        <span>备注</span>
+      </th>
+      <th>
+        <span>状态</span>
+      </th>
+      <th>
+        <span>操作</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of nzTable.data;let i = index;">
+<!--      <td>-->
+<!--        {{item?.id}}-->
+<!--      </td>-->
+      <td>
+        {{item?.customerShortName}}
+      </td>
+      <td>
+        {{item?.orderDate}}
+      </td>
+      <td>
+        <span *ngIf="item.orderTimePeriod == '1'">上午</span>
+        <span *ngIf="item.orderTimePeriod == '2'">下午</span>
+      </td>
+      <td>
+        {{item?.orderTime}}
+      </td>
+      <td>
+        {{item?.note}}
+      </td>
+      <td>
+        <span *ngIf="item?.status == '0'">待审核</span>
+        <span *ngIf="item?.status == '1'">金库人员已审核</span>
+        <span *ngIf="item?.status == '2'" style="color: red">审核不通过</span>
+      </td>
+      <td>
+        <a (click)="openMod(item)">修改</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'确定要删除该预约吗？'" (nzOnConfirm)="del(item)">
+          <a nz-popconfirm [ngStyle]="{'color':'red'}">删除</a>
+        </nz-popconfirm>
+        <span *ngIf="item.status==0">
+        <nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm [nzTitle]="'是否通过？'" [nzIcon]="iconTpl" nzOkText="通过"
+                       nzCancelText="退回" nzPopconfirmPlacement="topRight"
+                       (nzOnConfirm)="audit(item)" (nzOnCancel)="auditFailed(item)">
+          <ng-template #iconTpl>
+           <i nz-icon nzType="check-circle" style="color: red;"></i>
+          </ng-template>
+          <a nz-popconfirm nzIcon="iconTpl">审核</a>
+        </nz-popconfirm>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

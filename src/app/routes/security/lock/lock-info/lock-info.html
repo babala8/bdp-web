@@ -1,0 +1,212 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label  nz-col [nzSpan]="8">
+          闭锁码
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['blockNum']" [nzSize]="'default'" id="blockNum" name="blockNum">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12">
+      <nz-form-item nz-row>
+        <nz-form-label  nz-col [nzSpan]="8">
+          锁具序列号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['lockCode']" [nzSize]="'default'" id="lockCode" name="lockCode">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="6" [nzXs]="12" >
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          安装日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['installDate']" [nzPlaceHolder]="'请选择安装日期'"
+                          [nzSize]="'default'"
+                          name="installDate" style="width: 100%" [nzFormat]="'yyyy-MM-dd'"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" >
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          生产日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['madeDate']" [nzPlaceHolder]="'请选择生产日期'"
+                          [nzSize]="'default'"
+                          name="madeDate" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          C端程序版本
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['cversion']" [nzSize]="'default'" name="cversion">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          设备编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['devNo']" [nzSize]="'default'" name="devNo">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          锁具版本
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['version']" [nzSize]="'default'" name="version">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="6" [nzXs]="12" [hidden]="!expandForm">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          是否激活
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [(ngModel)]="formModel['state']" [nzPlaceHolder]="'--请选择状态--'" nzAllowClear
+                     name="state" [nzSize]="'default'">
+            <nz-option
+              *ngFor="let option of lockStatus"
+              [nzLabel]="option.name"
+              [nzValue]="option.no">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="24" [nzXs]="12" style="text-align: center">
+      <nz-form-item nz-row>
+        <div nz-col>
+          <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+            <i class="anticon anticon-search"></i><span>查询</span>
+          </button>
+          <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+            <i class="anticon anticon-sync"></i><span>重置</span>
+          </button>
+          <a style="margin-left:8px;font-size:12px;" (click)="expandForm = !expandForm">
+            {{expandForm ? '收起' : '展开'}}
+            <i nz-icon [type]="expandForm ? 'up' : 'down'"></i>
+          </a>
+        </div>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">锁具信息管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button nzType="primary" (click)="openAdd()" [nzSize]="'middle'" *authId="'L040103'">
+      <i class="anticon anticon-plus"></i>添加
+    </button>
+  </div>
+</div>
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataSet"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+
+      <th>锁具序列号</th>
+      <th>设备编号</th>
+      <th>锁具版本</th>
+      <th>C端程序版本</th>
+      <th>是否激活</th>
+      <th>生产日期</th>
+      <th>安装日期</th>
+      <th>闭锁码</th>
+      <th>备注</th>
+      <th style="text-align: center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+
+      <td>
+        {{data.lockCode}}
+      </td>
+      <td>
+        {{data.devNo}}
+      </td>
+      <td>
+        {{data.version}}
+      </td>
+      <td>
+        {{data.cversion}}
+      </td>
+      <td>
+        <div [ngSwitch]="data.state">
+          <ng-container *ngFor="let item of lockStatus">
+            <span *ngSwitchCase="item.no" >
+              {{item.name}}
+            </span>
+          </ng-container>
+        </div>
+      </td>
+      <td>
+        {{data.madeDate}}
+      </td>
+      <td>
+        {{data.installDate}}
+      </td>
+      <td>
+        {{data.blockNum}}
+      </td>
+      <td>
+        {{data.note}}
+      </td>
+
+      <td style="text-align: center">
+
+        <ng-container>
+          <a (click)="openMod(data)"  *authId="'L040104'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </ng-container>
+        <ng-container>
+          <nz-popconfirm [nzTitle]="'确定删除该项吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'" (nzOnConfirm)="delLock(data.lockCode )">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}"  *authId="'L040105'">删除</a>
+          </nz-popconfirm>
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+

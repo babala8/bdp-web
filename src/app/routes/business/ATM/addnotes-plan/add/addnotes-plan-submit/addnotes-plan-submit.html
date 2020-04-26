@@ -1,0 +1,70 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="add()">
+    <div nz-row>
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'clrCenterNo'" nz-form-item-required>所属金库</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <select-clr-center formControlName="clrCenterNo" name="clrCenterNo" defaultSelect="true"></select-clr-center>
+                    <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                        {{ validateForm.controls['clrCenterNo'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'planAddnotesDate'" nz-form-item-required>计划加钞日期</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <nz-date-picker formControlName="planAddnotesDate" nzPlaceHolder="--请选择--" [nzSize]="'default'" name="planAddnotesDate"
+                        style="width: 100%"></nz-date-picker>
+                    <nz-form-explain *ngIf="validateForm.controls['planAddnotesDate'].dirty && validateForm.controls['planAddnotesDate'].errors">
+                        {{ validateForm.controls['planAddnotesDate'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row style="margin-top: 10px">
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'awayFlag'" nz-form-item-required>应用模式</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="16">
+                    <nz-select formControlName="awayFlag" [nzPlaceHolder]="'--请选择--'" name="awayFlag" [nzSize]="'default'" nzAllowClear>
+                        <nz-option *ngFor="let option of awayFlags" [nzLabel]="option.label" [nzValue]="option.value">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain *ngIf="validateForm.controls['awayFlag'].dirty && validateForm.controls['awayFlag'].errors">
+                        {{ validateForm.controls['awayFlag'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSpan]="8">
+                        <label [attr.for]="'lineNo'">加钞线路</label>
+                    </nz-form-label>
+                    <nz-form-control nz-col [nzSpan]="16">
+                        <nz-select formControlName="lineNo" [nzMode]="'multiple'" [nzPlaceHolder]="'全部'" name="lineNo" [nzSize]="'default'" nzAllowClear>
+                            <nz-option *ngFor="let option of lines" [nzLabel]="option.lineName" [nzValue]="option.lineNo">
+                            </nz-option>
+                        </nz-select>
+                        <nz-form-explain *ngIf="validateForm.controls['lineNo'].dirty && validateForm.controls['lineNo'].errors">
+                            {{ validateForm.controls['lineNo'].errors['explain'] }}
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+    </div>
+    <div nz-row align="center" style="margin-top: 10px;">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="loading">
+            <span>下一步，选择设备</span>
+        </button>
+    </div>
+</form>

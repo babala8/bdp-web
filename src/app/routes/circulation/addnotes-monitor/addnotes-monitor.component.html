@@ -1,0 +1,132 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [defaultSelect]="true" [(ngModel)]="formModel['clrCenterNo']" [allowClear]="true"></select-clr-center>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          线路名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-dispatch-line name="lineNo" [clrCenterNo]="formModel['clrCenterNo']" [(ngModel)]="formModel['lineNo']"></select-dispatch-line>
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'dispatchNo'">
+          任务单编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['dispatchNo']" [nzSize]="'default'" name="dispatchNo"
+                 style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'addnotesOpNo'">
+          加钞人员
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['addnotesOpNo']" [nzSize]="'default'" name="addnotesOpNo"
+            style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzXs]="24" style="text-align: center">
+      <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData()">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">加钞任务流转监控</span>
+  </div>
+</div>
+
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzLoading]="loading"
+    [nzData]="dataList" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize" [nzTotal]="page.totalRow" [nzShowTotal]="pageSizeTem"
+
+            (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+    <thead>
+      <tr>
+        <th>任务单编号</th>
+        <th>加钞线路</th>
+        <th>加钞日期</th>
+        <th>加钞人员</th>
+        <th>加钞计划编号</th>
+        <th>加钞时间段</th>
+        <th>状态</th>
+        <th>是否紧急任务</th>
+        <th style="text-align: center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;">
+        <td>
+          {{data.taskNo}}
+        </td>
+        <td>
+          {{data.lineName}}
+        </td>
+        <td>
+          {{data.addnotesDate}}
+        </td>
+        <td>
+          <ng-container *ngIf="data.opName1">
+            <span>{{data.opName1}}</span>
+            <nz-divider nzType="vertical"></nz-divider>
+          </ng-container>
+          <ng-container *ngIf="data.opName2">
+            <span>{{data.opName2}}</span>
+          </ng-container>
+        </td>
+        <td>
+          {{data.addnotesPlanNo}}
+        </td>
+        <td>
+          <span *ngIf="data.clrTimeInterval =='1'">上午</span>
+          <span *ngIf="data.clrTimeInterval =='2'">下午</span>
+          <span *ngIf="data.clrTimeInterval =='3'">全天</span>
+        </td>
+        <td>
+          <ng-container *ngFor="let status of statusList">
+            <ng-container *ngIf="status.value == data.status">{{status.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <span *ngIf="data.urgentFlag =='0'">正常任务</span>
+          <span *ngIf="data.urgentFlag =='1'">紧急任务</span>
+        </td>
+        <td style="text-align: center">
+          <!-- <a (click)="openMap(data)">执行信息</a>
+          <nz-divider nzType="vertical"></nz-divider> -->
+          <a *ngIf="isShow(data.status)" (click)="openMap(data)">{{data.status == '308' ? '实时监控' : '线路回放'}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

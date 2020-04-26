@@ -1,0 +1,139 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            用户账号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('username')">
+            <input nz-input nzSize="middle" formControlName="username" [id]="'username'" [disabled]="true">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            用户姓名
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('name')">
+            <input nz-input nzSize="middle" formControlName="name" [id]="'name'"
+                      (ngModelChange)="updateConfirmValidator()">
+            <nz-form-explain *ngIf="validateForm.controls['name'].dirty && validateForm.controls['name'].errors">
+                <ng-container *ngIf="getFormControl('name').hasError('required')">请输入用户姓名!</ng-container>
+                <ng-container *ngIf="getFormControl('name').hasError('minlength')">长度需不得小于2</ng-container>
+                <ng-container *ngIf="getFormControl('name').hasError('maxlength')">长度需不得超过10</ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <!--<nz-form-item nz-row>-->
+        <!--<nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>-->
+            <!--身份证号-->
+        <!--</nz-form-label>-->
+        <!--<nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('idNumber')">-->
+            <!--<input nz-input nzSize="middle" formControlName="idNumber" [id]="'idNumber'">-->
+            <!--<nz-form-explain *ngIf="validateForm.controls['idNumber'].dirty && validateForm.controls['idNumber'].errors">-->
+                <!--<span style="color:red">身份证号码不能为空!</span>-->
+            <!--</nz-form-explain>-->
+        <!--</nz-form-control>-->
+    <!--</nz-form-item>-->
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            所属机构
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('org')">
+            <org-tree formControlName="org" [zjId]="'org'" (ngModelChange)="selectRole($event)"></org-tree>
+            <nz-form-explain *ngIf="getFormControl('org').dirty && getFormControl('org').errors">
+                <span style="color: red">请选择所属机构!</span>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            角色
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="getFormControl('roleNo')">
+            <nz-select formControlName="roleNo" nzSize="middle" [nzPlaceHolder]="'--请选择角色--'" nzMode="multiple">
+                <nz-option *ngFor="let r of roles" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="getFormControl('roleNo').dirty && getFormControl('roleNo').errors">
+                <span style="color: red">请选择角色!</span>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      岗位
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('post')">
+      <nz-select formControlName="post" nzMode="multiple" [nzPlaceHolder]="'--请选择岗位--'" nzShowSearch
+                 name="post" style="width: 100%">
+        <nz-option
+          *ngFor="let option of post"
+          [nzLabel]="option.postName"
+          [nzValue]="option.postNo">
+        </nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('post').dirty && getFormControl('post').errors">
+        <span style="color: red;">请选择岗位!</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+    <!--<nz-form-item nz-row>-->
+        <!--<nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>-->
+           <!--岗位类别-->
+        <!--</nz-form-label>-->
+        <!--<nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="getFormControl('type')">-->
+            <!--<nz-select nzSize="middle" formControlName="type" (ngModelChange)="qryRestrictPostList($event)"-->
+                       <!--[nzPlaceHolder]="'&#45;&#45;请选择岗位类别&#45;&#45;'">-->
+                <!--<nz-option *ngFor="let a of types" [nzLabel]="a.name" [nzValue]="a.no"></nz-option>-->
+            <!--</nz-select>-->
+        <!--</nz-form-control>-->
+    <!--</nz-form-item>-->
+    <!--<nz-form-item nz-row *ngIf='showFlag'>-->
+        <!--<nz-form-label nz-col [nzSm]="6" [nzXs]="24">-->
+            <!--所属岗位-->
+        <!--</nz-form-label>-->
+        <!--<nz-form-control nz-col [nzSpan]="14" [nzValidateStatus]="getFormControl('posts')">-->
+            <!--<nz-select formControlName="posts" nzSize="middle" [nzPlaceHolder]="'&#45;&#45;请选择&#45;&#45;'" nzMode="multiple">-->
+                <!--<nz-option *ngFor="let r of postss" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>-->
+            <!--</nz-select>-->
+        <!--</nz-form-control>-->
+    <!--</nz-form-item>-->
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            电子邮箱
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('email')">
+            <input nz-input nzSize="middle" formControlName="email" [id]="'email'">
+            <nz-form-explain *ngIf="validateForm.controls['email'].dirty && validateForm.controls['email'].errors">
+                <span style="color: red">请输入正确邮箱!</span>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            手机号码
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('mobile')">
+            <input nz-input nzSize="middle" formControlName="mobile" [id]="'mobile'">
+            <nz-form-explain *ngIf="validateForm.controls['mobile'].dirty && validateForm.controls['mobile'].errors">
+              <ng-container *ngIf="getFormControl('mobile').hasError('pattern')">格式不正确</ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="6" nzRequired>
+            固定电话
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('phone')">
+            <input nz-input nzSize="middle" formControlName="phone" [id]="'phone'">
+            <nz-form-explain *ngIf="validateForm.controls['phone'].dirty && validateForm.controls['phone'].errors">
+              <ng-container *ngIf="getFormControl('phone').hasError('pattern')">格式不正确</ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control nz-col style="text-align: center;">
+            <button nz-button nzSize="middle" nzType="primary" [nzLoading]="loading" style="width: 30%">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+

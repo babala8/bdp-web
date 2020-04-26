@@ -1,0 +1,14 @@
+<nz-dropdown nzPlacement="bottomRight"
+    style="font-size: 1rem; color: white; height: 60px;display: table-cell; vertical-align: middle;">
+    <div class="item d-flex align-items-center px-sm" nz-dropdown>
+        <span class="item-icon zijin-micon-user-management" style="font-size: 2rem;margin-right:5px;"></span>
+        <span>{{userInfo.sysOrg.name}}<br>{{userInfo.name}}</span>
+    </div>
+    <div nz-menu class="width-sm">
+        <div nz-menu-item (click)="openScreen()"><i class="anticon anticon-fund mr-sm"></i>查看大屏</div>
+        <li nz-menu-divider></li>
+        <div nz-menu-item (click)="modPsd()"><i class="anticon anticon-key mr-sm"></i>修改密码</div>
+        <li nz-menu-divider></li>
+        <div nz-menu-item (click)="logout()"><i class="anticon anticon-logout mr-sm"></i>退出登录</div>
+    </div>
+</nz-dropdown>

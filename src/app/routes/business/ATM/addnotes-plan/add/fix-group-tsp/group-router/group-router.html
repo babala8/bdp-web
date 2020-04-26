@@ -1,0 +1,25 @@
+<div nz-row>
+    <div nz-col [nzSpan]="16" style="height: 800px">
+        <baidu-map [options]="mapOptions">
+            <marker [point]="vaultPoint.point" [options]="vaultPoint.options" *ngIf="vaultPoint" (clicked)="showWindow($event,vaultPoint)"></marker>
+            <marker *ngFor="let marker of mapPoint" [point]="marker.point" [options]="marker.options" (loaded)="markerLoaded(marker.showNo,$event)"
+                (clicked)="showWindow($event,marker,true)"></marker>
+        </baidu-map>
+    </div>
+    <div nz-col [nzSpan]="7" style="height: 500px" [nzOffset]="1">
+        <span style="font-size: 16px; color: #2a8dd4">分组</span>
+        <br>
+        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="datas" [nzScroll]="{ y: 475 }">
+            <tbody nz-tbody>
+                <tr *ngFor="let data of nzTable.data;">
+                    <td>
+                        <span>{{data.planDevCnt}}台设备</span>
+                        <br>
+                        <span>预计总路程{{(data.planDistance/1000.0).toFixed(1)}}千米，预计总时间{{data.planTimeCost}}分</span>
+                        <br>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

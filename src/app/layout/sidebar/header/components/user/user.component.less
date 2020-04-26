@@ -1,0 +1,26 @@
+@import (once)"../../../variables.less";
+
+.user-block {
+    width: 120px;
+    height: 100%;
+    line-height: @header-height;
+    padding: 0 6px;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    .user-block-dropdown {
+        display: flex;
+        color: #f9f2f1;
+        .anticon {
+            font-size: 40px;
+            margin-right: 6px;
+        }
+        .info {
+            font-size: 18px;
+            color: #f9f2f1;
+            p {
+                white-space: nowrap;
+            }
+        }
+    }
+}

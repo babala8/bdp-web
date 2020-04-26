@@ -1,0 +1,38 @@
+<div class="screen-wrapper" *ngIf="splitConf" #swrapper>
+  <div class="screen-header">
+    <div class="screen-setting">
+      <i class="anticon anticon-save" *ngIf="!splitDisabled" (click)="saveSettings()"></i>
+      <i [ngClass]="{'anticon':true,'anticon-arrows-alt':!fullScreen,'anticon-shrink':fullScreen}"
+         (click)="toggleFullScreen()"></i>
+      <span (click)="toggleFullScreen()">{{fullScreen ? '收起': '展开'}}</span>
+    </div>
+    <img [src]="headImg" alt="">
+    <a (click)="closeScreenBy()">
+      <i class="anticon anticon-close"></i>
+    </a>
+  </div>
+  <div class="screen-container">
+    <as-split direction="horizontal"
+              [disabled]="splitDisabled"
+              gutterColor="transparent"
+              (dragEnd)="onDragEnd(-1, $event)">
+      <as-split-area *ngFor="let column of splitConf.columns;index as i;trackBy: trackByFn;" [size]="column.size">
+        <as-split direction="vertical"
+                  [disabled]="splitDisabled"
+                  gutterColor="transparent"
+                  (dragEnd)="onDragEnd(i, $event)">
+          <as-split-area *ngFor="let row of column.rows;index as i;trackBy: trackByFn;" [size]="row.size">
+            <div class="card">
+              <ng-container *ngComponentOutlet="row.comp.component;
+                                    injector:row.comp.injector;ngModuleFactory: lazyModule;">
+              </ng-container>
+            </div>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+    </as-split>
+  </div>
+</div>
+<div class="mask" *ngIf="!splitConf">
+  <nz-spin [nzSize]="'large'"></nz-spin>
+</div>

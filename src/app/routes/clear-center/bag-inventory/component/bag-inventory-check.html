@@ -1,0 +1,28 @@
+<div class="modal-body">
+    <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+    <h4 style="margin-top: 20px;">解现款箱列表</h4>
+    <nz-table #cashBoxTable [nzData]="cashboxList" nzSize="small" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th>款箱编号</th>
+                <th>状态</th>
+                <th>是否匹配</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-template ngFor let-data [ngForOf]="cashBoxTable.data">
+                <tr>
+                  <td>{{ data.entityNo }}</td>
+                  <td>{{ data.isClear ? '已清点' : '未清点' }}</td>
+                  <td>
+                    <label nz-checkbox [(ngModel)]="data.checked" [nzDisabled]="data.isClear"></label>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </nz-table>
+</div>
+<div class="ant-modal-footer">
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [disabled]="!hasCheckedItem">确定</button>
+</div>

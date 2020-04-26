@@ -1,0 +1,187 @@
+
+  <form nz-form #form="ngForm" class="search-form">
+
+    <!--<ng-container >-->
+      <div nz-row>
+
+      <div nz-col [nzSpan]="6">
+        <nz-form-label  nz-col [nzSpan]="8" style="width: auto">
+          所属金库
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <!--<input nz-input [nzSize]="'default'"  [(ngModel)]="formModel['clrCenterNo']" name="key_no" [id]="'clrCenterNo'" id="clrCenterNo">-->
+          <select-clr-center></select-clr-center>
+        </nz-form-control>
+      </div>
+
+
+      <div nz-col [nzSpan]="6">
+        <div nz-row>
+          <nz-form-label  nz-col [nzSpan]="8" style="width: auto">
+            钥匙编号
+          </nz-form-label>
+          <nz-form-control  nz-col [nzSpan]="14">
+            <input nz-input [nzSize]="'default'"  [(ngModel)]="formModel['key_no']" name="key_no"  id="'key_no'">
+          </nz-form-control>
+        </div>
+      </div>
+
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label  nz-col [nzSpan]="8" style="width: auto">
+          使用范围
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'default'" [(ngModel)]="formModel['use_range']" name="use_range" id="use_range" [nzAllowClear]="true" [nzPlaceHolder]="'--请选择钥匙使用范围--'">
+            <nz-option *ngFor="let r of useRanges" [nzValue]="r.no" [nzLabel]="r.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+
+        <div nz-col [nzSpan]="6">
+          <div nz-row>
+            <nz-form-label  nz-col [nzSpan]="8" style="width: auto">
+              钥匙类型
+            </nz-form-label>
+            <nz-form-control  nz-col [nzSpan]="14">
+              <input nz-input [nzSize]="'default'"  [(ngModel)]="formModel['key_type']" name="key_no" [id]="'key_type'" id="key_type">
+            </nz-form-control>
+          </div>
+        </div>
+
+    </div>
+
+
+    <div nz-row>
+
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label  nz-col [nzSpan]="8" style="width: auto">
+          钥匙性质
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSpan]="14">
+          <nz-select [nzSize]="'default'" [(ngModel)]="formModel['key_property']" name="key_property" id="key_property" [nzAllowClear]="true" [nzPlaceHolder]="'--请选择钥匙性质--'">
+            <nz-option *ngFor="let r of keyPropertys" [nzValue]="r.no" [nzLabel]="r.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </div>
+
+    </div>
+
+    <div nz-row align="center" style="padding-top: 16px">
+      <div nz-col [nzSpan]="14" class="text-right">
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="search()" [nzSize]="'default'">
+          <i class="anticon anticon-search"></i>
+          <span>查询</span>
+        </button>
+        <button nz-button (click)="form.reset();refreshData(true)" [nzSize]="'default'" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i>
+          <span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+
+
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">钥匙信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'">
+        <i class="anticon anticon-plus"></i>
+        <span>添加</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="dataList"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="refreshData(true)"
+              (nzPageIndexChange)="refreshData()"
+    >
+      <thead>
+      <tr>
+        <th>
+          <span>钥匙编号</span>
+        </th>
+        <th>
+          <span>所属金库</span>
+        </th>
+        <th>
+          <span>使用范围</span>
+        </th>
+        <th>
+          <span>钥匙类型</span>
+        </th>
+        <th>
+          <span>所属钥匙串编号</span>
+        </th>
+        <th>
+          <span>所属网点</span>
+        </th>
+        <th>
+          <span>所属设备</span>
+        </th>
+        <th>
+          <span>钥匙性质</span>
+        </th>
+        <th>
+          <span>钥匙状态</span>
+        </th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td >{{item.keyNo}}</td>
+        <td >{{item.clrCenterName}}</td>
+        <td >
+          <span *ngIf="item.useRange=='1'">金库</span>
+          <span *ngIf="item.useRange=='2'">网点</span>
+          <span *ngIf="item.useRange=='3'">设备</span>
+        </td>
+
+        <td >{{item.keyType}}</td>
+        <td >{{item.keyGroupNo}}</td>
+        <td >{{item.netPointNo}}</td>
+        <td >{{item.devNo}}</td>
+        <td >
+          <span *ngIf="item.keyProperty=='0'">正常</span>
+          <span *ngIf="item.keyProperty=='1'">备用</span>
+        </td>
+
+
+        <td >
+          <span *ngIf="item.status=='0'">已停用</span>
+          <span *ngIf="item.status=='1'">未分配</span>
+          <span *ngIf="item.status=='2'">已分配</span>
+          <span *ngIf="item.status=='3'">已申请</span>
+          <span *ngIf="item.status=='4'">已领用</span>
+          <span *ngIf="item.status=='5'">已遗失</span>
+          <span *ngIf="item.status=='6'">已损坏</span>
+        </td>
+        <td >
+          <a (click)="openModify(item)">修改</a>
+          <nz-popconfirm  [nzTitle]="'确定删除该项吗？'" (nzOnConfirm)="confirmDel(item.keyNo)">
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm [ngStyle]="{'color':'red'}">删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+

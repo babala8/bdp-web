@@ -1,0 +1,37 @@
+<div nz-row>
+    <div nz-col [nzSpan]="15" style="height: 800px">
+        <div #bmap style="height: 100%;width: 100%;"></div>
+    </div>
+    <div nz-col [nzSpan]="8" style="height: 500px" [nzOffset]="1">
+        <span style="font-size: 16px; color: #2a8dd4">建议路线</span>
+        <br>
+        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="routeList" [nzScroll]="{ y: 475 }">
+            <tbody nz-tbody>
+                <tr *ngFor="let data of nzTable.data;index as i">
+                    <td width="8%">
+                        <span>{{i+1}}</span>
+                    </td>
+                    <td [ngSwitch]="i" width="62%">
+                        <span *ngSwitchCase="0">
+                            <ellipsis lines="1" title="{{data.startOrgName}}-->{{data.endOrgName}}">{{data.startOrgName}}-->{{data.endOrgName}}</ellipsis>
+                        </span>
+                        <!--
+                        <span *ngSwitchCase="nzTable.data.length-1">
+                            <ellipsis lines="1" title="{{data.startOrgName}}  {{data.endOrgName}}">{{data.startOrgName}}  {{data.endOrgName}}</ellipsis>
+                        </span>
+                        -->
+                        <span *ngSwitchDefault>
+                            <ellipsis lines="1" title="{{data.startOrgName}} --> {{data.endOrgName}}">{{data.startOrgName}} --> {{data.endOrgName}}</ellipsis>
+                        </span>
+                    </td>
+                    <td width="16%">
+                        <span>{{data.distance/1000.0 | number:'1.1-1'}}千米</span>
+                    </td>
+                    <td width="13%">
+                        <span>{{data.time}}分</span>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

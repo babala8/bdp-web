@@ -1,0 +1,88 @@
+<div>
+    <detail-table [data]="detailList" [itemWidth]="3"></detail-table>
+    <nz-divider class="mb-lg"></nz-divider>
+    <div style="overflow-x: auto; padding: 40px 20px;">
+        <div style="width: 2000px">
+            <nz-steps [nzCurrent]="currentProgress" nzStatus="finish">
+                <nz-step [nzTitle]="'创建任务单'" [nzDescription]="createDesc">
+                    <ng-template #createDesc>
+                        <div class="desc">
+                            <div class="my-sm">
+                                {{data.createOpName}}
+                                <i nz-icon nzType="dingding" class="ml-sm"></i>
+                            </div>
+                            <div>{{data.createTime}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #nzIcon *ngIf="currentProgress>=0">
+                        <i class="anticon anticon-check-circle"></i>
+                        <!--<nz-avatar nzText="1"></nz-avatar>-->
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'分配加钞人员'" [nzDescription]="checkedDesc">
+                    <ng-template #checkedDesc>
+                        <div class="desc">
+                            <div *ngIf="!!data.opNo1 || !!data.opNo2" class="my-sm">
+                                {{data.opName1 + ' ' + data.opName2}}
+                            </div>
+                            <a (click)="openAssignTo()">{{!data.opNo1 && !data.opNo2 ? '分配人员' : '重新分配'}}</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #nzIcon *ngIf="currentProgress>0">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'配钞'">
+                    <ng-template #nzIcon *ngIf="currentProgress>1">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'备钞入库'">
+                    <ng-template #nzIcon *ngIf="currentProgress>2">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'备钞出库'">
+                    <ng-template #nzIcon *ngIf="currentProgress>3">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'出库交接'" [nzDescription]="routerDesc">
+                    <ng-template #routerDesc>
+                        <div class="desc">
+                            <a (click)="mapRouter()">查看路线</a>
+                        </div>
+                    </ng-template>
+                    <ng-template #nzIcon *ngIf="currentProgress>4">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'入库交接'">
+                    <ng-template #nzIcon *ngIf="currentProgress>5">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'尾箱入库'">
+                    <ng-template #nzIcon *ngIf="currentProgress>6">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'尾箱调出'">
+                    <ng-template #nzIcon *ngIf="currentProgress>7">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'尾箱清点'">
+                    <ng-template #nzIcon *ngIf="currentProgress>8">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+                <nz-step [nzTitle]="'完成'">
+                    <ng-template #nzIcon *ngIf="currentProgress>9">
+                        <i class="anticon anticon-check-circle"></i>
+                    </ng-template>
+                </nz-step>
+            </nz-steps>
+        </div>
+    </div>
+</div>

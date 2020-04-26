@@ -1,0 +1,61 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <div nz-row>
+          <nz-form-label nz-col [nzSpan]="5" style="width: auto">
+            品牌名称
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="12">
+            <input nz-input nzSize="'middle'" [(ngModel)]="formModel['name']" name="name" id="'name'">
+          </nz-form-control>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="3" [nzOffset]="1" style="width: auto">
+        <button nz-button [nzType]="'primary'" (click)="search()" [nzSize]="'default'">
+          <i class="anticon anticon-search"></i><span>查询</span>
+        </button>
+        <button nz-button (click)="form.reset();search();" [nzSize]="'default'">
+          <i class="anticon anticon-sync"></i><span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">设备品牌</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'" *authId="'C010302'">
+        <i class="anticon anticon-plus"></i><span>添加</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-result-list">
+    <nz-table #nzTable [nzData]="dataList" [nzShowPagination]="false" >
+      <thead >
+      <tr>
+        <th><span>品牌编号</span></th>
+        <th ><span>品牌名称</span></th>
+        <th><span>操作</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index">
+        <td>{{item.no}}</td>
+        <td >{{item.name}}</td>
+        <td>
+          <a (click)="openModify(item)" *authId="'C010303'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定要删除该品牌吗？'" (nzOnConfirm)="confirmDel(item.no)"
+                         (nzOnCancel)="cancel()">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C010304'">删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

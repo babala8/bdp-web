@@ -1,0 +1,1962 @@
+﻿{
+  "manifest": {
+    "version": "1.0.0"
+  },
+  "dependencies": {
+    "generatorRepositories": [
+      "mock",
+      "standard"
+    ],
+    "componentRepositories": [
+      "standard",
+      "custom"
+    ]
+  },
+  "main": {
+    "option": {
+      "text": "页面标题",
+      "height": 1080,
+      "backgroundCustom": {
+        "dataUrl": "",
+        "fileName": "",
+        "url": ""
+      },
+      "themeMode": "",
+      "backgroundColor": "rgb(255,255,255)",
+      "width": 1920,
+      "dimensionMode": "custom",
+      "auxiliaryLine": false,
+      "backgroundMode": "built-in",
+      "backgroundClass": "background2"
+    },
+    "children": [
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "zIndex": 1,
+            "height": 130,
+            "width": 1630,
+            "left": 150,
+            "top": 10
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$image.graphic",
+          "graphicOption": {
+            "id": "4AE9E9A729",
+            "configSourceOption": {
+              "image": {
+                "height": 133,
+                "dataUrl": "data:image/png;base64,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",
+                "width": 1631,
+                "fileName": "pic-2.png",
+                "url": ""
+              },
+              "borderWidth": 0,
+              "borderColor": "#ccc",
+              "borderStyle": "solid",
+              "borderRadius": 0
+            },
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 100,
+            "zIndex": 1,
+            "width": 610,
+            "left": 670,
+            "top": 110
+          }
+        },
+        "graphic": {
+          "graphicPath": "custom$flip.number.graphic",
+          "graphicOption": {
+            "id": "1426F0423D",
+            "configSourceOption": {
+              "series": [
+                {
+                  "autoSize": {
+                    "minSize": 6,
+                    "enable": true
+                  },
+                  "name": "热点分析",
+                  "textPadding": 0,
+                  "data": [
+                    {
+                      "name": "Jayfee",
+                      "value": 666
+                    },
+                    {
+                      "name": "Nancy",
+                      "value": 520
+                    },
+                    {
+                      "name": "生活资源",
+                      "value": "999"
+                    },
+                    {
+                      "name": "供热管理",
+                      "value": "888"
+                    },
+                    {
+                      "name": "供气质量",
+                      "value": "777"
+                    },
+                    {
+                      "name": "生活用水管理",
+                      "value": "688"
+                    },
+                    {
+                      "name": "一次供水问题",
+                      "value": "588"
+                    },
+                    {
+                      "name": "交通运输",
+                      "value": "516"
+                    },
+                    {
+                      "name": "城市交通",
+                      "value": "515"
+                    },
+                    {
+                      "name": "环境保护",
+                      "value": "483"
+                    },
+                    {
+                      "name": "房地产管理",
+                      "value": "462"
+                    },
+                    {
+                      "name": "城乡建设",
+                      "value": "449"
+                    },
+                    {
+                      "name": "社会保障与福利",
+                      "value": "429"
+                    },
+                    {
+                      "name": "社会保障",
+                      "value": "407"
+                    },
+                    {
+                      "name": "文体与教育管理",
+                      "value": "406"
+                    },
+                    {
+                      "name": "公共安全",
+                      "value": "406"
+                    },
+                    {
+                      "name": "公交运输管理",
+                      "value": "386"
+                    },
+                    {
+                      "name": "出租车运营管理",
+                      "value": "385"
+                    },
+                    {
+                      "name": "供热管理",
+                      "value": "375"
+                    },
+                    {
+                      "name": "市容环卫",
+                      "value": "355"
+                    },
+                    {
+                      "name": "自然资源管理",
+                      "value": "355"
+                    },
+                    {
+                      "name": "粉尘污染",
+                      "value": "335"
+                    },
+                    {
+                      "name": "噪声污染",
+                      "value": "324"
+                    }
+                  ],
+                  "textStyle": {
+                    "normal": {},
+                    "emphasis": {
+                      "shadowBlur": 10,
+                      "shadowColor": "#333"
+                    }
+                  },
+                  "type": "wordCloud"
+                }
+              ],
+              "title": {
+                "text": "词云展示",
+                "link": "https://www.baidu.com/s?wd=ECharts",
+                "textStyle": {
+                  "color": "rgba(255, 255, 255, 0.8)",
+                  "fontSize": 23
+                },
+                "x": "left"
+              },
+              "backgroundColor": "rgba(13, 16, 41, 0.12)",
+              "tooltip": {
+                "show": true
+              }
+            },
+            "dataSourceConfigID": "num2"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 50,
+            "zIndex": 1,
+            "width": 240,
+            "left": 1660,
+            "top": 10
+          }
+        },
+        "graphic": {
+          "graphicPath": "custom$clock.graphic",
+          "graphicOption": {
+            "id": "B252641F37",
+            "configSourceOption": null,
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 50,
+            "zIndex": 1,
+            "width": 460,
+            "left": 730,
+            "top": 30
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$header.html.graphic",
+          "graphicOption": {
+            "id": "43F97C0B7C",
+            "configSourceOption": {
+              "content": "紫金数据管控平台演示",
+              "color": "rgba(246,234,234,0.9672631048387097)",
+              "textAlign": "center",
+              "textStyle": {
+                "fontWeight": "bold",
+                "fontStyle": null,
+                "fontFamily": "STCaiyun",
+                "fontSize": "40px"
+              },
+              "size": "h1"
+            },
+            "dataSourceConfigID": "blank"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 340,
+            "zIndex": 1,
+            "width": 450,
+            "left": 80,
+            "top": 60
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$bar.chart.graphic",
+          "graphicOption": {
+            "id": "43E325CA5D",
+            "configSourceOption": {
+              "series": [
+                {
+                  "encode": {
+                    "y": [
+                      "2015",
+                      "2016"
+                    ],
+                    "x": [
+                      "product"
+                    ]
+                  },
+                  "name": "系列1",
+                  "type": "bar",
+                  "stack": "a"
+                },
+                {
+                  "encode": {
+                    "y": [
+                      "2016"
+                    ],
+                    "x": [
+                      "product"
+                    ]
+                  },
+                  "name": "系列2",
+                  "type": "bar",
+                  "stack": "a"
+                }
+              ],
+              "yAxis": {
+                "axisLabel": {},
+                "axisTick": {}
+              },
+              "title": {
+                "text": "销量统计",
+                "backgroundColor": "transparent",
+                "bottom": "auto",
+                "show": true,
+                "left": "center",
+                "textStyle": {
+                  "align": "center",
+                  "fontSize": 18
+                },
+                "right": "auto",
+                "top": "5"
+              },
+              "dataset": {
+                "dimensions": [
+                  {
+                    "name": "product",
+                    "type": "ordinal"
+                  },
+                  {
+                    "name": "2015",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2016",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2017",
+                    "type": "int"
+                  }
+                ],
+                "source": [
+                  {
+                    "2015": 43.3,
+                    "2016": 85.8,
+                    "2017": 93.7,
+                    "product": "化学"
+                  },
+                  {
+                    "2015": 50.60277384510003,
+                    "2016": 73.4,
+                    "2017": 55.1,
+                    "product": "牛奶"
+                  },
+                  {
+                    "2015": 34.258176833898204,
+                    "2016": 65.2,
+                    "2017": 82.5,
+                    "product": "吃饭"
+                  },
+                  {
+                    "2015": 77.71669704461162,
+                    "2016": 53.9,
+                    "2017": 39.1,
+                    "product": "豆子"
+                  }
+                ]
+              },
+              "grid": {
+                "borderColor": "#ccc",
+                "backgroundColor": "transparent",
+                "bottom": 60,
+                "show": false,
+                "left": "10%",
+                "right": "10%",
+                "top": 60
+              },
+              "xAxis": {
+                "axisLabel": {},
+                "nameGap": 10,
+                "type": "category",
+                "axisTick": {}
+              }
+            },
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 450,
+            "zIndex": 1,
+            "width": 730,
+            "left": 570,
+            "top": 210
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$map.chart.graphic",
+          "graphicOption": {
+            "id": "A4FD26B2B3",
+            "configSourceOption": {
+              "series": [
+                {
+                  "name": "light",
+                  "itemStyle": {
+                    "normal": {
+                      "color": "#F4E925"
+                    }
+                  },
+                  "data": [
+                    {
+                      "name": "济南市",
+                      "value": [
+                        117.121225,
+                        36.66466,
+                        390
+                      ]
+                    },
+                    {
+                      "name": "菏泽市",
+                      "value": [
+                        115.480656,
+                        35.23375,
+                        158
+                      ]
+                    },
+                    {
+                      "name": "德州市",
+                      "value": [
+                        116.39,
+                        37.45,
+                        252
+                      ]
+                    },
+                    {
+                      "name": "聊城市",
+                      "value": [
+                        115.97,
+                        36.45,
+                        99
+                      ]
+                    },
+                    {
+                      "name": "泰安市",
+                      "value": [
+                        117.13,
+                        36.18,
+                        189
+                      ]
+                    },
+                    {
+                      "name": "临沂市",
+                      "value": [
+                        118.35,
+                        35.05,
+                        52
+                      ]
+                    },
+                    {
+                      "name": "淄博市",
+                      "value": [
+                        118.05,
+                        36.78,
+                        158
+                      ]
+                    },
+                    {
+                      "name": "枣庄市",
+                      "value": [
+                        117.57,
+                        34.86,
+                        152
+                      ]
+                    },
+                    {
+                      "name": "滨州市",
+                      "value": [
+                        118.03,
+                        37.36,
+                        189
+                      ]
+                    },
+                    {
+                      "name": "潍坊市",
+                      "value": [
+                        119.1,
+                        36.62,
+                        160
+                      ]
+                    },
+                    {
+                      "name": "东营市",
+                      "value": [
+                        118.49,
+                        37.46,
+                        80
+                      ]
+                    },
+                    {
+                      "name": "青岛市",
+                      "value": [
+                        120.3,
+                        36.62,
+                        180
+                      ]
+                    },
+                    {
+                      "name": "烟台市",
+                      "value": [
+                        120.9,
+                        37.32,
+                        190
+                      ]
+                    },
+                    {
+                      "name": "威海市",
+                      "value": [
+                        122.1,
+                        37.2,
+                        290
+                      ]
+                    },
+                    {
+                      "name": "日照市",
+                      "value": [
+                        119.1,
+                        35.62,
+                        190
+                      ]
+                    },
+                    {
+                      "name": "济宁市",
+                      "value": [
+                        116.7,
+                        35.42,
+                        190
+                      ]
+                    },
+                    {
+                      "name": "莱芜市",
+                      "value": [
+                        117.7,
+                        36.28,
+                        290
+                      ]
+                    }
+                  ],
+                  "label": {
+                    "normal": {
+                      "formatter": "{b} 123",
+                      "position": "right",
+                      "show": true
+                    },
+                    "emphasis": {
+                      "show": true
+                    }
+                  },
+                  "type": "scatter",
+                  "coordinateSystem": "geo"
+                },
+                {
+                  "geoIndex": 0,
+                  "roam": true,
+                  "animation": false,
+                  "showLegendSymbol": false,
+                  "itemStyle": {
+                    "normal": {
+                      "areaColor": "#031525",
+                      "borderColor": "#FFFFFF"
+                    },
+                    "emphasis": {
+                      "areaColor": "#2B91B7"
+                    }
+                  },
+                  "map": "山东",
+                  "data": [
+                    {
+                      "name": "济南市",
+                      "value": 390
+                    },
+                    {
+                      "name": "威海市",
+                      "value": 290
+                    },
+                    {
+                      "name": "莱芜市",
+                      "value": 290
+                    },
+                    {
+                      "name": "德州市",
+                      "value": 252
+                    },
+                    {
+                      "name": "烟台市",
+                      "value": 190
+                    },
+                    {
+                      "name": "日照市",
+                      "value": 190
+                    },
+                    {
+                      "name": "济宁市",
+                      "value": 190
+                    },
+                    {
+                      "name": "泰安市",
+                      "value": 189
+                    },
+                    {
+                      "name": "滨州市",
+                      "value": 189
+                    },
+                    {
+                      "name": "青岛市",
+                      "value": 180
+                    },
+                    {
+                      "name": "潍坊市",
+                      "value": 160
+                    },
+                    {
+                      "name": "菏泽市",
+                      "value": 158
+                    },
+                    {
+                      "name": "淄博市",
+                      "value": 158
+                    },
+                    {
+                      "name": "枣庄市",
+                      "value": 152
+                    },
+                    {
+                      "name": "聊城市",
+                      "value": 99
+                    },
+                    {
+                      "name": "东营市",
+                      "value": 80
+                    },
+                    {
+                      "name": "临沂市",
+                      "value": 52
+                    }
+                  ],
+                  "label": {
+                    "normal": {
+                      "show": false
+                    },
+                    "emphasis": {
+                      "show": false,
+                      "textStyle": {
+                        "color": "#fff"
+                      }
+                    }
+                  },
+                  "type": "map",
+                  "aspectScale": 0.75
+                },
+                {
+                  "hoverAnimation": true,
+                  "name": "Top 5",
+                  "showEffectOn": "render",
+                  "itemStyle": {
+                    "normal": {
+                      "shadowBlur": 10,
+                      "color": "#F4E925",
+                      "shadowColor": "#05C3F9"
+                    }
+                  },
+                  "data": [
+                    {
+                      "name": "济南市",
+                      "value": [
+                        117.121225,
+                        36.66466,
+                        390
+                      ]
+                    },
+                    {
+                      "name": "威海市",
+                      "value": [
+                        122.1,
+                        37.2,
+                        290
+                      ]
+                    },
+                    {
+                      "name": "莱芜市",
+                      "value": [
+                        117.7,
+                        36.28,
+                        290
+                      ]
+                    },
+                    {
+                      "name": "德州市",
+                      "value": [
+                        116.39,
+                        37.45,
+                        252
+                      ]
+                    },
+                    {
+                      "name": "烟台市",
+                      "value": [
+                        120.9,
+                        37.32,
+                        190
+                      ]
+                    }
+                  ],
+                  "label": {
+                    "normal": {
+                      "formatter": "{b}",
+                      "position": "right",
+                      "show": true
+                    }
+                  },
+                  "type": "effectScatter",
+                  "coordinateSystem": "geo",
+                  "rippleEffect": {
+                    "brushType": "stroke"
+                  },
+                  "zlevel": 1
+                }
+              ],
+              "title": {
+                "subtext": "",
+                "text": "会员活跃度 - 山东省",
+                "textStyle": {
+                  "color": "#ccc"
+                },
+                "top": 20,
+                "x": "center"
+              },
+              "geo": {
+                "roam": true,
+                "itemStyle": {
+                  "normal": {
+                    "areaColor": "transparent",
+                    "shadowBlur": 20,
+                    "borderColor": "#3fdaff",
+                    "borderWidth": 2,
+                    "shadowColor": "rgba(63, 218, 255, 0.5)"
+                  },
+                  "emphasis": {
+                    "areaColor": "#2B91B7"
+                  }
+                },
+                "map": "山东",
+                "show": true,
+                "label": {
+                  "normal": {
+                    "show": false
+                  },
+                  "emphasis": {
+                    "show": false
+                  }
+                }
+              },
+              "backgroundColor": "#020933",
+              "visualMap": {
+                "min": 0,
+                "text": [
+                  "高",
+                  "低"
+                ],
+                "max": 500,
+                "calculable": true,
+                "show": true,
+                "left": "left",
+                "inRange": {},
+                "seriesIndex": [
+                  1
+                ],
+                "top": "bottom"
+              },
+              "dataset": {
+                "dimensions": [
+                  {
+                    "name": "product",
+                    "type": "ordinal"
+                  },
+                  {
+                    "name": "2015",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2016",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2017",
+                    "type": "int"
+                  }
+                ],
+                "source": [
+                  {
+                    "2015": 43.3,
+                    "2016": 85.8,
+                    "2017": 93.7,
+                    "product": "化学"
+                  },
+                  {
+                    "2015": 50.60277384510003,
+                    "2016": 73.4,
+                    "2017": 55.1,
+                    "product": "牛奶"
+                  },
+                  {
+                    "2015": 34.258176833898204,
+                    "2016": 65.2,
+                    "2017": 82.5,
+                    "product": "吃饭"
+                  },
+                  {
+                    "2015": 77.71669704461162,
+                    "2016": 53.9,
+                    "2017": 39.1,
+                    "product": "豆子"
+                  }
+                ]
+              },
+              "legend": {
+                "orient": "vertical",
+                "data": [
+                  "pm2.5"
+                ],
+                "textStyle": {
+                  "color": "#fff"
+                },
+                "y": "bottom",
+                "x": "right"
+              },
+              "tooltip": {
+                "trigger": "item"
+              }
+            },
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 350,
+            "zIndex": 1,
+            "width": 450,
+            "left": 80,
+            "top": 420
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$rank.chart.graphic",
+          "graphicOption": {
+            "id": "47CD51E276",
+            "configSourceOption": {
+              "series": [
+                {
+                  "encode": {
+                    "y": "province",
+                    "x": "score"
+                  },
+                  "name": "条",
+                  "yAxisIndex": 0,
+                  "itemStyle": {
+                    "normal": {}
+                  },
+                  "label": {
+                    "normal": {
+                      "position": "right",
+                      "show": true,
+                      "textStyle": {
+                        "color": "#ffffff",
+                        "fontSize": "16"
+                      }
+                    }
+                  },
+                  "type": "bar",
+                  "barWidth": 12,
+                  "z": 2
+                },
+                {
+                  "barGap": "-100%",
+                  "name": "白框",
+                  "yAxisIndex": 1,
+                  "itemStyle": {
+                    "normal": {
+                      "color": "#0e2147",
+                      "barBorderRadius": 5
+                    }
+                  },
+                  "data": [
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999,
+                    85.67999999999999
+                  ],
+                  "type": "bar",
+                  "barWidth": 20,
+                  "z": 1
+                },
+                {
+                  "barGap": "-100%",
+                  "name": "外框",
+                  "yAxisIndex": 2,
+                  "itemStyle": {
+                    "normal": {
+                      "barBorderRadius": 5
+                    }
+                  },
+                  "data": [
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999,
+                    86.39999999999999
+                  ],
+                  "type": "bar",
+                  "barWidth": 24,
+                  "z": 0
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "外圆",
+                  "yAxisIndex": 2,
+                  "itemStyle": {
+                    "normal": {
+                      "opacity": 1
+                    }
+                  },
+                  "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "type": "scatter",
+                  "z": 2,
+                  "symbolSize": 25
+                }
+              ],
+              "title": {
+                "text": "转运中心排名",
+                "backgroundColor": "transparent",
+                "bottom": "auto",
+                "show": true,
+                "left": "auto",
+                "textStyle": {
+                  "align": "left"
+                },
+                "right": "auto",
+                "top": "auto"
+              },
+              "yAxis": [
+                {
+                  "axisLabel": {
+                    "textStyle": {
+                      "color": "#ffffff",
+                      "fontSize": "16"
+                    }
+                  },
+                  "axisLine": "none",
+                  "axisTick": "none",
+                  "offset": "27",
+                  "type": "category"
+                },
+                {
+                  "axisLabel": {
+                    "textStyle": {
+                      "color": "#ffffff",
+                      "fontSize": "16"
+                    }
+                  },
+                  "data": [
+                    10,
+                    9,
+                    8,
+                    7,
+                    6,
+                    5,
+                    4,
+                    3,
+                    2,
+                    1
+                  ],
+                  "axisLine": "none",
+                  "axisTick": "none"
+                },
+                {
+                  "data": [],
+                  "axisLine": {
+                    "lineStyle": {
+                      "color": "rgba(0,0,0,0)"
+                    }
+                  }
+                }
+              ],
+              "backgroundColor": "#0e2147",
+              "dataset": {
+                "source": [
+                  {
+                    "name": "南昌转运中心",
+                    "score": 4,
+                    "province": "江西"
+                  },
+                  {
+                    "name": "广州转运中心",
+                    "score": 13,
+                    "province": "广东"
+                  },
+                  {
+                    "name": "杭州转运中心",
+                    "score": 25,
+                    "province": "浙江"
+                  },
+                  {
+                    "name": "宁夏转运中心",
+                    "score": 29,
+                    "province": "宁夏"
+                  },
+                  {
+                    "name": "兰州转运中心",
+                    "score": 38,
+                    "province": "甘肃"
+                  },
+                  {
+                    "name": "南宁转运中心",
+                    "score": 44,
+                    "province": "广西"
+                  },
+                  {
+                    "name": "长沙转运中心",
+                    "score": 50,
+                    "province": "湖南"
+                  },
+                  {
+                    "name": "武汉转运中心",
+                    "score": 52,
+                    "province": "湖北"
+                  },
+                  {
+                    "name": "北京转运中心",
+                    "score": 60,
+                    "province": "北京"
+                  },
+                  {
+                    "name": "贵州转运中心",
+                    "score": 72,
+                    "province": "贵州"
+                  }
+                ],
+                "dimensions": [
+                  {
+                    "name": "name",
+                    "type": "ordinal"
+                  },
+                  {
+                    "name": "score",
+                    "type": "int"
+                  },
+                  {
+                    "name": "province",
+                    "type": "ordinal"
+                  }
+                ]
+              },
+              "grid": {
+                "bottom": "8%",
+                "left": "11%",
+                "containLabel": true,
+                "right": "0%",
+                "top": "12%"
+              },
+              "xAxis": [
+                {
+                  "show": false
+                }
+              ]
+            },
+            "dataSourceConfigID": "zhuanyunzhongxin"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 430,
+            "zIndex": 1,
+            "width": 540,
+            "left": 1340,
+            "top": 630
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$wordCloud.chart.graphic",
+          "graphicOption": {
+            "id": "D34A2B36ED",
+            "configSourceOption": {
+              "series": [
+                {
+                  "autoSize": {
+                    "minSize": 6,
+                    "enable": true
+                  },
+                  "name": "热点分析",
+                  "textPadding": 0,
+                  "data": [
+                    {
+                      "name": "Jayfee",
+                      "value": 666
+                    },
+                    {
+                      "name": "Nancy",
+                      "value": 520
+                    },
+                    {
+                      "name": "生活资源",
+                      "value": "999"
+                    },
+                    {
+                      "name": "供热管理",
+                      "value": "888"
+                    },
+                    {
+                      "name": "供气质量",
+                      "value": "777"
+                    },
+                    {
+                      "name": "生活用水管理",
+                      "value": "688"
+                    },
+                    {
+                      "name": "一次供水问题",
+                      "value": "588"
+                    },
+                    {
+                      "name": "交通运输",
+                      "value": "516"
+                    },
+                    {
+                      "name": "城市交通",
+                      "value": "515"
+                    },
+                    {
+                      "name": "环境保护",
+                      "value": "483"
+                    },
+                    {
+                      "name": "房地产管理",
+                      "value": "462"
+                    },
+                    {
+                      "name": "城乡建设",
+                      "value": "449"
+                    },
+                    {
+                      "name": "社会保障与福利",
+                      "value": "429"
+                    },
+                    {
+                      "name": "社会保障",
+                      "value": "407"
+                    },
+                    {
+                      "name": "文体与教育管理",
+                      "value": "406"
+                    },
+                    {
+                      "name": "公共安全",
+                      "value": "406"
+                    },
+                    {
+                      "name": "公交运输管理",
+                      "value": "386"
+                    },
+                    {
+                      "name": "出租车运营管理",
+                      "value": "385"
+                    },
+                    {
+                      "name": "供热管理",
+                      "value": "375"
+                    },
+                    {
+                      "name": "市容环卫",
+                      "value": "355"
+                    },
+                    {
+                      "name": "自然资源管理",
+                      "value": "355"
+                    },
+                    {
+                      "name": "粉尘污染",
+                      "value": "335"
+                    },
+                    {
+                      "name": "噪声污染",
+                      "value": "324"
+                    }
+                  ],
+                  "textStyle": {
+                    "normal": {},
+                    "emphasis": {
+                      "shadowBlur": 10,
+                      "shadowColor": "#333"
+                    }
+                  },
+                  "type": "wordCloud"
+                }
+              ],
+              "title": {
+                "text": "词云展示",
+                "link": "https://www.baidu.com/s?wd=ECharts",
+                "textStyle": {
+                  "color": "rgba(255, 255, 255, 0.8)",
+                  "fontSize": 23
+                },
+                "x": "left"
+              },
+              "backgroundColor": "rgba(13, 16, 41, 0.12)",
+              "dataset": {
+                "dimensions": [
+                  {
+                    "name": "product",
+                    "type": "ordinal"
+                  },
+                  {
+                    "name": "2015",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2016",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2017",
+                    "type": "int"
+                  }
+                ],
+                "source": [
+                  {
+                    "2015": 43.3,
+                    "2016": 85.8,
+                    "2017": 93.7,
+                    "product": "化学"
+                  },
+                  {
+                    "2015": 50.60277384510003,
+                    "2016": 73.4,
+                    "2017": 55.1,
+                    "product": "牛奶"
+                  },
+                  {
+                    "2015": 34.258176833898204,
+                    "2016": 65.2,
+                    "2017": 82.5,
+                    "product": "吃饭"
+                  },
+                  {
+                    "2015": 77.71669704461162,
+                    "2016": 53.9,
+                    "2017": 39.1,
+                    "product": "豆子"
+                  }
+                ]
+              },
+              "tooltip": {
+                "show": true
+              }
+            },
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "height": 260,
+            "zIndex": 1,
+            "width": 450,
+            "left": 80,
+            "top": 790
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$ring.chart.graphic",
+          "graphicOption": {
+            "id": "A44542566B",
+            "configSourceOption": {
+              "series": [
+                {
+                  "name": "访问来源",
+                  "data": [
+                    {
+                      "name": "危急",
+                      "value": 335
+                    },
+                    {
+                      "name": "高危",
+                      "value": 310
+                    },
+                    {
+                      "name": "中危",
+                      "value": 234
+                    },
+                    {
+                      "name": "低危",
+                      "value": 135
+                    }
+                  ],
+                  "radius": [
+                    "30%",
+                    "45%"
+                  ],
+                  "label": {
+                    "normal": {
+                      "formatter": "{b|{b}} {c|{c}} 台",
+                      "color": "#fff",
+                      "rich": {
+                        "b": {
+                          "color": "#fff"
+                        },
+                        "c": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    }
+                  },
+                  "type": "pie",
+                  "avoidLabelOverlap": false,
+                  "labelLine": {
+                    "normal": {
+                      "lineStyle": {
+                        "color": "#274862"
+                      },
+                      "length": 45,
+                      "show": true
+                    }
+                  },
+                  "z": 5
+                },
+                {
+                  "hoverAnimation": false,
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "borderColor": "rgba(0,0,0,0)",
+                          "color": "rgba(0,0,0,0)"
+                        }
+                      },
+                      "value": 430
+                    }
+                  ],
+                  "radius": "60%",
+                  "label": {
+                    "normal": {
+                      "position": "center",
+                      "formatter": "{c|{c}} {text|台}",
+                      "color": "#fff",
+                      "rich": {
+                        "text": {
+                          "color": "#5B7DA3"
+                        },
+                        "c": {
+                          "fontWeight": "bold",
+                          "color": "#fff",
+                          "fontSize": 40
+                        }
+                      }
+                    }
+                  },
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 5,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "borderColor": "#202D3C",
+                          "color": "rgba(0,0,0,0)",
+                          "borderWidth": 2
+                        }
+                      },
+                      "value": 430
+                    }
+                  ],
+                  "radius": "60%",
+                  "label": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 1,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "shadowBlur": 50,
+                          "color": "#243443",
+                          "shadowColor": "#202E3B"
+                        },
+                        "emphasis": {
+                          "shadowBlur": 50,
+                          "color": "#243443",
+                          "shadowColor": "#202E3B"
+                        }
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "0",
+                    "10%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "shadowBlur": 50,
+                          "color": "#202E3B",
+                          "shadowColor": "#1C2834"
+                        },
+                        "emphasis": {
+                          "shadowBlur": 50,
+                          "color": "#202E3B",
+                          "shadowColor": "#1C2834"
+                        }
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "10%",
+                    "20%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "shadowBlur": 50,
+                          "color": "#1C2834",
+                          "shadowColor": "#1b1e25"
+                        },
+                        "emphasis": {
+                          "shadowBlur": 50,
+                          "color": "#1C2834",
+                          "shadowColor": "#1b1e25"
+                        }
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "20%",
+                    "30%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "shadowBlur": 50,
+                          "color": "#111A27",
+                          "shadowColor": "#1b1e25"
+                        },
+                        "emphasis": {
+                          "shadowBlur": 50,
+                          "color": "#111A27",
+                          "shadowColor": "#1b1e25"
+                        }
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "45%",
+                    "55%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "data": [
+                    {
+                      "itemStyle": {
+                        "normal": {
+                          "shadowBlur": 50,
+                          "color": "#111A27",
+                          "shadowColor": "#1b1e25"
+                        },
+                        "emphasis": {
+                          "shadowBlur": 50,
+                          "color": "#111A27",
+                          "shadowColor": "#1b1e25"
+                        }
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "45%",
+                    "50%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                },
+                {
+                  "hoverAnimation": false,
+                  "name": "x",
+                  "itemStyle": {
+                    "normal": {
+                      "shadowBlur": 50,
+                      "color": "#0C141C",
+                      "shadowColor": "#1b1e25"
+                    },
+                    "emphasis": {
+                      "shadowBlur": 50,
+                      "color": "#0C141C",
+                      "shadowColor": "#1b1e25"
+                    }
+                  },
+                  "data": [
+                    {
+                      "value": 1
+                    }
+                  ],
+                  "radius": [
+                    "50%",
+                    "60%"
+                  ],
+                  "type": "pie",
+                  "labelLine": {
+                    "normal": {
+                      "show": false
+                    }
+                  },
+                  "z": 2,
+                  "tooltip": {
+                    "show": false
+                  }
+                }
+              ],
+              "title": {
+                "subtext": "",
+                "text": "会员活跃度” - 山东省",
+                "show": false,
+                "textStyle": {
+                  "color": "#ccc"
+                },
+                "top": 20,
+                "x": "center"
+              },
+              "backgroundColor": "rgba(13, 16, 41, 0.12)",
+              "color": [
+                "#FE0404",
+                "#00DC58",
+                "#FBA200",
+                "#00CEFF"
+              ],
+              "dataset": {
+                "dimensions": [
+                  {
+                    "name": "product",
+                    "type": "ordinal"
+                  },
+                  {
+                    "name": "2015",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2016",
+                    "type": "int"
+                  },
+                  {
+                    "name": "2017",
+                    "type": "int"
+                  }
+                ],
+                "source": [
+                  {
+                    "2015": 43.3,
+                    "2016": 85.8,
+                    "2017": 93.7,
+                    "product": "化学"
+                  },
+                  {
+                    "2015": 50.60277384510003,
+                    "2016": 73.4,
+                    "2017": 55.1,
+                    "product": "牛奶"
+                  },
+                  {
+                    "2015": 34.258176833898204,
+                    "2016": 65.2,
+                    "2017": 82.5,
+                    "product": "吃饭"
+                  },
+                  {
+                    "2015": 77.71669704461162,
+                    "2016": 53.9,
+                    "2017": 39.1,
+                    "product": "豆子"
+                  }
+                ]
+              },
+              "tooltip": {
+                "show": false
+              }
+            },
+            "dataSourceConfigID": "num1"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "width": 740,
+            "height": 360,
+            "left": 570,
+            "top": 690,
+            "zIndex": 1
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$hybrid.chart.graphic",
+          "graphicOption": {
+            "configSourceOption": {
+              "optionGenerator": "const nameArray=data.source.map(value=>value[\"日期\"]);\r\nconst valueArray=data.source.map(value=>value[\"存款交易总额\"]/10000);\r\noption = {\r\n    title:{\r\n        text:'设备存取款走势 近2年',\r\n        left:'center',\r\n        textStyle:{\r\n            color:'white'\r\n        }\r\n    },\r\n    grid: {\r\n        top: '15%',\r\n        right: '10%',\r\n        left: '10%',\r\n        bottom: '12%'\r\n    },\r\n    xAxis: [{\r\n        type: 'category',\r\n        color: '#59588D',\r\n        data:nameArray,\r\n        axisLabel: {\r\n            margin: 20,\r\n            color: '#999',\r\n            textStyle: {\r\n                fontSize: 16\r\n            },\r\n        },\r\n        axisLine: {\r\n            lineStyle: {\r\n                color: 'rgba(107,107,107,0.37)',\r\n            }\r\n        },\r\n        axisTick: {\r\n            show: false\r\n        },\r\n    }],\r\n    yAxis: [{\r\n        axisLabel: {\r\n            formatter: '{value}万元',\r\n            color: '#999',\r\n            textStyle: {\r\n                fontSize: 12\r\n            },\r\n        },\r\n        axisLine: {\r\n            lineStyle: {\r\n                color: 'rgba(107,107,107,0.37)',\r\n            }\r\n        },\r\n        axisTick: {\r\n            show: false\r\n        },\r\n        splitLine: {\r\n            lineStyle: {\r\n                color: 'rgba(131,101,101,0.2)',\r\n                type: 'dashed',\r\n            }\r\n        }\r\n    }],\r\n    series: [{\r\n        type: 'bar',\r\n        data: valueArray,\r\n        barWidth: '10px',\r\n        itemStyle: {\r\n            normal: {\r\n                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{\r\n                    offset: 0,\r\n                    color: '#FF9A22' // 0% 处的颜色\r\n                }, {\r\n                    offset: 1,\r\n                    color: '#FFD56E' // 100% 处的颜色\r\n                }], false),\r\n                barBorderRadius: [30, 30, 0, 0],\r\n            }\r\n        },\r\n        label: {\r\n            normal: {\r\n                show: false,\r\n                fontSize: 16,\r\n                fontWeight: 'bold',\r\n                color: '#333',\r\n                position: 'top',\r\n            }\r\n        }\r\n    },{\r\n        data: valueArray,\r\n        type: 'line',\r\n        smooth: true,\r\n        name: '折线图',\r\n        symbol: 'none',\r\n        lineStyle: {\r\n            color: '#3275FB',\r\n            width: 4,\r\n            shadowColor: 'rgba(0, 0, 0, 0.3)',//设置折线阴影\r\n            shadowBlur: 15,\r\n            shadowOffsetY: 20,\r\n        }\r\n    }\r\n]\r\n};\r\nreturn option;"
+            },
+            "dataSourceConfigID": "现金实物——设备存取款走势（近30天）",
+            "id": "D0297BB83C"
+          }
+        }
+      },
+      {
+        "region": {
+          "regionKey": "explicit.region",
+          "regionOption": {
+            "width": 540,
+            "height": 490,
+            "left": 1340,
+            "top": 120,
+            "zIndex": 1
+          }
+        },
+        "graphic": {
+          "graphicPath": "standard$hybrid.chart.graphic",
+          "graphicOption": {
+            "configSourceOption": {
+              "optionGenerator": "var dataArr = [{\n    value: data.source[0]['PRECENT'],\n    name: '设备正常运行状态比例'\n}];\nconsole.log(data);\nvar color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [{\n        offset: 0,\n        color: '#5CF9FE' // 0% 处的颜色\n    },\n    {\n        offset: 0.17,\n        color: '#468EFD' // 100% 处的颜色\n    },\n    {\n        offset: 0.9,\n        color: '#468EFD' // 100% 处的颜色\n    },\n    {\n        offset: 1,\n        color: '#5CF9FE' // 100% 处的颜色\n    }\n]);\nvar colorSet = [\n    [0.91, color],\n    [1, '#15337C']\n];\nvar rich = {\n    white: {\n        fontSize: 36,\n        color: '#fff',\n        fontWeight: '500',\n        padding: [-150, 0, 0, 0]\n    },\n    bule: {\n        fontSize: 52,\n        fontFamily: 'DINBold',\n        color: '#fff',\n        fontWeight: '600',\n        padding: [-120, 0, 0, 0],\n    },\n    radius: {\n        width: 320,\n        height: 60,\n        // lineHeight:80,\n        borderWidth: 1,\n        borderColor: '#0092F2',\n        fontSize: 28,\n        color: '#fff',\n        backgroundColor: '#1B215B',\n        borderRadius: 6,\n        textAlign: 'center',\n    },\n    size: {\n        height: 220,\n        padding: [100, 0, 0, 0]\n    }\n}\noption = {\n    tooltip: {\n        formatter: \"{a} <br/>{b} : {c}%\"\n    },\n    series: [{ //内圆\n            type: 'pie',\n            radius: '85%',\n            center: ['50%', '50%'],\n            z: 0,\n            itemStyle: {\n                normal: {\n                    color: new echarts.graphic.RadialGradient(.5, .5, 1, [{\n                            offset: 0,\n                            color: 'rgba(17,24,43,0)'\n                        },\n                        {\n                            offset: .5,\n                            // color: '#1E2B57'\n                            color:'rgba(28,42,91,.6)'\n                        },\n                        {\n                            offset: 1,\n                            color: '#141C33',\n                            // color:'rgba(17,24,43,0)'\n                        }\n                    ], false),\n                    label: {\n                        show: false\n                    },\n                    labelLine: {\n                        show: false\n                    }\n                },\n            },\n            hoverAnimation: false,\n            label: {\n                show: false,\n            },\n            tooltip: {\n                show: false\n            },\n            data: [100],\n        },\n        {\n            type: 'gauge',\n            name: '外层辅助',\n            radius: '74%',\n            startAngle: '225',\n            endAngle: '-45',\n            splitNumber: '100',\n            pointer: {\n                show: false\n            },\n            detail: {\n                show: false,\n            },\n            data: [{\n                value: 1\n            }],\n            // data: [{value: 1, name: 90}],\n            title: {\n                show: true,\n                offsetCenter: [0, 30],\n                textStyle: {\n                    color: '#fff',\n                    fontStyle: 'normal',\n                    fontWeight: 'normal',\n                    fontFamily: '微软雅黑',\n                    fontSize: 20,\n                }\n            },\n            axisLine: {\n                show: true,\n                lineStyle: {\n                    color: [\n                        [1, '#00FFFF']\n                    ],\n                    width: 2,\n                    opacity: 1\n                }\n            },\n            axisTick: {\n                show: false\n            },\n            splitLine: {\n                show: true,\n                length: 20,\n                lineStyle: {\n                    color: '#051932',\n                    width: 0,\n                    type: 'solid',\n                },\n            },\n            axisLabel: {\n                show: false\n            }\n        },\n        {\n            type: 'gauge',\n            radius: '70%',\n            startAngle: '225',\n            endAngle: '-45',\n            pointer: {\n                show: false\n            },\n            detail: {\n                formatter: function(value) {\n                    console.log(value);\n                    var num = Math.round(value);\n                    return '{bule|' + value + '}{white|分}' + '{size|' + '}\\n{radius|设备正常运行状态比例}';\n                },\n                rich: rich,\n                \"offsetCenter\": ['0%', \"0%\"],\n            },\n            data: dataArr,\n            title: {\n                show: false,\n            },\n            axisLine: {\n                show: true,\n                lineStyle: {\n                    color: colorSet,\n                    width: 25,\n                    // shadowBlur: 15,\n                    // shadowColor: '#B0C4DE',\n                    shadowOffsetX: 0,\n                    shadowOffsetY: 0,\n                    opacity: 1\n                }\n            },\n            axisTick: {\n                show: false\n            },\n            splitLine: {\n                show: false,\n                length: 25,\n                lineStyle: {\n                    color: '#00377a',\n                    width: 2,\n                    type: 'solid',\n                },\n            },\n            axisLabel: {\n                show: false\n            },\n        },\n        {\n            name: '灰色内圈', //刻度背景\n            type: 'gauge',\n            z: 2,\n            radius: '60%',\n            startAngle: '225',\n            endAngle: '-45',\n            //center: [\"50%\", \"75%\"], //整体的位置设置\n            axisLine: { // 坐标轴线\n                lineStyle: { // 属性lineStyle控制线条样式\n                    color: [\n                        [1, '#018DFF']\n                    ],\n                    width: 2,\n                    opacity: 1, //刻度背景宽度\n                }\n            },\n            splitLine: {\n                show: false\n            },\n            // data: [{\n            //     show: false,\n            //     value: '80'\n            // }], //作用不清楚\n            axisLabel: {\n                show: false\n            },\n            pointer: {\n                show: false\n            },\n            axisTick: {\n                show: false\n            },\n            detail: {\n                show: 0\n            }\n        },\n        {\n            name: \"白色圈刻度\",\n            type: \"gauge\",\n            radius: \"60%\",\n            startAngle: 225, //刻度起始\n            endAngle: -45, //刻度结束\n            z: 4,\n            axisTick: {\n                show: false\n            },\n            splitLine: {\n                length: 16, //刻度节点线长度\n                lineStyle: {\n                    width: 2,\n                    color: 'rgba(1,244,255, 0.9)'\n                } //刻度节点线\n            },\n            axisLabel: {\n                color: 'rgba(255,255,255,0)',\n                fontSize: 12,\n            }, //刻度节点文字颜色\n            pointer: {\n                show: false\n            },\n            axisLine: {\n                lineStyle: {\n                    opacity: 0\n                }\n            },\n            detail: {\n                show: false\n            },\n            data: [{\n                value: 0,\n                name: \"\"\n            }]\n        },\n        { //内圆\n            type: 'pie',\n            radius: '56%',\n            center: ['50%', '50%'],\n            z: 1,\n            itemStyle: {\n                normal: {\n                    color: new echarts.graphic.RadialGradient(.5, .5, .8, [{\n                            offset: 0,\n                            color: '#4978EC'\n                        },\n                        {\n                            offset: .5,\n                            color: '#1E2B57'\n                        },\n                        {\n                            offset: 1,\n                            color: '#141F3D'\n                        }\n                    ], false),\n                    label: {\n                        show: false\n                    },\n                    labelLine: {\n                        show: false\n                    }\n                },\n            },\n            hoverAnimation: false,\n            label: {\n                show: false,\n            },\n            tooltip: {\n                show: false\n            },\n            data: [100],\n        },\n    ]\n};\nreturn option;"
+            },
+            "dataSourceConfigID": "现金实物——设备正常运行状态比例",
+            "id": "C1DD3CB5DE"
+          }
+        }
+      }
+    ]
+  },
+  "data": [
+    {
+      "id": "num1",
+      "displayName": "产品近三年销售额",
+      "comment": "没有任何建议",
+      "metaData": {
+        "dataType": "array",
+        "dimensions": [
+          {
+            "name": "product",
+            "type": "ordinal"
+          },
+          {
+            "name": "2015",
+            "type": "int"
+          },
+          {
+            "name": "2016",
+            "type": "int"
+          },
+          {
+            "name": "2017",
+            "type": "int"
+          }
+        ]
+      },
+      "generatorPath": "mock$mockDynamic",
+      "generatorParams": {
+        "intervalTime": 10000,
+        "dataGenerator": "\n              return {\n          // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。\n          // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。\n          dimensions: [\n            { name: 'product', type: 'ordinal' },\n            { name: '2015', type: 'int' },\n            { name: '2016', type: 'int' },\n            { name: '2017', type: 'int' }],\n          source: [\n            { product: '化学', '2015': 43.3, '2016': 85.8, '2017': 93.7 },\n            { product: '牛奶', '2015': Math.random() * 100, '2016': 73.4, '2017': 55.1 },\n            { product: '吃饭', '2015': Math.random() * 100, '2016': 65.2, '2017': 82.5 },\n            { product: '豆子', '2015': Math.random() * 100, '2016': 53.9, '2017': 39.1 },\n          ],\n        };\n      "
+      }
+    },
+    {
+      "id": "num2",
+      "displayName": "实时销售额",
+      "comment": "没有任何建议",
+      "metaData": {
+        "dataType": "single"
+      },
+      "generatorPath": "mock$mockDynamic",
+      "generatorParams": {
+        "intervalTime": 10000,
+        "dataGenerator": "\n              console.log('实时销售额');\n        return Math.floor(Math.random() * 10000000);\n      "
+      }
+    },
+    {
+      "id": "zhuanyunzhongxin",
+      "displayName": "转运中心排名",
+      "comment": "没有任何建议",
+      "metaData": {
+        "dataType": "array",
+        "dimensions": [
+          {
+            "name": "name",
+            "type": "ordinal"
+          },
+          {
+            "name": "score",
+            "type": "int"
+          },
+          {
+            "name": "province",
+            "type": "ordinal"
+          }
+        ]
+      },
+      "generatorPath": "mock$mockStatic",
+      "generatorParams": {
+        "data": {
+          "dimensions": [
+            {
+              "name": "name",
+              "type": "ordinal"
+            },
+            {
+              "name": "score",
+              "type": "int"
+            },
+            {
+              "name": "province",
+              "type": "ordinal"
+            }
+          ],
+          "source": [
+            {
+              "score": 4,
+              "name": "南昌转运中心",
+              "province": "江西"
+            },
+            {
+              "score": 13,
+              "name": "广州转运中心",
+              "province": "广东"
+            },
+            {
+              "score": 25,
+              "name": "杭州转运中心",
+              "province": "浙江"
+            },
+            {
+              "score": 29,
+              "name": "宁夏转运中心",
+              "province": "宁夏"
+            },
+            {
+              "score": 38,
+              "name": "兰州转运中心",
+              "province": "甘肃"
+            },
+            {
+              "score": 44,
+              "name": "南宁转运中心",
+              "province": "广西"
+            },
+            {
+              "score": 50,
+              "name": "长沙转运中心",
+              "province": "湖南"
+            },
+            {
+              "score": 52,
+              "name": "武汉转运中心",
+              "province": "湖北"
+            },
+            {
+              "score": 60,
+              "name": "北京转运中心",
+              "province": "北京"
+            },
+            {
+              "score": 72,
+              "name": "贵州转运中心",
+              "province": "贵州"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "现金实物——设备存取款走势（近30天）",
+      "displayName": "现金实物——设备存取款走势（近30天）",
+      "comment": "没有任何建议",
+      "metaData": {
+        "dataType": "array",
+        "dimensions": [
+          {
+            "name": "日期",
+            "type": "ordinal"
+          },
+          {
+            "name": "取款交易总额",
+            "type": "int"
+          },
+          {
+            "name": "取款交易总额",
+            "type": "int"
+          }
+        ]
+      },
+      "generatorPath": "standard$simpleGenerator",
+      "generatorParams": {
+        "url": "http://10.34.12.120:8080/openAPI/treasurybrain/dev/cq?ak=c7ee97973f5542d1a4b7af8599359f30",
+        "dimensions": [
+          {
+            "name": "日期",
+            "type": "ordinal"
+          },
+          {
+            "name": "取款交易总额",
+            "type": "int"
+          },
+          {
+            "name": "取款交易总额",
+            "type": "int"
+          }
+        ]
+      }
+    },
+    {
+      "id": "现金实物——设备正常运行状态比例",
+      "displayName": "现金实物——设备正常运行状态比例",
+      "comment": "没有任何建议",
+      "metaData": {
+        "dataType": "array",
+        "dimensions": []
+      },
+      "generatorPath": "standard$simpleGenerator",
+      "generatorParams": {
+        "url": "http://10.34.12.120:8080/openAPI/treasurybrain/dev/status?ak=c7ee97973f5542d1a4b7af8599359f30",
+        "dimensions": []
+      }
+    }
+  ]
+}

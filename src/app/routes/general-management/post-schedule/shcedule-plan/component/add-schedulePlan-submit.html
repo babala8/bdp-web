@@ -1,0 +1,62 @@
+<form nz-form>
+    <div nz-row>
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'org'" nz-form-item-required>所属机构</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <org-tree [(ngModel)]="formModel['org']" (ngModelChange)="getMouldInfo()" [id]="'org'" name="org"></org-tree>
+                </div>
+            </div>
+        </div>
+
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'postInfo'">所属岗位</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <nz-select [(ngModel)]="formModel['postInfo']" (ngModelChange)="getMouldInfo()" [nzPlaceHolder]="'请选择'" name="postInfo" [nzSize]="'default'" nzAllowClear>
+                        <nz-option *ngFor="let option of postInfos" [nzLabel]="option.postName" [nzValue]="option.postNo">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div nz-row style="margin-top: 10px">
+        <div nz-col [nzSpan]="10" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'scheduleMould'" nz-form-item-required>使用模板</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <nz-select [(ngModel)]="formModel['scheduleMould']" [nzPlaceHolder]="'请选择'" name="scheduleMould" [nzSize]="'default'" nzAllowClear>
+                        <nz-option *ngFor="let option of scheduleMoulds" [nzLabel]="option.mouldName" [nzValue]="option.mouldNo">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </div>
+
+        <div nz-col [nzSpan]="11" [nzOffset]="1">
+            <div nz-form-item nz-row>
+                <div nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'scheduleMonth'" nz-form-item-required>排班月份</label>
+                </div>
+                <div nz-form-control nz-col [nzSpan]="16">
+                    <nz-month-picker style="width: 100%" [nzPlaceHolder]="'--请选择--'" [nzFormat]="'yyyy-MM'" [(ngModel)]="formModel['scheduleMonth']"
+                        name="scheduleMonth" nzPlaceHolder="排班月份">
+                    </nz-month-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div nz-row align="center" style="margin-top: 10px;">
+        <button nz-button [nzType]="'primary'" (click)="add()" [nzSize]="'default'" [nzLoading]="loading">
+            <span>排班计划生成</span>
+        </button>
+    </div>
+</form>

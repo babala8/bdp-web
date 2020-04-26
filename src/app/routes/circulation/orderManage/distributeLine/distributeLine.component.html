@@ -1,0 +1,68 @@
+ <div>
+  <div nz-row>
+    <div nz-col [nzSpan]="14" style="width: 70%">
+          <div style="height: 500px; width: 98%; padding-left: 1%">
+      <baidu-map [options]="mapOptions">
+        <marker [point]="vaultPoint.point" [options]="vaultPoint.options" *ngIf="vaultPoint"
+                (clicked)="showWindow($event,vaultPoint)"></marker>
+        <marker *ngFor="let marker of mapPoint" [point]="marker.point" [options]="marker.options"
+                (loaded)="markerLoaded(marker.showNo,$event)"
+                (clicked)="showWindow($event,marker,true)"></marker>
+      </baidu-map>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          配置线路
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16">
+          <nz-select [nzPlaceHolder]="'请选择线路'" [(ngModel)]="formModel['lineNo']" [nzSize]="'default'" nzAllowClear name="lineNo" style="width: 100%">
+            <nz-option *ngFor="let option of lineList" [nzLabel]="option.lineName" [nzValue]="option.lineNo">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          配送顺序
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="16">
+          <input nz-input [(ngModel)]="formModel['sortNo']" [nzSize]="'default'">
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row style="height: 300px;padding-left: 7px">
+        <span>建议路线</span>
+        <br>
+        <nz-table #nzTable [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'small'" [nzData]="retList" [nzScroll]="{ y: '475px' }">
+          <tbody>
+          <tr *ngFor="let data of nzTable.data;index as i">
+            <td width="8%">
+              {{i+1}}
+            </td>
+            <td [ngSwitch]="i" width="60%">
+                        <span *ngSwitchCase="0">
+                            <ellipsis lines="1" title="{{data.startOrgName}}-->{{data.endOrgName}}">{{data.startOrgName}}-->{{data.endOrgName}}</ellipsis>
+                        </span>
+              <span *ngSwitchCase="nzTable.data.length-1">
+                            <ellipsis lines="1" title="{{data.startOrgName}} --> {{data.endOrgName}}">{{data.startOrgName}} --> {{data.endOrgName}}</ellipsis>
+                        </span>
+              <span *ngSwitchDefault>
+                            <ellipsis lines="1" title="{{data.startOrgName}} --> {{data.endOrgName}}">{{data.startOrgName}} --> {{data.endOrgName}}</ellipsis>
+                        </span>
+            </td>
+            <td width="18%">{{data.distance/1000.0 | number:'1.1-1'}}千米</td>
+            <td width="13%">{{data.time}}分</td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </div>
+
+  </div>
+  <div style="text-align: center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确定</button>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+  </div>
+ </div>

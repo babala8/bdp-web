@@ -1,0 +1,103 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+<!--    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                逻辑ID
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('logicId')">
+                <input nz-input [nzSize]="'default'" formControlName="logicId" [id]="'logicId'" >
+                <nz-form-explain *ngIf="validateForm.controls['logicId'].dirty && validateForm.controls['logicId'].errors">
+                    {{ validateForm.controls['logicId'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>-->
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                参数名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('paramName')">
+                <input nz-input [nzSize]="'default'" formControlName="paramName" [id]="'paramName'">
+                <nz-form-explain *ngIf="validateForm.controls['paramName'].dirty && validateForm.controls['paramName'].errors">
+                    请填写正确参数名称！
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                参数值
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('paramValue')">
+                <input nz-input [nzSize]="'default'" formControlName="paramValue" [id]="'paramValue'">
+                <nz-form-explain *ngIf="validateForm.controls['paramValue'].dirty && validateForm.controls['paramValue'].errors">
+                  <ng-container *ngIf="getFormControl('paramValue').hasError('required')">
+                    <span style="color: red;">请填写参数值！</span>
+                  </ng-container>
+                  <ng-container *ngIf="getFormControl('paramValue').hasError('maxlength')">
+                    <span style="color: red;">参数值长度不得超过20位!</span>
+                  </ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                参数类型
+            </nz-form-label>
+
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('catalog')">
+                <nz-select formControlName="catalog" [nzSize]="'default'" [nzPlaceHolder]="'--请选择参数类型--'">
+                    <nz-option *ngFor="let item of paramCatalogList"  [nzLabel]="item?.catalogName" [nzValue]="item?.catalog"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['catalog'].dirty && validateForm.controls['catalog'].errors">
+                    请选择正确参数类型！
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                参数说明
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('statement')">
+                <textarea  nz-input formControlName="statement" [id]="'statement'" rows="4"></textarea>
+                <nz-form-explain *ngIf="validateForm.controls['statement'].dirty && validateForm.controls['statement'].errors">
+                  <ng-container *ngIf="getFormControl('statement').hasError('required')">
+                    <span style="color: red;">请填写参数说明 </span>
+                  </ng-container>
+                  <ng-container *ngIf="getFormControl('statement').hasError('maxlength')">
+                    <span style="color: red;">参数说明长度不得超过100位！</span>
+                  </ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="24">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+               参数描述
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('description')">
+                <textarea nz-input formControlName="description" [id]="'description'"  rows="4"></textarea>
+                <nz-form-explain *ngIf="validateForm.controls['description'].dirty && validateForm.controls['description'].errors">
+                  <ng-container *ngIf="getFormControl('description').hasError('required')">
+                    <span style="color: red;">请填写参数描述！</span>
+                  </ng-container>
+                  <ng-container *ngIf="getFormControl('description').hasError('maxlength')">
+                    <span style="color: red;">参数描述长度不得超过100位！</span>
+                  </ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control nz-col style="text-align: center">
+            <button nz-button [nzSize]="'default'" [nzType]="'primary'" [nzLoading]="loading" style="width: 30%;" [disabled]="validateForm.invalid">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

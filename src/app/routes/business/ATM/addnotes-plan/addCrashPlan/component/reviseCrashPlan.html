@@ -1,0 +1,115 @@
+<div class="ant-modal-header">
+    <div class="ant-modal-title"  style="color: red !important; font-size: 20px !important;">添加紧急加钞计划</div>
+</div>
+<div style="margin-top: 30px;">
+    <nz-card [nzHoverable]="false" [nzBordered]="false">
+        <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+        <nz-divider class="mb-lg"></nz-divider>
+        <div nz-row>
+            <div nz-col [nzSpan]="12">
+                <span style="font-size: 17px;">添加紧急加钞设备</span>
+            </div>
+            <div nz-col [nzSpan]="12" style="text-align: right;">
+                <button nz-button (click)="devList = []; submitable = false;" style="margin-right: 10px;"
+                        [nzType]="'primary'">
+                    <i class="anticon anticon-delete"></i>
+                    <span>清空设备</span>
+                </button>
+                <button nz-button (click)="devAdd()" [nzType]="'primary'">
+                    <i class="anticon anticon-plus"></i>
+                    <span>添加设备</span>
+                </button>
+            </div>
+        </div>
+        <div style="margin-top: 5px;">
+            <nz-table #nzTable [nzData]="devList" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true"
+                      [nzSize]="'middle'">
+                <thead nz-thead>
+                <tr>
+                    <th nz-th width="50px" style="text-align: center;">
+                        <span>删除</span>
+                    </th>
+                    <th nz-th width="150px" style="text-align: center;">
+                        <span>设备号</span>
+                    </th>
+                    <th nz-th width="150px" style="text-align: center;">
+                        <span>所属网点</span>
+                    </th>
+                    <th nz-th width="100px" style="text-align: center;">
+                        <span>所属线路</span>
+                    </th>
+                    <th nz-th width="200px" style="text-align: center;">
+                        <span>设备地址</span>
+                    </th>
+                    <th nz-th width="100px" style="text-align: center;">
+                        <span>余钞量(元)</span>
+                    </th>
+                    <th nz-th width="100px" style="text-align: center;">
+                        <span>未加钞天数(天)</span>
+                    </th>
+                    <th nz-th width="100px" style="text-align: center;">
+                        <span>建议加钞金额(元)</span>
+                    </th>
+                    <th nz-th width="100px" style="text-align: center;">
+                        <span>计划加钞金额(元)</span>
+                    </th>
+                </thead>
+                <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of nzTable.data, let i = index" class="trHover">
+                    <td nz-td style="text-align: center;">
+                        <i class="anticon anticon-delete" style="color: red; margin-right: 2px;"
+                           (click)="deleteDev(i)"></i>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <nz-select *ngIf="!data.devNo" style="width:80%;" nzPlaceHolder="请输入设备编号" (nzOnSearch)="devFilter($event)"
+                                   (ngModelChange)="qryDevInfo($event)"
+                                   [(ngModel)]="data.devNo" [nzNotFoundContent]="'无法找到'" nzShowSearch
+                                   >
+                            <nz-option *ngFor="let option of devFilterList" [nzLabel]="option.no"
+                                       [nzValue]="option.no">
+                            </nz-option>
+                        </nz-select>
+                        <span *ngIf="!!data.devNo">{{data.devNo}}</span>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <single-line [content]="data.orgName"></single-line>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <single-line [content]="data.lineName"></single-line>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <single-line [content]="data.address"></single-line>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <span *ngIf="data.availableAmt == -1">没有数据</span>
+                        <span
+                            *ngIf="data.availableAmt != -1">{{data.availableAmt | currency:'CNY':'symbol-narrow'}}</span>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <span>{{data.notAddCashDays}}</span>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <span *ngIf="!data.predict">未预测</span>
+                        <ng-container *ngIf="data.predict">
+                            <span *ngIf="!data.msgOfAmt">{{data.planAddnotesAmt | currency:'CNY':'symbol-narrow'}}</span>
+                            <span *ngIf="data.msgOfAmt">{{data.planAddnotesAmt | currency:'CNY':'symbol-narrow'}}*</span>
+                        </ng-container>
+                    </td>
+                    <td nz-td style="text-align: center;">
+                        <nz-input-number style="width:90%;" [nzMin]="0" [nzMax]="800000" [nzStep]="50000"
+                                         [(ngModel)]="data.reviseAmt"></nz-input-number>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <div style=" width: 100%; height: 60px; margin-top: 20px; text-align: center;">
+            <button [disabled]="devList.length==0 || !devList[devList.length-1].devNo" nz-button [nzSize]="'default'" [nzType]="'primary'" (click)="predict()" [nzLoading]="loading">
+                预测
+            </button>&nbsp;
+            <button [disabled]="devList.length==0 || !submitable ||  !devList[devList.length-1]?.devNo" nz-button [nzSize]="'default'" [nzType]="'primary'" (click)="save()" [nzLoading]="loading">
+                保存调整，提交审核
+            </button>
+        </div>
+    </nz-card>
+</div>

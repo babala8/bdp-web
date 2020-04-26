@@ -1,0 +1,27 @@
+<div class="ant-modal-header">
+    <div class="ant-modal-title"  style="color: red !important; font-size: 20px !important;">添加紧急加钞计划</div>
+</div>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="addCrashPlan()" style="margin-top: 20px;">
+    <div nz-row>
+        <div nz-col>
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">
+                    <label [attr.for]="'clrCenterNo'" nz-form-item-required>所属金库</label>
+                </nz-form-label>
+                <nz-form-control nz-col [nzSpan]="10">
+                    <select-clr-center formControlName="clrCenterNo" name="clrCenterNo"
+                                       defaultSelect="true"></select-clr-center>
+                    <nz-form-explain
+                         *ngIf="getFormControl('clrCenterNo').dirty && getFormControl('clrCenterNo').errors">
+                        {{ getFormControl('clrCenterNo').errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row style="padding: 10px 0; text-align: center;">
+        <button nz-button [nzType]="'primary'" [nzSize]="'large'">
+            <span>下一步，添加设备</span>
+        </button>
+    </div>
+</form>

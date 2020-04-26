@@ -1,0 +1,126 @@
+<form nz-form #form="ngForm" class="search-form">
+
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'clrCenterNo'">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" allowClear="true">
+          </select-clr-center>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'taskNo'">
+          申请单编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['taskNo']" [nzSize]="'default'" name="taskNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'lineNo'">
+          调拨线路
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input [(ngModel)]="formModel['lineNo']" [nzSize]="'default'" name="lineNo" style="width: 100%">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="'taskType'">
+          任务单类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select name="taskType" [(ngModel)]="formModel['taskType']" [nzPlaceHolder]="'请选择类型'" allowClear="true">
+            <nz-option *ngFor="let option of taskAllType" [nzLabel]="option.nzLabel" [nzValue]="option.nzValue">
+              >
+            </nz-option>
+
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row align="center">
+    <div nz-col [nzSpan]="14" class="text-right">
+      <button nz-button [nzType]="'primary'" (click)="refreshData(true)" [nzLoading]="loading">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="reset()" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">任务单列表</span>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+<div class="search-result-list">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem"
+    [nzLoading]="loading" [nzData]="dataSet" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+    [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+    <thead>
+      <tr>
+        <th>状态</th>
+        <th>任务单类型</th>
+        <th>申请网点</th>
+        <th>申请单编号</th>
+        <th>领用日期</th>
+        <th>申请人</th>
+        <th>领现金额</th>
+        <th>调拨线路</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;let i = index;">
+        <td>
+          <ng-container *ngFor="let state of states">
+            <nz-badge *ngIf="state.value == data.status" [nzStatus]="state.badge" [nzText]="state.label"></nz-badge>
+          </ng-container>
+        </td>
+        <td>
+          <span *ngIf="data.taskType =='1'">自助机具加钞任务单</span>
+          <span *ngIf="data.taskType =='2'">网点解现&寄库任务单</span>
+          <span *ngIf="data.taskType =='3'">网点寄库领回任务单</span>
+          <span *ngIf="data.taskType =='4'">网点领现任务单</span>
+          <span *ngIf="data.taskType =='5'">现金调拨任务单</span>
+          <span *ngIf="data.taskType =='8'">钞处领现任务单</span>
+          <span *ngIf="data.taskType =='9'">钞处解现任务单</span>
+
+        </td>
+        <td>{{data.customerName}}</td>
+        <td>
+          <a (click)="openDetail(data)" [title]="data.taskNo">{{data.taskNo}}</a>
+        </td>
+        <td>{{data.planFinishDate}}</td>
+        <td>{{data.createOpName}}</td>
+        <td>{{data.depositBoxAmount}}</td>
+        <td>{{data.lineName}}</td>
+        <ng-container>
+          <td><a *ngIf="data.status == 303 || (data.taskType == 1 && (data.status == 501 || data.status == 306))" (click)="inWarehouseConfirm(data)">入库</a></td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,72 @@
+<div>
+    <nz-card [nzHoverable]="false" [nzBordered]="false">
+        <div class="detail-style">
+            <div nz-row>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>运行图编号：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="6">
+                    <div>
+                        <span>{{lineRunMapDetail.lineWorkId}}</span>
+                        <!-- <nz-input style="width: 100%" [nzDisabled]="true" [(ngModel)]="lineRunMapDetailInfo.routeRunNo"></nz-input> -->
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>日期：</span>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="4">
+                    <div>
+                        <span>{{runDate}}</span>
+                        <!-- <nz-input style="width: 100%" [nzDisabled]="true" [(ngModel)]="runDate"></nz-input> -->
+                        <!-- <span>{{runDate}}</span> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <nz-divider class="mb-lg"></nz-divider>
+        <div nz-row>
+            <div nz-col [nzSpan]="12">
+                <span style="font-size: 17px;">网点信息</span>
+            </div>
+        </div>
+        <nz-table #nzTable
+                  [nzData]="lineRunMapDetail.detailList"
+                  [nzShowPagination]="false"
+                  [nzBordered]="true"
+                  [nzFrontPagination]="false"
+                  [nzSize]="'middle'">
+            <thead nz-thead>
+                <tr>
+                    <th nz-th rowspan="2" width="8%">
+                        <div align="center">
+                            <span>网点编号</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2" width="8%">
+                        <div align="center">
+                            <span>网点名称</span>
+                        </div>
+                    </th>
+            </thead>
+            <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.customerNo}}</span>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.customerName}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+</div>

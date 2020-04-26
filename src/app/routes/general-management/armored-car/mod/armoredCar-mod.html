@@ -1,0 +1,102 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="carNumber">
+      车牌号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('carNumber')" nzHasFeedback>
+      <input nz-input nzSize="'middle'" formControlName="carNumber" id="'carNumber'">
+      <nz-form-explain *ngIf="getFormControl('carNumber').dirty && getFormControl('carNumber').errors">
+        <ng-container *ngIf="getFormControl('carNumber').dirty&&getFormControl('carNumber').hasError('required')">
+          <span style="color: red;">请输入车牌号</span>
+        </ng-container>
+        <ng-container *ngIf="getFormControl('carNumber').hasError('pattern')">
+          <span style="color: red;">格式不正确</span>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="status">
+      车辆状态
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('status')" nzHasFeedback>
+      <nz-select [nzSize]="'middle'" id="status" formControlName="status" name="status" nzAllowClear
+                 [nzPlaceHolder]="'--请选择车辆状态--'">
+        <nz-option *ngFor="let status of statusList" [nzLabel]="status.label" [nzValue]="status.value"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('status').dirty&&validateForm.controls['status'].errors">
+        <span style="color: red;">请选择车辆状态</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="type">
+      车辆类型
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('type')" nzHasFeedback>
+      <nz-select [nzSize]="'middle'" id="type" formControlName="type" name="type" nzAllowClear
+                 [nzPlaceHolder]="'--请选择车辆类型--'">
+        <nz-option *ngFor="let type of typeList" [nzLabel]="type.label" [nzValue]="type.value"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('type').dirty&&validateForm.controls['type'].errors">
+        <span style="color: red;">请选择车辆类型</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="signingType">
+      签约方式
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('signingType')">
+      <nz-select [nzSize]="'middle'" id="signingType" formControlName="signingType" name="signingType" nzAllowClear
+                 [nzPlaceHolder]="'--请选择签约方式--'">
+        <nz-option *ngFor="let signingType of signingTypeList" [nzLabel]="signingType.label" [nzValue]="signingType.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="company">
+      公司
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('company')">
+      <nz-select [nzSize]="'middle'" id="company" formControlName="company" name="company" nzAllowClear
+                 [nzPlaceHolder]="'--请选择公司--'">
+        <nz-option *ngFor="let company of companyList" [nzLabel]="company.name" [nzValue]="company.no"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="maxDuration">
+      最大时间（h）
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('maxDuration')">
+      <input nz-input nzSize="'middle'" formControlName="maxDuration" id="'maxDuration'">
+      <nz-form-explain *ngIf="getFormControl('maxDuration').dirty && getFormControl('maxDuration').errors">
+        <ng-container *ngIf="getFormControl('maxDuration').hasError('pattern')">
+          <span style="color: red;">格式不正确</span>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="maxMileage">
+      最大里程（km）
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('maxMileage')">
+      <input nz-input nzSize="'middle'" formControlName="maxMileage" id="'maxMileage'">
+      <nz-form-explain *ngIf="getFormControl('maxMileage').dirty && getFormControl('maxMileage').errors">
+        <ng-container *ngIf="getFormControl('maxMileage').hasError('pattern')">
+          <span style="color: red;">格式不正确</span>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item  nz-row style="margin-bottom:8px;">
+    <nz-form-control  nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 30%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

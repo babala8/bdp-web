@@ -1,0 +1,143 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+            机构名称
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['orgName']" name="orgName" [id]="'orgName'">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+            机构编号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <input nz-input nzSize="middle" [(ngModel)]="formModel['orgNo']" name="no" [id]="'no'">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+            所属机构
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <org-tree [(ngModel)]="formModel['org']" [zjId]="'org'" [size]="'middle'" name="org"></org-tree>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8">
+            机构等级
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="16">
+            <nz-select nzSize="middle" [(ngModel)]="formModel['orgGrade']" name="orgGrade"
+                       [nzPlaceHolder]="'--请选择机构等级--'">
+              <nz-option *ngFor="let o of allOrgTypes" [nzLabel]="o?.name"
+                         [nzValue]="o?.no"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row style="text-align: center">
+      <div nz-col>
+        <button nz-button [nzType]="'primary'" (click)="search()" nzSize="middle" [nzLoading]="loading">
+          <i class="anticon anticon-search"></i>
+          <span>查询</span>
+        </button>
+        <button nz-button (click)="reset()" nzSize="middle" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i>
+          <span>重置</span>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">机构信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" (click)="openAdd()" nzSize="middle" *authId="'A0202'">
+        <i class="anticon anticon-plus"></i>
+        <span>添加</span>
+      </button>
+    </div>
+  </div>
+  <ng-template #pageSizeTem>
+    共{{page.totalRow}}条
+  </ng-template>
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzSize="middle"
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzShowTotal]="pageSizeTem"
+              [nzLoading]="loading"
+              [nzData]="dataSet"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="refreshData(true)"
+              (nzPageIndexChange)="refreshData()"
+    >
+      <thead>
+      <tr>
+        <th nzAlign="left"><span>机构编号</span></th>
+        <th nzAlign="left" style="text-align: left"><span>机构名称</span></th>
+        <th><span>机构级别</span></th>
+        <th nzAlign="left" style="text-align: left"><span>机构地址</span></th>
+        <th><span>上级机构</span></th>
+        <th><span>所属金库</span></th>
+        <th><span>操作</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td nzAlign="left">{{item?.no}}</td>
+        <td nzAlign="left" style="text-align: left">
+          <a (click)="openDetail(item)">
+            <span>{{item?.name}}</span>
+          </a>
+        </td>
+        <td>
+          <ng-container [ngSwitch]="item?.orgGradeNo">
+            <span *ngSwitchCase="1">总行</span>
+            <span *ngSwitchCase="2">省分行</span>
+            <span *ngSwitchCase="3">市分行</span>
+            <span *ngSwitchCase="4">支行</span>
+            <span *ngSwitchCase="5">网点</span>
+            <span *ngSwitchCase="6">分理处</span>
+            <span *ngSwitchCase="100">公司</span>
+          </ng-container>
+        </td>
+        <td nzAlign="left" style="text-align: left">
+          <span>{{item?.address}}</span>
+        </td>
+        <td>
+          <span>{{item?.parentOrg?.name}}</span>
+        </td>
+        <td>
+          <span>{{item?.clrCenter?.centerName}}</span>
+        </td>
+        <td>
+          <a (click)="modCircle(item)">营业时间调整</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="modifyOrg(item)" *authId="'A0201'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定要删除该机构吗？'" (nzOnConfirm)="confirmDel(item)" (nzOnCancel)="cancel()">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'A0204'">删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>

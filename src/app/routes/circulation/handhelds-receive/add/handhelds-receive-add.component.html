@@ -1,0 +1,70 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      读写器编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagReaderNo')">
+      <nz-select [nzSize]="'middle'" id="keyUseRange" nzShowSearch formControlName="tagReaderNo" name="tagReaderNo" nzAllowClear
+                 [nzPlaceHolder]="'--请选择读写器编号--'" (ngModelChange)="changeReader($event)">
+        <nz-option *ngFor="let r of tagReaderList" [nzLabel]="r.tagReaderNo" [nzValue]="r.tagReaderNo"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('tagReaderNo')?.dirty && getFormControl('tagReaderNo')?.hasError('required')">
+        <span style="color: red;">请选择读写器编号</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      读写器类型
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select [nzSize]="'middle'" formControlName="readerType" name="readerStatus" >
+        <nz-option *ngFor="let r of rType" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      读写器状态
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select [nzSize]="'middle'" formControlName="readerStatus" name="readerStatus">
+        <nz-option *ngFor="let r of rStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      领用人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <nz-select [nzSize]="'middle'" formControlName="requestOpNo" name="requestOpNo">
+        <nz-option *ngFor="let r of qryUsersInAddNotesGroup" [nzLabel]="r.name" [nzValue]="r.username"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('requestOpNo')?.dirty && getFormControl('requestOpNo')?.hasError('required')">
+        <span style="color: red;">请选择读写器编号</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      领用级别
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+      <nz-radio-group formControlName="crashFlag">
+        <label *ngFor="let i of cFlag" nz-radio nzValue="{{i.no}}">
+          {{i.name}}
+        </label>
+        <nz-form-explain *ngIf="getFormControl('crashFlag')?.dirty && getFormControl('crashFlag')?.hasError('required')">
+          <span style="color: red;">请选择领用级别</span>
+        </nz-form-explain>
+      </nz-radio-group>
+    </nz-form-control>
+
+  </nz-form-item>
+  <nz-form-item  nz-row style="margin-bottom:8px;">
+    <nz-form-control  nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 50%;">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

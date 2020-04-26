@@ -1,0 +1,73 @@
+<div style="padding: 25px;">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+        <nz-form-item nz-row>
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                型号编号
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('no')" nzHasFeedback>
+                <input nz-input nzSize="default" formControlName="no" id="'no'" [disabled]="true">
+                <nz-form-explain  *ngIf="getFormControl('no').dirty&&validateForm.controls['no'].errors">
+                    {{ validateForm.controls['no'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                型号名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+                <input nz-input nzSize="default" formControlName="name" id="'name'" [disabled]="true" >
+                <nz-form-explain  *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">
+                    {{ validateForm.controls['name'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                品牌名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('vendorNo')">
+                <!--<nz-input nzSize="default" formControlName="name" [nzId]="'name'"></nz-input>-->
+                <!--<div nz-form-explain *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">-->
+                <!--{{ validateForm.controls['name'].errors['explain'] }}-->
+                <!--</div>-->
+                <nz-select nzSize="default" formControlName="vendorNo" name="vendorNo"
+                           [nzPlaceHolder]="'--请选择品牌--'"  nzDisabled="true">
+                    <nz-option *ngFor="let devVendor of devVendors" [nzValue]="devVendor.no" [nzLabel]="devVendor.name"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                类型名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('catalogNo')">
+                <!--<nz-input nzSize="default" formControlName="name" [nzId]="'name'"></nz-input>-->
+                <!--<div nz-form-explain *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">-->
+                <!--{{ validateForm.controls['name'].errors['explain'] }}-->
+                <!--</div>-->
+                <nz-select nzSize="default" formControlName="catalogNo" name="catalogNo"
+                           [nzPlaceHolder]="'--请选择品牌--'"  nzDisabled="true">
+                    <nz-option *ngFor="let devCatalog of devCatalogs" [nzValue]="devCatalog.no" [nzLabel]="devCatalog.name"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                是否现金
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('cashType')">
+                <!--<nz-input nzSize="default" formControlName="name" [nzId]="'name'"></nz-input>-->
+                <!--<div nz-form-explain *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">-->
+                <!--{{ validateForm.controls['name'].errors['explain'] }}-->
+                <!--</div>-->
+                <nz-select nzSize="default" formControlName="cashType" name="cashType"
+                           [nzPlaceHolder]="'--请选择是否现金--'"  nzDisabled="true">
+                    <nz-option [nzValue]="'1'" [nzLabel]="'现金'"></nz-option>
+                    <nz-option [nzValue]="'2'" [nzLabel]="'非现金'"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+

@@ -1,0 +1,42 @@
+@import (once) './../variables.less';
+
+:host {
+  .menu-fold-unfold {
+    height: 40px;
+    width: 230px;
+    position: absolute;
+    bottom: 0;
+    border: 1px solid #ededed;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 20px;
+    padding-left: 24px;
+    overflow: hidden;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: #f6f6f6;
+    z-index: 10;
+  }
+  .zj-menu-title{
+    .zj-icon{
+      font-size: 24px;
+      color: #888;
+      vertical-align: middle;
+    }
+  }
+  .zj-second-menu{
+    .zj-icon{
+      font-size: 22px;
+      vertical-align: middle;
+      margin-right: 3px;
+    }
+    .zj-text-span{
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+

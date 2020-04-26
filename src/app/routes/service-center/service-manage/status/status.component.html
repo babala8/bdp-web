@@ -1,0 +1,56 @@
+<div nz-row>
+  <div nz-col style="text-align: left">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="addStatus()">
+      <i nz-icon nzType="plus"></i>
+      新增
+    </button>
+  </div>
+</div>
+<nz-table #nzTable nzSize="middle" [nzData]="statusList" [nzShowPagination]="false" nzFrontPagination="false"
+  nzBordered>
+  <thead>
+    <tr>
+      <th nzWidth="20%">状态码</th>
+      <th nzWidth="30%">备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let status of nzTable.data, let i = index;">
+      <td>
+        <ng-container *ngIf="!status.editFlag, else statusInputTpl">
+          {{status.name}}
+        </ng-container>
+        <ng-template #statusInputTpl>
+          <nz-select [(ngModel)]="status.status" style="width: 100%">
+            <nz-option *ngFor="let s of statusSelectedList" [nzLabel]="s.name" [nzValue]="s.status"></nz-option>
+          </nz-select>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="!status.editFlag, else noteInputTpl">
+          {{status.note ? status.note : '***'}}
+        </ng-container>
+        <ng-template #noteInputTpl>
+          <input nz-input type="text" [(ngModel)]="status.note">
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="!status.editFlag, else confirmModTpl">
+          <a (click)="changeEditFlag(status)">修改</a>
+        </ng-container>
+        <ng-template #confirmModTpl>
+          <a (click)="changeEditFlag(status)">确认</a>
+        </ng-template>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteStatus(i)">删除</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div nz-row style="margin: 20px 0 0 0">
+  <div nz-col style="text-align: center">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="submitChanges()">提交</button>
+  </div>
+</div>

@@ -1,0 +1,333 @@
+@font-face {
+  font-family: 'micon-';
+  src:  url('fonts/micon-.eot?qok1i');
+  src:  url('fonts/micon-.eot?qok1i#iefix') format('embedded-opentype'),
+    url('fonts/micon-.ttf?qok1i') format('truetype'),
+    url('fonts/micon-.woff?qok1i') format('woff'),
+    url('fonts/micon-.svg?qok1i#micon-') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="zijin-micon-"], [class*=" zijin-micon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'micon-' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.zijin-micon-bank-of-shanghai:before {
+  content: "\e900";
+}
+.zijin-micon-Model-evaluation:before {
+  content: "\e901";
+}
+.zijin-micon-ATM-banknotes:before {
+  content: "\e902";
+}
+.zijin-micon-Bill-of-money-management:before {
+  content: "\e903";
+}
+.zijin-micon-Cash-transfer-inquiry:before {
+  content: "\e904";
+}
+.zijin-micon-Password-modification:before {
+  content: "\e905";
+}
+.zijin-micon-Enforcement-of-special-rules:before {
+  content: "\e906";
+}
+.zijin-micon-Management-of-banknote-adding-plan:before {
+  content: "\e907";
+}
+.zijin-micon-Impromptu-analysis:before {
+  content: "\e908";
+}
+.zijin-micon-Equipment-Route-Management:before {
+  content: "\e909";
+}
+.zijin-micon-Equipment-parameters:before {
+  content: "\e90a";
+}
+.zijin-micon-Banknote-Addition-Audit:before {
+  content: "\e90b";
+}
+.zijin-micon-Multidimensional-template:before {
+  content: "\e90c";
+}
+.zijin-micon-Route-Definition:before {
+  content: "\e90d";
+}
+.zijin-micon-Route-diagram:before {
+  content: "\e90e";
+}
+.zijin-micon-Task-sheet-for-adding-money:before {
+  content: "\e90f";
+}
+.zijin-micon-Special-Rules-Management:before {
+  content: "\e910";
+}
+.zijin-micon-Banknote-Bag-Deposit:before {
+  content: "\e911";
+}
+.zijin-micon-Banknote-Bag-Storage:before {
+  content: "\e912";
+}
+.zijin-micon-Cash-box-plus-money:before {
+  content: "\e913";
+}
+.zijin-micon-Electronic-lock:before {
+  content: "\e914";
+}
+.zijin-micon-Handheld-machine:before {
+  content: "\e915";
+}
+.zijin-micon-Lock-information:before {
+  content: "\e916";
+}
+.zijin-micon-Lock-Log:before {
+  content: "\e917";
+}
+.zijin-micon-Lock-monitoring:before {
+  content: "\e918";
+}
+.zijin-micon-Mobile-phone-coordinates:before {
+  content: "\e919";
+}
+.zijin-micon-Parameter-Settings:before {
+  content: "\e91a";
+}
+.zijin-micon-Statistical-Statement:before {
+  content: "\e91b";
+}
+.zijin-micon-stats:before {
+  content: "\e91c";
+}
+.zijin-micon-Tail-box-counting:before {
+  content: "\e91d";
+}
+.zijin-micon-Tailbox-recycling:before {
+  content: "\e91e";
+}
+.zijin-micon-Task-Acceptance:before {
+  content: "\e91f";
+}
+.zijin-micon-Timing-Task-1:before {
+  content: "\e920";
+}
+.zijin-micon-Timing-Task-Management:before {
+  content: "\e921";
+}
+.zijin-micon-Virtual-signature:before {
+  content: "\e922";
+}
+.zijin-micon-Cash-out:before {
+  content: "\e923";
+}
+.zijin-micon-ATM-banknote-box-out-of-warehouse:before {
+  content: "\e924";
+}
+.zijin-micon-ATM-banknote-boxes-are-put-into-storage:before {
+  content: "\e925";
+}
+.zijin-micon-Cash-clearance:before {
+  content: "\e926";
+}
+.zijin-micon-Cash-transfer:before {
+  content: "\e927";
+}
+.zijin-micon-Checking-accounts:before {
+  content: "\e928";
+}
+.zijin-micon-Counting-the-end-of-ATM-banknote-box:before {
+  content: "\e929";
+}
+.zijin-micon-Crown-Number-Query:before {
+  content: "\e92a";
+}
+.zijin-micon-Daily-inventory-summary:before {
+  content: "\e92b";
+}
+.zijin-micon-Daily-statement-entry:before {
+  content: "\e92c";
+}
+.zijin-micon-Dot-distribution:before {
+  content: "\e92d";
+}
+.zijin-micon-Examination-and-approval-of-transfer-in-bank:before {
+  content: "\e92e";
+}
+.zijin-micon-Input-of-ATM-banknote-box:before {
+  content: "\e92f";
+}
+.zijin-micon-Input-of-examination-results:before {
+  content: "\e930";
+}
+.zijin-micon-Local-Accounting-Management:before {
+  content: "\e931";
+}
+.zijin-micon-Personnel-Identity-Verification:before {
+  content: "\e932";
+}
+.zijin-micon-Rectification-Feedback:before {
+  content: "\e933";
+}
+.zijin-micon-Residual-currency-management:before {
+  content: "\e934";
+}
+.zijin-micon-Verification-Mission-Management:before {
+  content: "\e935";
+}
+.zijin-micon-Warehouse-Goods-Information:before {
+  content: "\e936";
+}
+.zijin-micon-Multidimensional:before {
+  content: "\e937";
+}
+.zijin-micon-accounting-management:before {
+  content: "\e938";
+}
+.zijin-micon-Bank-notes:before {
+  content: "\e939";
+}
+.zijin-micon-Detailed:before {
+  content: "\e93a";
+}
+.zijin-micon-developer:before {
+  content: "\e93b";
+}
+.zijin-micon-early-warning:before {
+  content: "\e93c";
+}
+.zijin-micon-evaluate:before {
+  content: "\e93d";
+}
+.zijin-micon-gis-analysis1:before {
+  content: "\e93e";
+}
+.zijin-micon-logistics:before {
+  content: "\e93f";
+}
+.zijin-micon-Parking:before {
+  content: "\e940";
+}
+.zijin-micon-Handheld-machine_1:before {
+  content: "\e941";
+}
+.zijin-micon-Banknote-Installation-Monitoring:before {
+  content: "\e942";
+}
+.zijin-micon-Banknote-adding-management:before {
+  content: "\e943";
+}
+.zijin-micon-Handset-management:before {
+  content: "\e944";
+}
+.zijin-micon-multianalysis:before {
+  content: "\e945";
+}
+.zijin-micon-Report-template:before {
+  content: "\e946";
+}
+.zijin-micon-Role-management:before {
+  content: "\e947";
+}
+.zijin-micon-system-parameter:before {
+  content: "\e948";
+}
+.zijin-micon-Treasury:before {
+  content: "\e949";
+}
+.zijin-micon-user-management:before {
+  content: "\e94a";
+}
+.zijin-micon-Equipment-type:before {
+  content: "\e94b";
+}
+.zijin-micon-gis-analysis:before {
+  content: "\e94c";
+}
+.zijin-micon-olap-control:before {
+  content: "\e94d";
+}
+.zijin-micon-organizational-management:before {
+  content: "\e94e";
+}
+.zijin-micon-Detailed-Query-Template:before {
+  content: "\e94f";
+}
+.zijin-micon-Equipment-brand:before {
+  content: "\e950";
+}
+.zijin-micon-Equipment-Information:before {
+  content: "\e951";
+}
+.zijin-micon-Equipment-maintainer:before {
+  content: "\e952";
+}
+.zijin-micon-Chart-Management:before {
+  content: "\e953";
+}
+.zijin-micon-Change-Password:before {
+  content: "\e954";
+}
+.zijin-micon-Chart-Component-Development:before {
+  content: "\e955";
+}
+.zijin-micon-Planning-and-scheduling:before {
+  content: "\e956";
+}
+.zijin-micon-Statistical-report-forms:before {
+  content: "\e957";
+}
+.zijin-micon-Storage:before {
+  content: "\e958";
+}
+.zijin-micon-Treasury-Management:before {
+  content: "\e959";
+}
+.zijin-micon-dataMining:before {
+  content: "\e95a";
+}
+.zijin-micon-Banknote-bag:before {
+  content: "\e95b";
+}
+.zijin-micon-Banknote-box:before {
+  content: "\e95c";
+}
+.zijin-micon-Banknote-truck:before {
+  content: "\e95d";
+}
+.zijin-micon-Handheld-machine1:before {
+  content: "\e95e";
+}
+.zijin-micon-Key-management:before {
+  content: "\e95f";
+}
+.zijin-micon-Key-type:before {
+  content: "\e960";
+}
+.zijin-micon-Keychain:before {
+  content: "\e961";
+}
+.zijin-micon-Label-management:before {
+  content: "\e962";
+}
+.zijin-micon-physical-flow:before {
+  content: "\e963";
+}
+.zijin-micon-Label-Reader:before {
+  content: "\e964";
+}
+.zijin-micon-Key-Acquisition:before {
+  content: "\e965";
+}

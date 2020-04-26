@@ -1,0 +1,153 @@
+<div>
+    <div>
+        <div style="text-align: left;font: 1.2em sans-serif;color: #000;">
+            <span>基础信息：</span>
+        </div>
+        <detail-table [data]="baseInfoList" [itemWidth]="6">
+        </detail-table>
+
+        <br/>
+        <div style="text-align: left;font: 1.2em sans-serif;color: #000;">
+            <span>最近历史数据参考(万元)：</span>
+        </div>
+        <detail-table [data]="devHistoryBiztxlogAvg" [itemWidth]="4">
+        </detail-table>
+        <br/>
+        <div style="text-align: left;font: 1.2em sans-serif;color: #000;">
+            <span>图表展示：</span>
+        </div>
+        <div>
+            <div echarts [options] = "chartOption" style="height: 400px"></div>
+        </div>
+        <br/>
+        <div style="text-align: left;font: 1.2em sans-serif;color: #000;">
+            <span>四象限数据展示：</span>
+        </div>
+        <div align="center">
+            <div style="background-image: url(./assets/images/pages/addnotes/quadrant.png);width: 600px;height: 400px;background-size: 100%;position: relative;">
+                <div style="position: absolute;left: 100px;top: 100px;">
+                    <div>10天&nbsp;|&nbsp;7天&nbsp;|&nbsp;4天</div>
+                    <div>{{quadrantDevFlowAvgs[9]}}W  |  {{quadrantDevFlowAvgs[5]}}W  |  {{quadrantDevFlowAvgs[1]}}W</div>
+                </div>
+                <div style="position: absolute;right: 100px;top: 100px;">
+                    <div>10天&nbsp;|&nbsp;7天&nbsp;|&nbsp;4天</div>
+                    <div>{{quadrantDevFlowAvgs[8]}}W  |  {{quadrantDevFlowAvgs[4]}}W  |  {{quadrantDevFlowAvgs[0]}}W</div>
+                </div>
+                <div style="position: absolute;left: 100px;bottom: 100px;">
+                    <div>10天&nbsp;|&nbsp;7天&nbsp;|&nbsp;4天</div>
+                    <div>{{quadrantDevFlowAvgs[11]}}W  |  {{quadrantDevFlowAvgs[7]}}W  |  {{quadrantDevFlowAvgs[3]}}W</div>
+                </div>
+                <div style="position: absolute;right: 100px;bottom: 100px;">
+                    <div>10天&nbsp;|&nbsp;7天&nbsp;|&nbsp;4天</div>
+                    <div>{{quadrantDevFlowAvgs[10]}}W  |  {{quadrantDevFlowAvgs[6]}}W  |  {{quadrantDevFlowAvgs[2]}}W</div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <nz-table #nzTable [nzData]="quadrantTables" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'">
+                <thead nz-thead>
+                    <tr>
+                        <th nz-th rowspan="2">
+                            <div align="center">
+                                <span></span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2">
+                            <div align="center">
+                                <span>第一象限本周期</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2">
+                            <div align="center">
+                                <span>第二象限上周期</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2">
+                            <div align="center">
+                                <span>第三象限历史上周期</span>
+                            </div>
+                        </th>
+                        <th nz-th rowspan="2">
+                            <div align="center">
+                                <span>第四象限历史同周期</span>
+                            </div>
+                        </th>
+                </thead>
+
+                <tbody nz-tbody>
+                    <tr nz-tbody-tr *ngFor="let data of quadrantTables; let i = index">
+                        <td nz-td style="background-color: rgb(228, 224, 224)">
+                            <div align="center">
+                                <span>{{data.describe}}</span>
+                            </div>
+                        </td>
+                        <td nz-td>
+                            <div align="center">
+                                <span style="color: rgb(150, 147, 147);">{{data.firstQuadrant}}</span>
+                            </div>
+                        </td>
+                        <td nz-td>
+                            <div align="center">
+                                <span>{{data.secondQuadrant}}</span>
+                            </div>
+                        </td>
+                        <td nz-td>
+                            <div align="center">
+                                <span>{{data.thirdQuadrant}}</span>
+                            </div>
+                        </td>
+                        <td nz-td>
+                            <div align="center">
+                                <span>{{data.fouthQuadrant}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <br/>
+        <div style="text-align: left;font: 1.2em sans-serif;color: #000;">
+            <span>历史装卸钞信息：</span>
+        </div>
+        <nz-table #nzTable [nzData]="addnotesDatasSixDays" [nzShowPagination]="false" [nzFrontPagination]="false" [nzBordered]="true" [nzSize]="'middle'">
+            <thead nz-thead>
+                <tr>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>加钞日期</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>加钞金额(元)</span>
+                        </div>
+                    </th>
+                    <th nz-th rowspan="2">
+                        <div align="center">
+                            <span>卸钞金额(元)</span>
+                        </div>
+                    </th>
+            </thead>
+            <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of addnotesDatasSixDays; let i = index">
+                    <td nz-td>
+                        <div align="center">
+                            <span>{{data.addnotesDate}}</span>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="right">
+                            <span>{{data.addnotesPlanAmount}}</span>
+                        </div>
+                    </td>
+                    <td nz-td>
+                        <div align="right">
+                            <span>{{data.devBackAmount}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

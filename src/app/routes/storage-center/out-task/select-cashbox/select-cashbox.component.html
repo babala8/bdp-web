@@ -1,0 +1,151 @@
+<form nz-form style="margin-top: 2px;" [formGroup]="validateForm">
+  <nz-form-item nz-row nzType="flex" nzJustify="start">
+    <nz-form-label nz-col [nzSpan]="3" nzFor="'taskNo'">
+      任务单编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSpan]="6">
+      <input nz-input [value]="data['taskNo']" name="taskNo" [nzSize]="'default'" disabled="true">
+    </nz-form-control>
+    <nz-form-label nz-col [nzSpan]="3" [nzOffset]="2" nzFor="'shelfNo'" nzRequired>
+      笼车编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSpan]="6" nzValidateStatus="validateForm.controls['shelfNo']">
+      <input nz-input [(ngModel)]="formModel['shelfNo']" name="shelfNo" [nzSize]="'default'" formControlName="shelfNo">
+      <nz-form-explain *ngIf="validateForm.controls['shelfNo'].dirty && validateForm.controls['shelfNo'].errors">
+        <ng-container *ngIf="validateForm.controls['shelfNo'].hasError('required')">
+          <span style="color: red">请输入笼车编号</span>
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+
+<nz-table #editTable nzBordered [nzSize]="'middle'" [nzData]="['placeholder']" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th nzShowExpand></th>
+      <th>款箱编号</th>
+      <th nzAlign="right">金额</th>
+      <th>
+        <button nz-button nzType="primary" (click)="outWarehouseCashbox()">
+          <span>出库</span>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data let-i="index" [ngForOf]="dataList">
+      <tr>
+        <td nzShowExpand [(nzExpand)]="data.expand"></td>
+        <td>{{ data.entityNo }}</td>
+        <td nzAlign="right">
+          {{data.amount | currency:'CNY':'symbol-narrow' }}
+        </td>
+        <td>
+          <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event);"></label>
+        </td>
+      </tr>
+      <tr [nzExpand]="data.expand">
+        <td></td>
+        <td colspan="3" style="padding: 20px 16px">
+          <nz-table #innerTable [nzData]="cashBoxList" nzSize="small" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th>币种</th>
+                <th>类别</th>
+                <th>券别</th>
+                <th>金额</th>
+              </tr>
+            </thead>
+  <tbody>
+    <tr *ngFor="let innerData of innerTable.data">
+      <td>
+        {{innerData.currencyCode}}
+      </td>
+      <td>
+        {{innerData.currencyType}}
+      </td>
+      <td>
+        {{innerData.denomination}}
+      </td>
+      <td nzAlign="right">{{ innerData.amount | currency:'CNY':'symbol-narrow' }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+</td>
+</tr>
+</ng-template>
+</tbody>
+</nz-table>
+<!--<div style="margin-top: 4px;border: 1px solid #e9e9e9;">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzScroll]="{ x: '100%' }"
+            [nzFrontPagination]="true"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+  >
+    <thead>
+    <tr style="white-space: nowrap">
+      <th nzShowExpand></th>
+      <th>款箱编号</th>
+      <th>金额</th>
+      <th>
+        <button nz-button nzType="primary" (click)="outWarehouseCashbox()">
+          <span>出库</span>
+        </button>
+      </th>
+    </tr>
+    </thead>-->
+<!-- <tbody>
+    <ng-template ngFor let-data let-i="index" [ngForOf]="cashBoxList">
+      <tr *ngFor="let item of nzTable.data; ">
+        <td nzShowExpand [(nzExpand)]="data.expand"></td>
+
+        <td>
+          {{item.containerNo}}
+        </td>
+        <td >
+          <ng-container *ngFor="let cashBox of cashBoxList">{{cashBox.amount}}</ng-container>
+        </td>
+        <td>
+          <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus($event);"></label>
+        </td>
+      </tr>
+      <tr [nzExpand]="data.expand">
+        <td></td>
+        <td colspan="2">
+          <nz-table #innerTable [nzData]="cashBoxList" nzSize="small" [nzShowPagination]="false">
+    <thead>
+    <tr>
+      <th>币种</th>
+      <th>类别</th>
+      <th>券别</th>
+      <th nzAlign="right">金额</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let innerData of innerTable.data">
+      <td>
+        <app-enum-info type="CURRENCY_CODE" [value]="innerData.currencyCode"></app-enum-info>
+      </td>
+      <td>
+        <app-enum-info type="CURRENCY_TYPE" [value]="innerData.currencyType"></app-enum-info>
+      </td>
+      <td>
+        <app-enum-info type="DENOMINATION" [value]="innerData.denomination"></app-enum-info>
+      </td>
+      <td nzAlign="right">{{ innerData.amount | currency:'CNY':'symbol-narrow' }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+  </td>
+  </tr>
+  </ng-template>
+  </tbody>-->
+<!--
+  </nz-table>
+</div>
+-->

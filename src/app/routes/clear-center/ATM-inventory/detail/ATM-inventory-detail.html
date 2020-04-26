@@ -1,0 +1,55 @@
+<div>
+  <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+</div>
+
+<div style="font-size: 18px;margin-top: 15px;">设备列表</div>
+<nz-table #nzTable nzSize="middle" [nzShowPagination]="false" [nzLoading]="loading" [nzData]="dataList" nzBordered>
+  <thead>
+  <tr style="white-space: nowrap">
+    <th nzShowExpand></th>
+    <th>ATM设备</th>
+    <th nzAlign="right">清点金额</th>
+    <!-- <th nzAlign="right">卡钞金额</th>
+    <th nzAlign="right">废钞金额</th> -->
+    <th>清分机具号</th>
+    <th>清点人员</th>
+    <th>清点时间</th>
+    <th>长短款标志</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
+      <td>{{data?.customerNo}}</td>
+      <td nzAlign="right">{{data?.customerAmount | currency:'CNY':'symbol-narrow'}}</td>
+      <td>{{data.clearMachineNo}}</td>
+      <td>{{data.opName}}</td>
+      <td>{{data.opTime}}</td>
+      <td [ngSwitch]="data?.cashShortOver">
+        <span *ngSwitchCase="1">长款</span>
+        <span *ngSwitchCase="2">短款</span>
+        <span *ngSwitchCase="3">持平</span>
+      </td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td></td>
+      <td colspan="6">
+        <nz-table #innerTable [nzData]="data.containerEntityDTOs" nzSize="middle" [nzShowPagination]="false"
+                  style="margin: 12px;">
+  <thead>
+  <tr>
+    <th>回收钞箱</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let innerData of innerTable.data">
+    <td>{{ innerData }}</td>
+  </tr>
+  </tbody>
+</nz-table>
+</td>
+</tr>
+</ng-template>
+</tbody>
+</nz-table>

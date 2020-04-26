@@ -1,0 +1,61 @@
+<form nz-form #form="ngForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['name']">
+      <input nz-input nzSize="middle" [(ngModel)]="formModel['name']" name="name" [id]="'name'" maxlength="20" required>
+      <nz-form-explain *ngIf="form.controls['name']?.dirty && form.controls['name']?.hasError('required')">
+        <span style="color: red;">请输入角色名称</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色级别
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="form.controls['orgType']">
+      <nz-select [(ngModel)]="formModel['orgGradeNo']" nzSize="middle" name="orgType" required
+                 [nzPlaceHolder]="'--请选择机构级别--'">
+        <nz-option *ngFor="let o of grades" [hidden]="!o.grade" [nzLabel]="o?.name" [nzValue]="o?.grade"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="form.controls['orgType']?.dirty && form.controls['orgType']?.hasError('required')">
+        <span style="color: red;">请选择机构级别</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      角色备注
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" [(ngModel)]="formModel['note']" name="note" [id]="'note'" maxlength="100" required>
+      <nz-form-explain *ngIf="form.controls['note']?.dirty && form.controls['note']?.hasError('required')">
+        <span style="color: red;">请输入角色描述！</span>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      角色权限
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24"
+                     style="border:1px solid #d9d9d9;padding-left: 40px;padding-bottom: 10px;padding-top: 10px;">
+      <nz-spin [nzTip]="tip" [nzSpinning]="_isSpinning">
+        <nz-tree
+          #nzTreeComponent
+          [nzData]="options"
+          nzCheckable
+          nzMultiple
+          [nzExpandAll]="true">
+        </nz-tree>
+      </nz-spin>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col [nzSpan]="8" [nzOffset]="8">
+      <button nz-button nzSize="middle" [nzType]="'primary'" style="width: 100%;" [nzLoading]="loading">提交
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

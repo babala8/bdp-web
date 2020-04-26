@@ -1,0 +1,80 @@
+<form nz-form #form="ngForm" class="search-form">
+  <nz-form-item nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="5" style="width: auto" nzFor="callCustomerTypeNo">
+          类型编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <input nz-input nzSize="default" [(ngModel)]="formModel['callCustomerTypeNo']" name="callCustomerTypeNo"
+                 id="'callCustomerTypeNo'">
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="5" style="width: auto" nzFor="callCustomerTypeName">
+          类型名称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12">
+          <input nz-input nzSize="default" [(ngModel)]="formModel['callCustomerTypeName']" name="callCustomerTypeName"
+                 id="'callCustomerTypeName'">
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div nz-col [nzSpan]="8" style="text-align: center">
+      <button nz-button [nzType]="'primary'" [nzLoading]="loading" (click)="search()" [nzSize]="'default'">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button (click)="form.reset();search()" [nzSize]="'default'" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+    </div>
+  </nz-form-item>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">客户类型管理</span>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>类型编号</th>
+      <th>类型名称</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+      <td>
+        {{data.no}}
+      </td>
+      <td>
+        {{data.name}}
+      </td>
+    </tbody>
+  </nz-table>
+</div>

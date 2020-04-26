@@ -1,0 +1,138 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          锁具序列号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('lockCode')">
+          <input nz-input nzSize="middle" id="lockCode" formControlName="lockCode">
+          <nz-form-explain
+            *ngIf="getFormControl('lockCode')?.dirty && getFormControl('lockCode')?.hasError('required')">请填写锁具序列号</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          激活状态
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('state')">
+          <nz-select [nzSize]="'middle'" id="state" formControlName="state" name="state" nzAllowClear
+                     [nzPlaceHolder]="'--请选择激活状态--'">
+            <nz-option *ngFor="let r of lockStatus" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="getFormControl('state')?.dirty && getFormControl('state')?.hasError('required')">请选择状态</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          闭锁码
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('blockNum')">
+          <input nz-input nzSize="middle" id="blockNum" formControlName="blockNum">
+          <nz-form-explain *ngIf="validateForm.controls['blockNum'].dirty && validateForm.controls['blockNum'].errors">
+            <ng-container *ngIf="validateForm.controls['blockNum'].hasError('required')">请输入闭锁码</ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          设备编号
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('devNo')">
+          <input nz-input nzSize="middle" id="devNo" formControlName="devNo">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          C端版本
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('cversion')">
+          <input nz-input nzSize="middle" id="cversion" formControlName="cversion">
+          <nz-form-explain *ngIf="validateForm.controls['cversion'].dirty && validateForm.controls['cversion'].errors">
+            <ng-container *ngIf="validateForm.controls['cversion'].hasError('required')">请输入C端版本</ng-container>
+            <ng-container *ngIf="validateForm.controls['cversion'].hasError('maxlength')">C端版本长度不得超过32位</ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          锁具版本
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('version')">
+          <input nz-input nzSize="middle" id="version" formControlName="version">
+          <nz-form-explain *ngIf="validateForm.controls['version'].dirty && validateForm.controls['version'].errors">
+            <ng-container *ngIf="validateForm.controls['version'].hasError('maxlength')">锁具版本长度不得超过32位</ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </div>
+
+  <div nz-row>
+
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          生产日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('madeDate')">
+          <nz-date-picker formControlName="madeDate" [nzPlaceHolder]="'请选择生产日期'"
+                          [nzSize]="'default'" name="madeDate" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+          安装日期
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('installDate')">
+          <nz-date-picker formControlName="installDate" [nzPlaceHolder]="'请选择安装日期'"
+                          [nzSize]="'default'" name="installDate" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="12" [nzXs]="24">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+          备注
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+          <input nz-input nzSize="middle" id="note" formControlName="note">
+          <nz-form-explain *ngIf="validateForm.controls['note'].dirty && validateForm.controls['note'].errors">
+            <ng-container *ngIf="validateForm.controls['note'].hasError('maxlength')">
+              <span style="color: red">备注内容不得超过100字</span>
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center">
+      <button nz-button nzSize="'middle'" [nzType]="'primary'" style="width: 30%;" [disabled]="validateForm.invalid">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

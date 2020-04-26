@@ -1,0 +1,77 @@
+<div style="margin-bottom: 20px;">
+    <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+</div>
+
+<div nz-row>
+    <div nz-col [nzSpan]="12">
+        <span style="font-size: 20px;">客户信息</span>
+    </div>
+    <div *ngIf="isEdit" nz-col [nzSpan]="12" style="text-align: right;">
+        <button nz-button nzType="primary" (click)="addNet()" [nzSize]="'middle'">
+            <i class="anticon anticon-plus"></i>新增
+        </button>
+    </div>
+</div>
+
+<div style="margin-top: 10px;border: 1px solid #e9e9e9;">
+    <nz-table #nzTable
+              nzSize="middle"
+              [nzShowPagination]="false"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzData]="dataList"
+    >
+        <thead>
+        <tr style="white-space: nowrap">
+            <th>客户编号</th>
+            <th>客户名称</th>
+            <th>到达时间</th>
+            <th *ngIf="isEdit">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of nzTable.data" >
+            <td>
+                <span *ngIf="editRow!==data.key">{{data.customerNo}}</span>
+                <span *ngIf="editRow===data.key">
+                    <input nz-input [(ngModel)]="tempEditObject[data.key].customerNo">
+                </span>
+
+            </td>
+            <td>
+                <span *ngIf="editRow!==data.key">{{data.customerName}}</span>
+                <span *ngIf="editRow===data.key">
+                    <input nz-input [(ngModel)]="tempEditObject[data.key].customerName">
+                </span>
+            </td>
+            <td>
+                <span *ngIf="editRow!==data.key">{{data.arrivalTime}}</span>
+                <span *ngIf="editRow===data.key">
+                    <nz-time-picker [(ngModel)]="tempEditObject[data.key].arrivalTime" [nzFormat]="'HH:mm:ss'"></nz-time-picker>
+                </span>
+            </td>
+            <td *ngIf="isEdit">
+                <span *ngIf="editRow!==data.key">
+                    <a (click)="delete(data.key)">删除</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="edit(data)">编辑</a>
+                </span>
+                <span *ngIf="editRow===data.key">
+                    <a (click)="save(data)">保存</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <nz-popconfirm [nzTitle]="'确定取消?'" (nzOnConfirm)="cancel(data)">
+                        <a nz-popconfirm>取消</a>
+                    </nz-popconfirm>
+
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>
+<div style="width: 100%; margin-top: 15px " align="center" *ngIf="isEdit">
+    <button nz-button [nzSize]="'default'" [nzType]="'primary'" (click)="submit()">
+        提交
+    </button>
+</div>
+·

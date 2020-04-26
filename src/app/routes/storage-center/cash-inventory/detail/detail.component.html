@@ -1,0 +1,25 @@
+<div style="margin: 0 auto;">
+  <div>
+    <span style="font-size: 16px; font-weight: bold">物品信息</span>
+  </div>
+  <div style="margin: 10px">
+    <span>物品编号： {{detailInfo.containerNo}}</span>
+    <br />
+    <span>物品类型：
+      <ng-container *ngIf="detailInfo.containerType==1">解现箱</ng-container>
+      <ng-container *ngIf="detailInfo.containerType==2">寄存箱</ng-container>
+    </span>
+  </div>
+  <nz-descriptions nzTitle="详细信息（单位：元）" nzBordered>
+    <nz-descriptions-item nzTitle="100元">{{detailInfo.note100s}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="50元">{{detailInfo.notes50}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="20元">{{detailInfo.notes20}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="10元">{{detailInfo.notes10}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="5元">{{detailInfo.notes5}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="2元">{{detailInfo.notes2}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="1元">{{detailInfo.notes1}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="1元硬币">{{detailInfo.coins1}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="5角硬币">{{detailInfo.coins05}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="1角硬币">{{detailInfo.coins01}}</nz-descriptions-item>
+  </nz-descriptions>
+</div>

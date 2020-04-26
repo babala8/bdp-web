@@ -1,0 +1,17 @@
+<div class="modal-body">
+  <div nz-row>
+    <ng-container *ngFor="let item of cashClass">
+      <div nz-col nzSpan="24">{{item.currencyType.name}}</div>
+      <div nz-col nzSpan="3" *ngFor="let denomination of item.denomination.valueList" style="border: 3px solid #ddd;">
+        <input nz-input [ngModel]="denomination.value" name="name" readonly>
+        <nz-input-number style="width: 100%;" [(ngModel)]="denomination.amount" name="amount" [nzMin]="1"
+                         [nzStep]="1" nzPlaceHolder="金额">
+        </nz-input-number>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="ant-modal-footer">
+  <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+  <button nz-button nzType="primary" (click)="handleOk()">添加</button>
+</div>

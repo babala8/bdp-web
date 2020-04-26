@@ -1,0 +1,25 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item  nz-row>
+        <nz-form-label  nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+            品牌名称
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+            <input nz-input nzSize="middle" formControlName="name" id="'name'">
+            <nz-form-explain  *ngIf="getFormControl('name').dirty&&validateForm.controls['name'].errors">
+              <ng-container *ngIf="getFormControl('name').hasError('required')">
+                <span style="color: red;">请输入品牌名称</span>
+              </ng-container>
+              <ng-container *ngIf="getFormControl('name').hasError('maxlength')">
+                <span style="color: red">品牌名称长度不得超过20位</span>
+              </ng-container>
+            </nz-form-explain>
+
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item  nz-row style="margin-bottom:8px;">
+        <nz-form-control  nz-col style="text-align: center">
+            <button nz-button [nzSize]="'middle'" [nzType]="'primary'" style="width: 30%;">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

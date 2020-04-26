@@ -1,0 +1,66 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            服务商编号
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('no')" nzHasFeedback>
+            <input nz-input nzSize="'large" formControlName="no" id="'no'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            服务商名称
+        </nz-form-label>
+        <nz-form-control  nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="name" id="'name'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            联系人
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('linkman')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="linkman" id="'linkman'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('address')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="address" id="'address'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            固定电话
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('phone')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="phone" id="'phone'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            手机
+        </nz-form-label>
+        <nz-form-control nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('mobile')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="mobile" id="'mobile'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            传真
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('fax')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="fax" id="'fax'">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+            电子邮件
+        </nz-form-label>
+        <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('email')" nzHasFeedback>
+            <input nz-input nzSize="'large'" formControlName="email" id="'email'">
+        </nz-form-control>
+    </nz-form-item>
+</form>

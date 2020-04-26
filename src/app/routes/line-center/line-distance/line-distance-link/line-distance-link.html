@@ -1,0 +1,153 @@
+<div nz-row style="height: 100%">
+  <div nz-col [nzSpan]="6">
+    <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSpan]="6">
+        <label [attr.for]="'clrCenter'">所属金库</label>
+      </nz-form-label>
+      <nz-form-control nz-col [nzSpan]="18">
+        <nz-select [(ngModel)]="clrCenter" [nzPlaceHolder]="'选择金库'"
+                   name="clrCenter" style="width: 100%" (ngModelChange)="resetMap($event)">
+          <nz-option
+            *ngFor="let option of clrCenterList"
+            [nzLabel]="option.centerName"
+            [nzValue]="option">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div *ngIf="dataType == 1" nz-row style="margin-top: 5px; border: solid green 1px">
+            <span style="color: green">
+                  可达设备
+                </span>
+      <div nz-col [nzSpan]="22" [nzOffset]="1">
+        <nz-table #nzTable [nzLoading]="loading_init" [nzData]="devList" [nzFrontPagination]="false" [nzShowPagination]="false" [nzSize]="'small'"
+                  [nzScroll]="{y: '400px' }">
+          <tbody>
+          <tr *ngFor="let data of nzTable.data">
+            <td>{{data.no}}</td>
+          </tr>
+          </tbody>
+
+        </nz-table>
+      </div>
+    </div>
+    <div *ngIf="dataType == 2" nz-row style="margin-top: 5px; border: solid green 1px">
+            <span style="color: green">
+                  可达网点
+                </span>
+      <div nz-col [nzSpan]="22" [nzOffset]="1">
+        <nz-table #nzTable [nzLoading]="loading_init" [nzData]="devList" [nzFrontPagination]="false" [nzShowPagination]="false" [nzSize]="'small'"
+                  [nzScroll]="{y: '400px' }">
+          <tbody>
+          <tr *ngFor="let data of nzTable.data">
+            <td>{{data.no}}</td>
+          </tr>
+          </tbody>
+
+        </nz-table>
+      </div>
+    </div>
+
+    <div *ngIf="dataType == 1" nz-row style="margin-top: 5px; border: solid #a4c400 1px">
+      <div>
+                <span style="color: #a4c400">
+                  不可达设备
+                </span>
+      </div>
+      <div nz-row style=" margin-top: 5px;">
+        <div nz-col *ngIf="unarriveNum>0" [nzSpan]="22" [nzOffset]="1">
+          <nz-table #nzTable1 [nzData]="unarrivePointList" [nzFrontPagination]="false" [nzShowPagination]="false" [nzSize]="'small'"
+                    [nzScroll]="{y: '125px' }">
+            <tbody>
+            <tr *ngFor="let data of nzTable1.data">
+              <td>{{data.no}}</td>
+            </tr>
+            </tbody>
+
+          </nz-table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dataType == 2" nz-row style="margin-top: 5px; border: solid #a4c400 1px">
+      <div>
+                <span style="color: #a4c400">
+                  不可达网点
+                </span>
+      </div>
+      <div nz-row style=" margin-top: 5px;">
+        <div nz-col *ngIf="unarriveNum>0" [nzSpan]="22" [nzOffset]="1">
+          <nz-table #nzTable1 [nzData]="unarrivePointList" [nzFrontPagination]="false" [nzShowPagination]="false" [nzSize]="'small'"
+                    [nzScroll]="{y: '125px' }">
+            <tbody>
+            <tr *ngFor="let data of nzTable1.data">
+              <td>{{data.no}}</td>
+            </tr>
+            </tbody>
+
+          </nz-table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div nz-col [nzSpan]="12">
+    <div style="height: 600px; width: 98%; padding-left: 1%">
+      <baidu-map [(options)]="mapOptions" style="height: 100%;width: 100%" class="google-maps">
+        <marker *ngFor="let item of mapPoint" [point]="item['point']" [options]="item['options']"
+                (clicked)="showWindow($event,item)"></marker>
+        <control type="navigation" [options]="controlOpts"></control>
+        <control type="overviewmap" [options]="overviewmapOpts"></control>
+        <control type="scale" [options]="scaleOpts"></control>
+        <control type="panorama"></control>
+      </baidu-map>
+    </div>
+  </div>
+  <div nz-col [nzSpan]="6" style="height:500px; height: auto">
+    <div nz-row style="height: 20%;  border: solid #c75050 1px;">
+      <div>
+                <span style="color: #c75050">
+                  关联控制
+                </span>
+      </div>
+      <div nz-row style="margin-top: 15px; background: white" align="center">
+        <label nz-radio [(ngModel)]="cover">
+          <span>覆盖</span>
+        </label>
+      </div>
+      <div nz-row align="center" style="margin-top: 10px; margin-bottom: 5px ">
+        <div nz-col nzSpan="12">
+          <button nz-button [nzLoading]="loading" style="width: 60%;" [nzType]="'primary'" nzSize="large" (click)="clickLinkPath()" [disabled]="linkPathstatus==1">
+            <span>关联</span>
+          </button>
+        </div>
+        <div nz-col nzSpan="12">
+          <button nz-button [nzLoading]="loading_group" style="width: 60%;" [nzType]="'primary'" nzSize="large" (click)="group()" [disabled]="allNotPathCount !== 0">
+            <span>分组</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div nz-row style="height: 490px; border: solid cornflowerblue 1px; margin-top: 10px">
+      <div style="margin-bottom: 10px">
+                <span style="color: cornflowerblue">
+                    关联信息
+                </span>
+      </div>
+      <div *ngIf="linkPathstatus==1" style="padding: 5px 20px">
+        <nz-progress [ngModel]="percentage" [nzStatus]="'active'"></nz-progress>
+      </div>
+      <div *ngIf="dataType == 1">
+        <span>可到达设备数: {{arriveNum}}</span><br>
+        <span>已关联路径数: {{allPathCount}}</span><br>
+        <span>待关联路径数: {{allNotPathCount}}</span>
+      </div>
+      <div *ngIf="dataType == 2">
+        <span>可到达网点数: {{arriveNum}}</span><br>
+        <span>已关联路径数: {{allPathCount}}</span><br>
+        <span>待关联路径数: {{allNotPathCount}}</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+

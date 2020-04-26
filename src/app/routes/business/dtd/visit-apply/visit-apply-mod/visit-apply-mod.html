@@ -1,0 +1,78 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div style="display: none">
+    <nz-form-item nz-row>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="id">
+        上门客户编号
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('customerNumber')">
+        <input nz-input nzSize="default" formControlName="customerNumber" [id]="'customerNumber'" disabled>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="customerShortName">
+      上门客户名称
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('customerShortName')">
+      <!--            <input nz-input nzSize="default" formControlName="customerShortName" [id]="'customerShortName'">-->
+      <nz-select formControlName="customerShortName" [id]="'customerShortName'" style="width: 100%" nzShowSearch
+                 nzAllowClear
+                 (ngModelChange)="matchCustomerName2ID($event)" [nzPlaceHolder]="'输入上门客户名称'">
+        <nz-option *ngFor="let visitOrder of visitOrderList" [nzLabel]="visitOrder.customerName"
+                   [nzValue]="visitOrder.customerNumber">
+        </nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('customerShortName').dirty && getFormControl('customerShortName').errors">
+        <ng-container *ngIf="getFormControl('customerShortName').hasError('required')">请输入上门客户名称!</ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="orderDate">
+      预约日期
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('orderDate')">
+      <!--      <input nz-input nzSize="default" formControlName="orderDate" [id]="'orderDate'">-->
+      <nz-date-picker formControlName="orderDate" [nzPlaceHolder]="'请选择预约日期'" [nzSize]="'default'" name="orderDate"
+                      style="width: 100%"></nz-date-picker>
+      <nz-form-explain *ngIf="getFormControl('orderDate').dirty && getFormControl('orderDate').errors">
+        <ng-container *ngIf="getFormControl('orderDate').hasError('required')">请输入预约日期!</ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired nzFor="orderTime">
+      预约时间
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('orderTime')">
+      <nz-select formControlName="orderTime" [id]="'orderTime'" nzSize="default" (ngModelChange)="timeChange($event)">
+        <nz-option *ngFor="let time of timeList" [nzValue]="time.value" [nzLabel]="time.label"></nz-option>
+      </nz-select>
+      <nz-form-explain *ngIf="getFormControl('orderTime').dirty && getFormControl('orderTime').errors">
+        <ng-container *ngIf="getFormControl('orderTime').hasError('required')">请选择预约时间!</ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      预约时间段
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback
+                     [nzValidateStatus]="getFormControl('orderTimePeriod')">
+      <input nz-input nzSize="default" formControlName="orderTimePeriod" [id]="'orderTimePeriod'" disabled>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="note">
+      备注
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('note')">
+      <textarea rows="4" nz-input nzSize="default" formControlName="note" [id]="'note'"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center;">
+      <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,0 +1,73 @@
+<script src="handhelds-receive-review.component.ts"></script>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      读写器编号
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('tagReaderNo')">
+      <input nz-input nzSize="middle" id="tagReaderNo" formControlName="tagReaderNo" >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      申请领用人
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" id="requestOpNo" formControlName="requestOpNo" >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      申请日期
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+      <input nz-input nzSize="middle" id="requestDate" formControlName="requestDate" >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      申请时间
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('requestTime')">
+      <input nz-input nzSize="middle" id="requestTime" formControlName="requestTime" >
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      领用级别
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('crashFlag')">
+      <nz-select [nzSize]="'middle'" id="crashFlag" formControlName="crashFlag" name="crashFlag" nzAllowClear
+                 [nzPlaceHolder]="'--请选择领用级别--'">
+        <nz-option *ngFor="let r of cFlag" [nzLabel]="r.name" [nzValue]="r.no"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      审核结果
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('reviewResult')"  >
+      <nz-radio-group formControlName="reviewResult" [(ngModel)]="formModel['reviewResult']" >
+        <label nz-radio nzValue="1">通过</label>
+        <label nz-radio nzValue="2">拒绝</label>
+      </nz-radio-group>
+    </nz-form-control>
+    <nz-form-explain *ngIf="getFormControl('reviewResult')?.dirty && getFormControl('reviewResult')?.hasError('required')">
+      <span style="color: red;">请选择审核结果</span>
+    </nz-form-explain>
+  </nz-form-item>
+  <nz-form-item nz-row *ngIf="getFormControl('reviewResult').value === '2'">
+    <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+      拒绝原因
+    </nz-form-label>
+    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('rejectReason')" >
+      <textarea rows="3" nz-input [(ngModel)]="formModel['rejectReason']" formControlName="rejectReason"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control nz-col style="text-align: center;">
+      <button nz-button nzSize="middle" nzType="primary" [nzLoading]="loading" [disabled]="validateForm.invalid">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

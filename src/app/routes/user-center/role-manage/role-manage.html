@@ -1,0 +1,79 @@
+<div>
+  <form nz-form #form="ngForm" class="search-form">
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+            角色等级
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="12">
+            <nz-select [(ngModel)]="formModel['orgGradeNo']" nzSize="middle" name="orgGradeNo" nzAllowClear
+                       [nzPlaceHolder]="'--请选择角色等级--'">
+              <nz-option *ngFor="let o of orgGrades" [hidden]="!o.no" [nzLabel]="o?.name"
+                         [nzValue]="o?.no"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="4" [nzOffset]="1" style="width: auto; text-align: center">
+        <button nz-button [nzType]="'primary'" (click)="search()" nzSize="middle" [nzLoading]="loading"><i
+          nz-icon type="search" theme="outline"></i><span>查询</span></button>
+        <button nz-button (click)="form.reset();refreshData()" nzSize="middle" [nzLoading]="loading"><i
+          nz-icon type="sync" theme="outline"></i><span>重置</span></button>
+      </div>
+    </div>
+  </form>
+
+  <div nz-row class="zijin-row">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">角色信息</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button *authId="'A0101'" nz-button [nzType]="'primary'" (click)="openAdd()" nzSize="middle">
+        <i nz-icon type="plus" theme="outline"></i><span>添加</span>
+      </button>
+    </div>
+  </div>
+  <ng-template #pageSizeTem>
+    共 {{page.totalRow}} 条
+  </ng-template>
+
+  <div class="search-result-list">
+    <nz-table #nzTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzShowTotal]="pageSizeTem"
+              [nzLoading]="loading"
+              [nzData]="dataSet"
+              [(nzPageIndex)]="page.curPage"
+              [(nzPageSize)]="page.pageSize"
+              [nzTotal]="page.totalRow"
+              (nzPageSizeChange)="refreshData(true)"
+              (nzPageIndexChange)="refreshData()"
+    >
+      <thead>
+      <tr>
+        <th><span>角色名称</span></th>
+        <th><span>角色级别</span></th>
+        <th><span>角色备注</span></th>
+        <th><span>操作</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of nzTable.data;let i = index;">
+        <td><a (click)="showDetail(item)">{{item.name}}</a></td>
+        <td>{{item.gradeName}}</td>
+        <td>{{item.note}}</td>
+        <td>
+          <a (click)="modRole(item)" *authId="'A0102'">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-popconfirm [nzTitle]="'确定要删除该角色吗？'" [nzOkText]="'确定'" [nzCancelText]="'取消'"
+                         (nzOnConfirm)="delRole(item)">
+            <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'A0103'">删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

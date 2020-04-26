@@ -1,0 +1,47 @@
+<!--
+  先查询物品列表进行选择，
+  选择完物品后， 查询对应物品的属性进行勾选
+-->
+<div nz-row>
+  <div nz-col style="text-align: left">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="openDetailAdd()">
+      <i nz-icon nzType="plus"></i>
+      新增
+    </button>
+  </div>
+</div>
+<nz-table #nzTable nzSize="middle" [nzData]="productList" nzFrontPagination="false" [nzShowPagination]="false"
+  nzBordered>
+  <thead>
+    <tr>
+      <th nzWidth="80px">物品名称</th>
+      <th>属性列表</th>
+      <th nzWidth="80px">调拨方向</th>
+      <th nzWidth="90px">是否可拆分</th>
+      <th nzWidth="80px">数量上限</th>
+      <th nzWidth="60px">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of nzTable.data; let i = index">
+      <td>{{product.productName}}</td>
+      <td>{{product.propertyValueDetailList | json}}</td>
+      <td>
+        {{product.direction===1 ? '调入': '调出'}}
+      </td>
+      <td>
+        <span *ngIf="product.splitFlag==1">可拆分</span>
+        <span *ngIf="product.splitFlag==2">不可拆分</span>
+      </td>
+      <td>{{product.maxNum}}</td>
+      <td>
+        <a (click)="deleteGoods(i)">删除</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div nz-row style="margin: 20px 0 0 0">
+  <div nz-col style="text-align: center">
+    <button nz-button nzSize="default" nzType="primary" [nzLoading]="loading" (click)="submitChanges()">提交</button>
+  </div>
+</div>

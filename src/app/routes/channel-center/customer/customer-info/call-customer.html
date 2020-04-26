@@ -1,0 +1,190 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" [attr.for]="'callCustomerTypeList'">
+          客户类型
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [(ngModel)]="formModel['callCustomerTypeNo']" [nzPlaceHolder]="'请选择客户类型'" name="callCustomerTypeNo"
+                     nzAllowClear [nzSize]="'default'">
+            <nz-option *ngFor="let option of callCustomerTypeList" [nzLabel]="option.name" [nzValue]="option.no">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8" nzFor="cnCustomerLongName">
+          客户全称
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <input nz-input nzSize="default" [(ngModel)]="formModel['cnCustomerLongName']" name="cnCustomerLongName"
+                 id="'cnCustomerLongName'">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <ng-container *ngIf="expandForm">
+
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="address">
+            地址
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input nzSize="default" [(ngModel)]="formModel['address']" name="address" id="'address'">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="customerNumber">
+            客户号
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <input nz-input nzSize="default" [(ngModel)]="formModel['customerNumber']" name="customerNumber"
+                   id="'customerNumber'">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="10">
+            <label [attr.for]="'isOneself'">是否是本行用户</label>
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [(ngModel)]="formModel['isOneself']" [nzPlaceHolder]="'请选择'" name="isOneself" nzAllowClear
+                       [nzSize]="'default'">
+              <nz-option *ngFor="let option of isOneselfs" [nzLabel]="option.label" [nzValue]="option.value">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item nz-row>
+          <nz-form-label nz-col [nzSpan]="8" nzFor="callCustomerLine">
+            上门线路
+          </nz-form-label>
+          <nz-form-control nz-col [nzSpan]="14">
+            <nz-select [nzSize]="'default'" [(ngModel)]="formModel['callCustomerLine']" name="callCustomerLine"
+                       [nzAllowClear]="true" [nzPlaceHolder]="'--请选择线路--'">
+              <nz-option *ngFor="let line of lines" [nzValue]="line.lineNo" [nzLabel]="line.lineName"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </ng-container>
+    <div nz-col [nzSpan]="expandForm ? 24 : 6" [class.text-right]="expandForm">
+      <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'default'" (click)="refreshData(true)">
+        <i class="anticon anticon-search"></i>
+        <span>查询</span>
+      </button>
+      <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="form.reset();search()" [nzLoading]="loading">
+        <i class="anticon anticon-sync"></i>
+        <span>重置</span>
+      </button>
+      <a (click)="expandForm=!expandForm">
+        {{expandForm ? '收起' : '展开'}}
+        <i class="anticon" [class.anticon-down]="!expandForm" [class.anticon-up]="expandForm"></i>
+      </a>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">客户信息管理</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button [nzType]="'primary'" (click)="openAdd()" [nzSize]="'default'"  *authId="'C150102'">
+      <i class="anticon anticon-plus"></i>
+      <span>添加</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable
+            nzSize="middle"
+            nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzShowTotal]="pageSizeTem"
+            [nzLoading]="loading"
+            [nzData]="dataList"
+            [(nzPageIndex)]="page.curPage"
+            [(nzPageSize)]="page.pageSize"
+            [nzTotal]="page.totalRow"
+            (nzPageSizeChange)="refreshData(true)"
+            (nzPageIndexChange)="refreshData()"
+  >
+    <thead>
+    <tr>
+      <th>客户编号</th>
+      <th>客户简称</th>
+      <th>客户类型</th>
+      <th>客户号</th>
+      <th>客户全称</th>
+      <th>是否本行客户</th>
+      <th>地址</th>
+      <th>客户身份认证电话</th>
+      <th>客户经理</th>
+      <th>上门线路</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of nzTable.data;">
+
+      <td>
+        <a (click)="openDetail(data)">
+          {{data.customerNo}}
+        </a>
+      </td>
+      <td>
+        {{data.customerShortName}}
+      </td>
+      <td>
+        {{data.callCustomerTypeName}}
+      </td>
+      <td>
+        {{data.customerNumber}}
+      </td>
+      <td>
+        {{data.cnCustomerLongName}}
+      </td>
+      <td>
+        <span *ngIf="data.isOneself=='1'">是</span>
+        <span *ngIf="data.isOneself=='0'">否</span>
+      </td>
+      <td>
+        {{data.address}}
+      </td>
+      <td>
+        {{data.customerAuthPhone}}
+      </td>
+      <td>
+        {{data.customerManage}}
+      </td>
+      <td>
+        {{data.callCustomerLineName}}
+      </td>
+      <td>
+        <a (click)="modCircle(data)" *authId="'C150106'">调整周期</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="openModify(data)" *authId="'C150103'">修改</a>
+        <nz-popconfirm [nzTitle]="'确定要删除该信息吗？'" (nzOnConfirm)="confirmDel(data.customerNo)">
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm [ngStyle]="{'color':'red'}" *authId="'C150104'">删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

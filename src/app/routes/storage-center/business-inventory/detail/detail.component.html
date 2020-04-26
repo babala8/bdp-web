@@ -1,0 +1,95 @@
+<div>
+  <detail-table [data]="detailList" [itemWidth]="4"></detail-table>
+</div>
+
+<div style="margin-top: 10px;border: 1px solid #e9e9e9;">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzScroll]="{ x: '100%' }" [nzFrontPagination]="true"
+    [nzLoading]="loading" [nzData]="dataList">
+    <thead>
+      <tr style="white-space: nowrap">
+        <th>操作</th>
+        <th>ATM设备</th>
+        <th>库存金额 (万元)</th>
+        <th>币种</th>
+        <th>面值</th>
+        <th>类别</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td><a (click)="data.expand=!data.expand">
+              {{data.expand ? '合并' : '展开'}}
+              <i class="anticon" [class.anticon-down]="!data.expand" [class.anticon-up]="data.expand"></i>
+            </a></td>
+          <td>ATM{{data?.devNo}}</td>
+          <td>{{data?.amount/10000}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <ng-container *ngFor="let value of data.cassetteBagList">
+          <tr *ngIf="data.expand">
+            <td [nzIndentSize]="1"><a (click)="value.expand=!value.expand">
+                {{value.expand ? '合并' : '展开'}}
+                <i class="anticon" [class.anticon-down]="!value.expand" [class.anticon-up]="value.expand"></i>
+              </a></td>
+            <td [nzIndentSize]="1">钞袋{{value?.cassetteBagNo}}</td>
+            <td>{{value?.amount/10000}}</td>
+            <td>{{value?.currencyCode}}</td>
+            <td>
+              <span *ngIf="value?.denomination == '1'">100</span>
+              <span *ngIf="value?.denomination == '2'">50</span>
+              <span *ngIf="value?.denomination == '3'">20</span>
+              <span *ngIf="value?.denomination == '4'">10</span>
+              <span *ngIf="value?.denomination == '5'">5</span>
+              <span *ngIf="value?.denomination == '6'">2</span>
+              <span *ngIf="value?.denomination == '7'">1</span>
+              <span *ngIf="value?.denomination == '8'">0.5</span>
+              <span *ngIf="value?.denomination == '9'">0.2</span>
+              <span *ngIf="value?.denomination == '10'">0.1</span>
+              <span *ngIf="value?.denomination == '11'">0.05</span>
+              <span *ngIf="value?.denomination == '12'">0.02</span>
+              <span *ngIf="value?.denomination == '13'">0.01</span>
+            <td>
+              <span *ngIf="value?.currencyType =='1'">完整券</span>
+              <span *ngIf="value?.currencyType =='2'">流通券</span>
+              <span *ngIf="value?.currencyType =='3'">残损券</span>
+              <span *ngIf="value?.currencyType =='4'">假钞</span>
+            </td>
+          </tr>
+          <ng-container *ngFor="let value1 of value.cassetteNoList">
+            <tr *ngIf="data.expand&&value.expand">
+              <td></td>
+              <td [nzIndentSize]="30">钞箱{{value1?.cassetteNo}}</td>
+              <td>{{value1?.amount/10000}}</td>
+              <td>{{value1?.currencyCode}}</td>
+              <td>
+                <span *ngIf="value1?.denomination == '1'">100</span>
+                <span *ngIf="value1?.denomination == '2'">50</span>
+                <span *ngIf="value1?.denomination == '3'">20</span>
+                <span *ngIf="value1?.denomination == '4'">10</span>
+                <span *ngIf="value1?.denomination == '5'">5</span>
+                <span *ngIf="value1?.denomination == '6'">2</span>
+                <span *ngIf="value1?.denomination == '7'">1</span>
+                <span *ngIf="value1?.denomination == '8'">0.5</span>
+                <span *ngIf="value1?.denomination == '9'">0.2</span>
+                <span *ngIf="value1?.denomination == '10'">0.1</span>
+                <span *ngIf="value1?.denomination == '11'">0.05</span>
+                <span *ngIf="value1?.denomination == '12'">0.02</span>
+                <span *ngIf="value1?.denomination == '13'">0.01</span>
+              </td>
+              <td>
+                <span *ngIf="value1?.currencyType =='1'">完整券</span>
+                <span *ngIf="value1?.currencyType =='2'">流通券</span>
+                <span *ngIf="value1?.currencyType =='3'">残损券</span>
+                <span *ngIf="value1?.currencyType =='4'">假钞</span>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</div>

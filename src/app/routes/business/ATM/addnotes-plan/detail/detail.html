@@ -1,0 +1,90 @@
+<nz-spin align="center" hAlign="center" *ngIf="loading" nzTip='加载中...' [nzSize]="'default'"></nz-spin>
+<nz-card *ngIf="!loading" [nzHoverable]="false" [nzBordered]="false">
+    <detail-table [data]="detailList" [itemWidth]="4">
+        <div style="height: 32px;padding: 2px" *ngIf="!!detail.lineName" nz-col [nzSpan]="4">
+            <span>加钞线路：</span>
+        </div>
+        <div style="height: 32px;padding: 2px" *ngIf="!!detail.lineName" nz-col [nzSpan]="20">
+            <ellipsis title="{{detail.lineNameTitle}}" lines="1" style="text-align: left; max-width: 100%; white-space: nowrap;text-overflow: ellipsis;display: block;">{{detail.lineName}}</ellipsis>
+        </div>
+    </detail-table>
+    <nz-divider class="mb-lg"></nz-divider>
+    <div nz-row>
+        <div nz-col>
+            <nz-table #nzTable [nzData]="dataset" [nzSize]="'middle'" [nzBordered]="true" [nzShowPagination]="false" [nzFrontPagination]="false">
+                <thead nz-thead>
+                    <tr>
+                        <th nz-th nzWidth="100px">
+                            <div align="center">
+                                <span>设备号</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="130px">
+                            <div align="center">
+                                <span>建议加钞金额(万元)</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="130px">
+                            <div align="center">
+                                <span>计划加钞金额(万元)</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="70px">
+                            <div align="center">
+                                <span>设备类型</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="120px">
+                            <div align="center">
+                                <span>设备地址</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="100px">
+                            <div align="center">
+                                <span>事件类型</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="110px">
+                            <div align="center">
+                                <span>任务单编号</span>
+                            </div>
+                        </th>
+                        <th nz-th nzWidth="60px">
+                            <div align="center">
+                                <span>加钞顺序</span>
+                            </div>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody nz-tbody>
+                    <tr nz-tbody-tr *ngFor="let data of nzTable.data;">
+                        <td nz-td align="center">
+                            {{data.devNo}}
+                        </td>
+                        <td nz-td align="center">
+                            {{data.planPredictAmt/10000}}
+                        </td>
+                        <td nz-td align="center">
+                            {{data.planAddnotesAmt/10000}}
+                        </td>
+                        <td nz-td align="center">
+                            {{data.devCatalogName}}
+                        </td>
+                        <td nz-td align="center">
+                            <single-line [content]="data.address"></single-line>
+                        </td>
+                        <td nz-td align="center">
+                            <single-line [content]="data.keyEventDetail"></single-line>
+                        </td>
+                        <td nz-td align="center">
+                            <a (click)="openDispatchDetail(data)">{{data.taskNo}}</a>
+                        </td>
+                        <td nz-td align="center">
+                            {{data.sortNo}}
+                        </td>
+                    </tr>
+            </nz-table>
+        </div>
+    </div>
+</nz-card>

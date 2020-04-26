@@ -1,0 +1,303 @@
+<div class="inventory-box" style="margin: 25px">
+  <div nz-row style="margin-bottom: 15px">
+    <div nz-col [nzSpan]="12">
+      <span style="font-size: 20px;">清点任务管理</span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span>清点工位数: </span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span>清点任务数: </span>
+    </div>
+  </div>
+  <ng-template #daiChuKu>
+    <div nz-row>
+      <div nz-col [nzSpan]="12">
+        ① 待出库
+      </div>
+      <div nz-col [nzSpan]="12" style="text-align: right">
+        <button nz-button (click)="applyOut()" nzSize="default" nzType="primary" *authId="'B050106'">申请出库</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #daiFenPei>
+    <div nz-row>
+    <div nz-col [nzSpan]="12">
+      ⑤ 待分配
+    </div>
+    <div nz-col [nzSpan]="12" style="text-align: right">
+      <button nz-button (click)="openSorterDistribute()" nzSize="default" nzType="primary" *authId="'K0407'">分配清分机</button>
+    </div>
+    </div>
+  </ng-template>
+  <nz-row>
+    <nz-col nzSpan="11">
+      <nz-table #nzTable1
+                nzSize="middle"
+                nzBordered
+                [nzFrontPagination]="false"
+                [nzLoading]="false"
+                [nzData]="daiChuKuDataSet"
+                [nzTitle]="daiChuKu"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="10%">操作</th>
+          <th nzWidth="40%">托盘编号</th>
+          <th nzWidth="35%">线路</th>
+          <th nzWidth="15%">箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable1.data;let i = index">
+          <td>
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refresh();"></label>
+          </td>
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable2
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="daiKuFangQueRenDataSet"
+                [nzTitle]="daiKuFangQueRenTitle"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="35%">托盘编号</th>
+          <th nzWidth="35%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable2.data;let i = index">
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+
+  <nz-row style="margin-top: 20px">
+    <nz-col nzSpan="11">
+      <nz-table #nzTable3
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="chuKuZhongDataSet"
+                [nzTitle]="chuKuZhongTitle"
+                [nzHideOnSinglePage]="true"
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="30%">托盘编号</th>
+          <th nzWidth="30%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable3.data;let i = index">
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+      <nz-table #nzTable4
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="daiJiaoJieDataSet"
+                [nzTitle]="daiJiaoJieTitle"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="35%">托盘编号</th>
+          <th nzWidth="35%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable4.data;let i = index">
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+
+  <nz-row style="margin-top: 20px">
+    <nz-col nzSpan="11">
+      <nz-table #nzTable5
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="daiFenPeiDataSet"
+                [nzTitle]="daiFenPei"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="10%">操作</th>
+          <th nzWidth="35%">托盘编号</th>
+          <th nzWidth="35%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable5.data;let i = index">
+          <td>
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus();"></label>
+          </td>
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+
+    <nz-col nzSpan="2" style="margin-top: 150px;font-size: xx-large;text-align: center;">
+      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+    </nz-col>
+
+    <nz-col nzSpan="11">
+
+      <nz-table #nzTable6
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="qingDianZhongDataSet"
+                [nzTitle]="qingDianZhongTitle"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="25%">清点工位</th>
+          <th nzWidth="30%">托盘编号</th>
+          <th nzWidth="30%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable6.data;let i = index">
+          <td>
+            一号位
+          </td>
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+  <nz-row style="margin-top: 20px">
+    <nz-col nzSpan="11">
+      <nz-table #nzTable7
+                nzSize="middle"
+                nzBordered
+                [nzLoading]="false"
+                [nzData]="yiQingDianDataSet"
+                [nzTitle]="yiQingDianTitle"
+                nzHideOnSinglePage
+                [nzScroll]="{ y: '253px' }"
+      >
+        <thead>
+        <tr>
+          <th nzWidth="25%">清点工位</th>
+          <th nzWidth="30%">托盘编号</th>
+          <th nzWidth="30%">线路</th>
+          <th>箱包数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of nzTable7.data;let i = index">
+          <td>
+            一号位
+          </td>
+          <td>
+            {{item.shelfNo}}
+          </td>
+          <td>
+            {{item.lineName}}
+          </td>
+          <td>
+            {{item.containerCount}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+</div>
+
+

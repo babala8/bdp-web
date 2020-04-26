@@ -1,0 +1,209 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                机构编号
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('no')">
+                <input nz-input nzSize="middle" formControlName="no" [id]="'no'">
+                <nz-form-explain *ngIf="validateForm.controls['no'].dirty && validateForm.controls['no'].errors">
+                  <ng-container *ngIf="getFormControl('no').hasError('required')"><span>请填写机构编号!</span></ng-container>
+                  <ng-container *ngIf="getFormControl('no').hasError('minlength')"><span>机构编号长度不得小于2位!</span></ng-container>
+                  <ng-container *ngIf="getFormControl('no').hasError('maxlength')"><span>机构编号长度不得超过20位!</span></ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                机构名称
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('name')">
+                <input nz-input nzSize="middle" formControlName="name" [id]="'name'"
+                    (ngModelChange)="updateConfirmValidator()">
+                <nz-form-explain *ngIf="validateForm.controls['name'].dirty && validateForm.controls['name'].errors">
+                  <ng-container *ngIf="getFormControl('name').hasError('required')"><span>请填写机构名称!</span></ng-container>
+                  <ng-container *ngIf="getFormControl('name').hasError('maxlength')"><span>机构名称长度不得超过20位!</span></ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                上级机构
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" [nzValidateStatus]="getFormControl('upper')">
+                <org-tree formControlName="upper" [zjId]="'upper'" (ngModelChange)="selectOrg($event)"></org-tree>
+                <nz-form-explain *ngIf="validateForm.controls['upper'].dirty && validateForm.controls['upper'].errors">
+                  <ng-container *ngIf="getFormControl('upper').hasError('required')"><span>请选择上级机构!</span></ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                机构等级
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="getFormControl('grade')">
+                <nz-select nzSize="middle" formControlName="grade" id="grade" nzPlaceHolder="">
+                    <ng-container *ngFor="let o of allOrgTypes">
+                        <nz-option [nzLabel]="o?.name" [nzValue]="o?.no">
+                        </nz-option>
+                    </ng-container>
+                    <nz-option *ngIf="!!orgType && orgType.no==4" [nzLabel]="'网点'" [nzValue]="'WD'"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['grade'].dirty && validateForm.controls['grade'].errors"><span>请选择机构级别!</span></nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6" nzRequired>
+                金库标志
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select formControlName="clrCenterFlag" nzSize="middle" (ngModelChange)="clrCenterFlagChange($event)"
+                    [nzPlaceHolder]="'请选择'">
+                    <nz-option [nzLabel]="'否'" [nzValue]="0"></nz-option>
+                    <nz-option [nzLabel]="'是'" [nzValue]="1"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['clrCenterFlag'].dirty && validateForm.controls['clrCenterFlag'].errors">
+                  <span>请选择机构标志!</span></nz-form-explain>
+            </nz-form-control>
+        </div>
+
+        <ng-container *ngIf="showFlag == 1">
+            <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                    车辆数
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback
+                    [nzValidateStatus]="getFormControl('cashTruckNum')">
+                    <input nz-input nzSize="middle" formControlName="cashTruckNum" [id]="'cashTruckNum'">
+                    <nz-form-explain *ngIf="validateForm.controls['cashTruckNum'].dirty && validateForm.controls['cashTruckNum'].errors"><span>请填写车辆数!</span></nz-form-explain>
+                </nz-form-control>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="showFlag != 1">
+            <div nz-col [nzSpan]="12">
+                <nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+                    所属金库
+                </nz-form-label>
+                <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback
+                    [nzValidateStatus]="getFormControl('clrCenterNo')">
+                    <select-clr-center formControlName="clrCenterNo" name="clrCenterNo" allowClear="true">
+                    </select-clr-center>
+                    <nz-form-explain *ngIf="validateForm.controls['clrCenterNo'].dirty && validateForm.controls['clrCenterNo'].errors">
+                        {{ validateForm.controls['clrCenterNo'].errors['explain'] }}
+                    </nz-form-explain>
+                </nz-form-control>
+            </div>
+        </ng-container>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="3" nzRequired>
+            机构地址
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="12" nzHasFeedback [nzValidateStatus]="getFormControl('address')">
+            <input nz-input nzSize="middle" formControlName="address" [id]="'address'">
+            <nz-form-explain *ngIf="validateForm.controls['address'].dirty && validateForm.controls['address'].errors">
+              <ng-container *ngIf="getFormControl('address').hasError('required')"><span>请填写机构地址!</span></ng-container>
+              <ng-container *ngIf="getFormControl('address').hasError('maxlength')"><span>地址长度不得超过40位!</span></ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+        <div nz-col [nzSpan]="1" align="center">
+            <button nz-button nzType="primary" type="button" nzSize="middle" nzShape="circle" (click)="openMap()">
+                <i class="anticon anticon-environment"></i>
+            </button>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6" nzRequired>
+                省份
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select formControlName="region" nzSize="middle" [nzPlaceHolder]="'请选择'">
+                    <nz-option *ngFor="let r of provinces" [nzLabel]="r.name" [nzValue]="r.name"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['region'].dirty && validateForm.controls['region'].errors">
+                    {{ validateForm.controls['region'].errors['explain'] }}
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSpan]="6" nzRequired>
+                城市
+            </nz-form-label>
+            <nz-form-control nz-col [nzSpan]="14">
+                <nz-select formControlName="city" nzSize="middle" [nzPlaceHolder]="'请选择'">
+                    <nz-option *ngFor="let city of cities" [nzLabel]="city" [nzValue]="city"></nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="validateForm.controls['city'].dirty && validateForm.controls['city'].errors">
+                  <span>请选择城市!</span></nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                经度信息
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" nzHasFeedback [nzXs]="24"
+                [nzValidateStatus]="getFormControl('longitude')">
+                <input nz-input nzSize="middle" formControlName="longitude" [id]="'longitude'">
+                <nz-form-explain *ngIf="validateForm.controls['longitude'].dirty && validateForm.controls['longitude'].errors">
+                  <ng-container *ngIf="getFormControl('longitude').hasError('required')"><span>请填写经度信息!</span></ng-container>
+                  <ng-container *ngIf="getFormControl('longitude').hasError('pattern')"><span>经度信息格式不正确!</span></ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                纬度信息
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback
+                [nzValidateStatus]="getFormControl('latitude')">
+                <input nz-input nzSize="middle" formControlName="latitude" [id]="'latitude'">
+                <nz-form-explain *ngIf="validateForm.controls['latitude'].dirty && validateForm.controls['latitude'].errors">
+                  <ng-container *ngIf="getFormControl('latitude').hasError('required')"><span>请填写纬度信息!</span></ng-container>
+                  <ng-container *ngIf="getFormControl('latitude').hasError('pattern')"><span>纬度信息格式不正确!</span></ng-container>
+                </nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item *ngIf="showFlag !== 1" nz-row>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                送达时间
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" nzHasFeedback [nzXs]="24"
+                [nzValidateStatus]="getFormControl('deliveryTime')">
+                <nz-time-picker formControlName="deliveryTime" [id]="'deliveryTime'" nzFormat="HH:mm"
+                    [nzMinuteStep]="10" [nzDisabledHours]="disabledDeliveryHours" style="width: 100%;"></nz-time-picker>
+                <nz-form-explain *ngIf="validateForm.controls['deliveryTime'].dirty && validateForm.controls['deliveryTime'].errors"><span>请选择送达时间!</span></nz-form-explain>
+            </nz-form-control>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzRequired>
+                回库时间
+            </nz-form-label>
+            <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback
+                [nzValidateStatus]="getFormControl('backTime')">
+                <nz-time-picker formControlName="backTime" [id]="'backTime'" nzFormat="HH:mm" [nzMinuteStep]="10"
+                    [nzDisabledHours]="disabledBackHours" style="width: 100%;"></nz-time-picker>
+                <nz-form-explain *ngIf="validateForm.controls['backTime'].dirty && validateForm.controls['backTime'].errors"><span>请选择回库时间!</span></nz-form-explain>
+            </nz-form-control>
+        </div>
+    </nz-form-item>
+
+    <nz-form-item nz-row style="margin-bottom:8px;">
+        <nz-form-control nz-col [nzSpan]="14" [nzOffset]="8">
+            <button nz-button nzSize="middle" [nzType]="'primary'" [nzLoading]="loading" style="width: 50%;">提交</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

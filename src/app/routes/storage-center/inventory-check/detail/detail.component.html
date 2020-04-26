@@ -1,0 +1,83 @@
+<form nz-form class="search-form" style="width:70%">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [defaultSelect]="true" [(ngModel)]="formModel['clrCenterNo']"
+            [allowClear]="true"></select-clr-center>
+        </nz-form-control>
+      </div>
+    </div>
+    <div nz-col nzMd="4" [nzOffset]='2' nzSm="24">
+      <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'large'" (click)="scan()">
+        <span>扫描</span>
+      </button>
+    </div>
+    <div nz-col nzMd="4" [nzOffset]='2' nzSm="24">
+      <button nz-button [nzLoading]="loading" [nzType]="'primary'" [nzSize]="'large'" (click)="check()">
+        <span>实时核对</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="search-result-list" style="width:70%;padding-top: 20px">
+  <nz-table #nzTable [nzData]="dataSet" nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false"
+    [nzShowPagination]="false" [nzLoading]="loading" [nzData]="dataSet">
+    <thead>
+      <th>箱包编号</th>
+      <th>箱包种类</th>
+      <th>实物类型</th>
+      <th>币种</th>
+      <th>面值</th>
+      <th>金额</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;">
+        <td>
+          {{data.containerNo}}
+        </td>
+        <td>
+          <ng-container *ngFor="let info of containerTypes">
+            <ng-container *ngIf="info.no == data.containerType">{{info.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngFor="let info1 of entityTypes">
+            <ng-container *ngIf="info1.no == data.entityType">{{info1.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngFor="let info2 of currencyCodes">
+            <ng-container *ngIf="info2.code == data.currencyCode">{{info2.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngFor="let info3 of denominations">
+            <ng-container *ngIf="info3.value == data.denomination">{{info3.name}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          {{data.amount}}
+        </td>
+      </tr>
+    </tbody>
+
+  </nz-table>
+
+
+  <!--
+    <ng-container *ngFor="let item of cashClass">
+        <div nz-col nzSpan="24">{{item.name}}</div>
+        <div nz-col nzSpan="3" *ngFor="let denomination of item.denomination" style="border: 3px solid #ddd;">
+        <input nz-input [ngModel]="denomination.name" name="name" readonly>
+        <nz-input-number style="width: 100%;" [(ngModel)]="denomination.amount" name="amount" [nzMin]="1"
+                            [nzStep]="1" nzPlaceHolder="数量">
+        </nz-input-number>
+        </div>
+    </ng-container>
+    -->
+</div>

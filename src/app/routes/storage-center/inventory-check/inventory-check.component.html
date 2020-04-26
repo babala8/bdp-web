@@ -1,0 +1,122 @@
+<form nz-form #form="ngForm" class="search-form">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      <div nz-row>
+        <nz-form-label nz-col [nzSpan]="8" style="width: auto">
+          所属金库
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <select-clr-center name="clrCenterNo" [(ngModel)]="formModel['clrCenterNo']" [allowClear]="true">
+          </select-clr-center>
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nz-col [nzSpan]="8">
+          <label [attr.for]="'startTime'">开始时间</label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['startTime']" [nzPlaceHolder]="'请选择开始日期'" [nzSize]="'large'"
+            name="startTime" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nz-col [nzSpan]="8">
+          <label [attr.for]="'endTime'">结束时间</label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-date-picker [(ngModel)]="formModel['endTime']" [nzPlaceHolder]="'请选择结束日期'" [nzSize]="'large'"
+            name="endTime" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item nz-row>
+        <nz-form-label nz-col [nzSpan]="8">
+          <label [attr.for]="'flag'">是否一致</label>
+        </nz-form-label>
+        <nz-form-control nz-col [nzSpan]="14">
+          <nz-select [(ngModel)]="formModel['flag']" [nzPlaceHolder]="'请选择'" name="flag" nzAllowClear
+            [nzSize]="'default'">
+            <nz-option *ngFor="let option of flags" [nzLabel]="option.label" [nzValue]="option.value">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSm]="24" [nzXs]="12" style="text-align: center">
+      <nz-form-item nz-row>
+        <button nz-button [nzType]="'primary'" [nzSize]="'default'" (click)="search()" [nzLoading]="loading">
+          <i class="anticon anticon-search"></i><span>查询</span>
+        </button>
+        <button nz-button [nzType]="'default'" [nzSize]="'default'" (click)="reset()" [nzLoading]="loading">
+          <i class="anticon anticon-sync"></i><span>重置</span>
+        </button>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+
+<div nz-row class="zijin-row">
+  <div nz-col [nzSpan]="12">
+    <span style="font-size: 20px;">核库信息查询</span>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button [nzType]="'primary'" (click)="openVerify()" [nzSize]="'large'" *authId="'W0401'">
+      <i class="anticon anticon-plus"></i><span>核对</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #pageSizeTem>
+  共 {{page.totalRow}} 条
+</ng-template>
+
+<div class="search-result-list">
+  <nz-table #nzTable nzSize="middle" nzShowSizeChanger [nzFrontPagination]="false" [nzShowTotal]="pageSizeTem"
+    [nzLoading]="loading" [nzData]="dataSet" [(nzPageIndex)]="page.curPage" [(nzPageSize)]="page.pageSize"
+    [nzTotal]="page.totalRow" (nzPageSizeChange)="refreshData(true)" (nzPageIndexChange)="refreshData()">
+    <thead>
+      <tr>
+        <th>核查时间</th>
+        <th>所属金库</th>
+        <th>库房清点金额</th>
+        <th>记录金额</th>
+        <th>核查方式</th>
+        <th>是否一致</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;">
+        <td>
+          {{data.time}}
+        </td>
+        <td>
+          {{data.centerName}}
+        </td>
+        <td>
+          {{data.storageCheckMoney}}
+        </td>
+        <td>
+          {{data.databaseRecordMoney}}
+        </td>
+        <td>
+          手动核查
+        </td>
+        <td>
+          <span *ngIf="data.flag==1">一致</span>
+          <span *ngIf="data.flag==0">不一致</span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
