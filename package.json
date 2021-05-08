@@ -115,7 +115,7 @@
     "mockjs": "^1.0.1-beta3",
     "ng-alain": "7.7.1",
     "ng-alain-codelyzer": "^0.0.1",
-    "ng-packagr": "^4.2.0",
+    "ng-packagr": "^10.1.1",
     "prettier": "^1.15.3",
     "prettier-stylelint": "^0.4.2",
     "protractor": "~5.4.0",
